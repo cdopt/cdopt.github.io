@@ -13,11 +13,17 @@ It is worth mentioning that `cdopt.problem` integrates various pre-processing an
 
 ## Installation
 
- `cdopt` is compatible with Python 3.6+, and depends on NumPy, SciPy and PyTorch.  To get the latest version of `cdopt`, you can install it via `pip`:
+ `cdopt` is compatible with Python 3.6+, and depends on NumPy, SciPy and autograd.  To get the latest version of `cdopt`, you can install it via `pip`:
 
 ```sh
 pip install cdopt
 ```
+
+
+
+Moreover, `cdopt` supports PyTorch>=1.9.0 and JAX packages in its numerical computation. Therefore, we strongly suggest the users to install these packages. 
+
+
 
 
 
@@ -36,7 +42,7 @@ $$
 
 
 
-where $H \in \mathbb{R}^{n\times n}$ is a symmetric matrix, and the gradient of $f$ can be expressed as 
+where $H \in \mathbb{R}^{m\times m}$ is a symmetric matrix, and the gradient of $f$ can be expressed as 
 
 
 

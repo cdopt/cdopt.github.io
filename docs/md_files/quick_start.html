@@ -316,10 +316,11 @@ const thebe_selector_output = ".output, .cell_output"
 <p>It is worth mentioning that <code class="docutils literal notranslate"><span class="pre">cdopt.problem</span></code> integrates various pre-processing and concurrency checking steps for the optimization problems. Moreover, it provides an integrated API for calling the related solvers. Therefore, although we can run the solvers without the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> interface, using  <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> to define the problem is always recommended.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> is compatible with Python 3.6+, and depends on NumPy, SciPy and PyTorch.  To get the latest version of <code class="docutils literal notranslate"><span class="pre">cdopt</span></code>, you can install it via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> is compatible with Python 3.6+, and depends on NumPy, SciPy and autograd.  To get the latest version of <code class="docutils literal notranslate"><span class="pre">cdopt</span></code>, you can install it via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install cdopt
 </pre></div>
 </div>
+<p>Moreover, <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> supports PyTorch&gt;=1.9.0 and JAX packages in its numerical computation. Therefore, we strongly suggest the users to install these packages.</p>
 </div>
 <div class="section" id="quickstart-a-simple-example">
 <h2>Quickstart: a simple example<a class="headerlink" href="#quickstart-a-simple-example" title="Permalink to this headline">¶</a></h2>
@@ -331,7 +332,7 @@ const thebe_selector_output = ".output, .cell_output"
 		\text{s.t.} \quad &amp; X^\top X = I_s,
 	\end{aligned}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n\times n}\)</span> is a symmetric matrix, and the gradient of <span class="math notranslate nohighlight">\(f\)</span> can be expressed as</p>
+<p>where <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{m\times m}\)</span> is a symmetric matrix, and the gradient of <span class="math notranslate nohighlight">\(f\)</span> can be expressed as</p>
 <div class="math notranslate nohighlight">
 \[
 \nabla f(X) = -HX.
