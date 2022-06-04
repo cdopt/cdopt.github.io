@@ -26,6 +26,7 @@ pip install cdopt
 We begin with a simple optimization problem with orthogonality constraints,
 
 
+
 $$
 \begin{aligned}
 		\min_{X \in \mathbb{R}^{m\times s}}\quad &f(X) = -\frac{1}{2}\mathrm{tr}(X^\top HX)\\
@@ -38,6 +39,7 @@ $$
 where $H \in \mathbb{R}^{n\times n}$ is a symmetric matrix, and the gradient of $f$ can be expressed as 
 
 
+
 $$
 \nabla f(X) = -HX.
 $$
@@ -45,6 +47,7 @@ $$
 
 
 The constraints on the matrix $X$ require that $X$ is an orthogonal matrix, i.e., $X$ lies on the Stiefel manifold, 
+
 
 
 $$
@@ -61,19 +64,20 @@ import numpy as np
 import scipy as sp
 from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
-from manifold_torch import stiefel_torch
-from core.problem import Problem
+import cdopt
+from cdopt.manifold_torch import stiefel_torch
+from cdopt.core.problem import Problem
+import time
 
 # Set parameters
-n = 200
-p = 8
-beta = 100
-tol = 1e-5
-local_device = torch.device('cpu')
-local_dtype = torch.float64
+m = 200  # column size
+s = 8    # row size
+beta = 100  # penalty parameter
+local_device = torch.device('cpu')  # the device to perform the computation
+local_dtype = torch.float64  # the data type of the pytorch tensor
 
 # Define object function
-H = torch.randn(n,n).to(device =local_device, dtype = local_dtype)
+H = torch.randn(m,m).to(device =local_device, dtype = local_dtype)
 H = H+H.T 
 
 def obj_fun(X):
@@ -81,20 +85,24 @@ def obj_fun(X):
 
 
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(n,p, device =local_device, dtype = local_dtype )
+M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 
-cdf_fun_np = lambda x: float(M.tensor2array(problem_test.cdf_fun_vectorized( M.array2tensor(x)) ))
-cdf_grad_np = lambda x: M.tensor2array(problem_test.cdf_grad_vectorized( M.array2tensor(x)) )
-cdf_hvp_np = lambda x,v: M.tensor2array(problem_test.cdf_hvp_vectorized(M.array2tensor(x), M.array2tensor(v))   )
+cdf_fun_np = problem_test.cdf_fun_vec_np
+cdf_grad_np = problem_test.cdf_grad_vec_np
+cdf_hvp_np = problem_test.cdf_hvp_vec_np
 
 # Implement L-BFGS solver from scipy.optimize
 Xinit = M.tensor2array(M.Init_point())
+t_start = time.time()
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+t_end = time.time() - t_start
 
 # Statistics
-feas_lbfgs_b = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # feasibility
-stationarity_lbfgs_b = np.linalg.norm(out_msg['jac'],2)   # stationarity
+feas = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
+stationarity = np.linalg.norm(out_msg['jac'],2)   # stationarity
+result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_end]
+print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*result_lbfgs))
 ```
 
 
@@ -102,20 +110,22 @@ stationarity_lbfgs_b = np.linalg.norm(out_msg['jac'],2)   # stationarity
 Now let us take a deeper look at the code step by step. First, `cdopt` imports necessary packages and set the parameters.
 
 ```python
+# Import basic functions
 import numpy as np
 import scipy as sp
 from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
-from manifold_torch import stiefel_torch
-from core.problem import Problem
+import cdopt
+from cdopt.manifold_torch import stiefel_torch
+from cdopt.core.problem import Problem
+import time
 
 # Set parameters
-n = 200
-p = 8
-beta = 100
-tol = 1e-5
-local_device = torch.device('cpu')
-local_dtype = torch.float64
+m = 200  # column size
+s = 8    # row size
+beta = 100  # penalty parameter
+local_device = torch.device('cpu')  # the device to perform the computation
+local_dtype = torch.float64  # the data type of the pytorch tensor
 ```
 
 
@@ -123,12 +133,12 @@ local_dtype = torch.float64
 Then we describe the objective function, where the variables are PyTorch tensors. The cost function should be a 
 
 ```python
-# Defin object function
-A = torch.randn(n,n).to(device =local_device, dtype = local_dtype)
-A = A+A.T 
+# Define object function
+H = torch.randn(m,m).to(device =local_device, dtype = local_dtype)
+H = H+H.T 
 
 def obj_fun(X):
-    return -0.5 * torch.sum( X * (A@X)) 
+    return -0.5 * torch.sum( X * (H@X))  
 ```
 
 
@@ -137,7 +147,7 @@ Then we call `stiefel_torch` to generate a structure that describes the Stiefel 
 
 ```python
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(n,p, device =local_device, dtype = local_dtype )
+M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 ```
 
@@ -146,9 +156,11 @@ problem_test = Problem(M, obj_fun, beta = beta)
 After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian of the corresponding constraint dissolving function. 
 
 ```python
-cdf_fun_np = lambda x: float(M.tensor2array(problem_test.cdf_fun_vectorized( M.array2tensor(x)) ))
-cdf_grad_np = lambda x: M.tensor2array(problem_test.cdf_grad_vectorized( M.array2tensor(x)) )
-cdf_hvp_np = lambda x,v: M.tensor2array(problem_test.cdf_hvp_vectorized(M.array2tensor(x), M.array2tensor(v))   )
+# Get the objective function, gradient, hessian-vector product 
+# of the corresponding constraint dissolving function
+cdf_fun_np = problem_test.cdf_fun_vec_np   
+cdf_grad_np = problem_test.cdf_grad_vec_np
+cdf_hvp_np = problem_test.cdf_hvp_vec_np
 ```
 
 
@@ -158,7 +170,15 @@ Finally, we call the unconstraint solver from `scipy.optimize` package to minimi
 ```python
 # Implement L-BFGS solver from scipy.optimize
 Xinit = M.tensor2array(M.Init_point())
+t_start = time.time()
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+t_end = time.time() - t_start
+
+# Statistics
+feas = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
+stationarity = np.linalg.norm(out_msg['jac'],2)   # stationarity
+result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_end]
+print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*result_lbfgs))
 ```
 
  
@@ -197,41 +217,40 @@ For example, consider the Riemannian manifold
 
 
 $$
-\{ X \in \mathbb{R}^{n\times p}: X^\top XT = I_p \},
+\{ X \in \mathbb{R}^{m\times s}: X^\top XT = I_s \},
 $$
 
 
 
-where $T \in \mathbb{R}^{p\times p}$ is a positive definite matrix (i.e., all of its eigenvalues is positive).  Although the compact formulation of such Riemannian manifold is not provided in `cdopt`, we can manually define it through `cdopt.manifold.basic_manifold_np`  and `autograd` package. 
+where $T \in \mathbb{R}^{s\times s}$ is a positive definite matrix (i.e., all of its eigenvalues is positive).  Although the compact formulation of such Riemannian manifold is not provided in `cdopt`, we can manually define it through `cdopt.manifold.basic_manifold_np`  and `autograd` package. 
 
 ```python
 import numpy as np
-from manifold_torch import basic_manifold_np
-from core.problem import Problem
+import cdopt
+from cdopt.manifold_np import basic_manifold_np
+from cdopt.core.problem import Problem
 class my_manifold(basic_manifold_np):
-    def __init__(self, n, p, T) -> None:
+    def __init__(self, m, s, T):
         
-        self._n = n
-        self._p = p
         self.T = T
-        self.Ip = np.eye(p)
-        super().__init__('custom_manifold',(n,p), (p,p),  backbone = 'autograd',regularize_value = 0.01)
+        self.Is = np.eye(s)
+        super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01)
 
 
     def C(self, X):
-        return (X.T @ X)@ self.T  - self.Ip
+        return (X.T @ X)@ self.T  - self.Is
 ```
 
 Then we can set the parameters $n$, $p$ and randomly generate $T$, and initialize the Riemannian manifold in the following code. 
 
 ```python
-n = 50
-p = 8
-T = np.random.randn(p,p)
+m = 50
+s = 8
+T = np.random.randn(s,s)
 T = T @ T.T 
-T = T/np.linalg.norm(T,2) + np.eye(p)
+T = T/np.linalg.norm(T,2) + np.eye(s)
 
-M = my_manifold(n, p, T) 
+M = my_manifold(m, s, T) 
 ```
 
 Next, we define the objective function. Notice that previously we set `backbone = 'autograd'` in `my_manifold`. As a result, we need to construct the objective function that adapts to the `autograd` package, and set `backbone = 'autograd'` in initializing the `Problem` structure. 
@@ -247,9 +266,9 @@ problem_test = Problem(M, obj_fun, beta = 1000, backbone = 'autograd')
 Finally, we retrieve the gradients and hessians of CDF function from `problem.test` and apply `scipy.optimize.lbfgs` solver to minimize CDF. 
 
 ```python
-cdf_fun_np = lambda x: float(M.tensor2array(problem_test.cdf_fun_vectorized( M.array2tensor(x)) ))
-cdf_grad_np = lambda x: M.tensor2array(problem_test.cdf_grad_vectorized( M.array2tensor(x)) )
-cdf_hvp_np = lambda x,v: M.tensor2array(problem_test.cdf_hvp_vectorized(M.array2tensor(x), M.array2tensor(v))   )
+cdf_fun_np = problem_test.cdf_fun_vec_np   
+cdf_grad_np = problem_test.cdf_grad_vec_np
+cdf_hvp_np = problem_test.cdf_hvp_vec_np
 
 
 import scipy as sp
@@ -257,10 +276,6 @@ from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 # Implement L-BFGS solver from scipy.optimize
 Xinit = M.tensor2array(M.Init_point())
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
-
-# Statistics
-feas_lbfgs_b = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
-stationarity_lbfgs_b = np.linalg.norm(out_msg['jac'],2)   # stationarity
 ```
 
 
@@ -304,31 +319,33 @@ The CUDA support for`cdopt` relies on the employed backbones. Both the computati
 For example, by setting the `local_device = torch.device('cuda')` in the following code blocks, all the computations for CDF are accelerated by CUDA.    
 
 ```python
+# Import basic functions
 import numpy as np
 import scipy as sp
 from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
-from manifold_torch import stiefel_torch
-from core.problem import Problem
+import cdopt
+from cdopt.manifold_torch import stiefel_torch
+from cdopt.core.problem import Problem
+import time
 
 # Set parameters
-n = 200
-p = 8
-beta = 10
-tol = 1e-5
-local_device = torch.device('cuda')
-local_dtype = torch.float64
+m = 200  # column size
+s = 8    # row size
+beta = 100  # penalty parameter
+local_device = torch.device('cpu')  # the device to perform the computation
+local_dtype = torch.float64  # the data type of the pytorch tensor
 
-# Definobject function
-A = torch.randn(n,n).to(device =local_device, dtype = local_dtype)
-A = A+A.T 
+# Define object function
+H = torch.randn(m,m).to(device =local_device, dtype = local_dtype)
+H = H+H.T 
 
 def obj_fun(X):
-    return -0.5 * torch.sum( X * (A@X)) 
+    return -0.5 * torch.sum( X * (H@X)) 
 
 
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(n,p, device =local_device, dtype = local_dtype )
+M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 ```
 
@@ -337,17 +354,25 @@ problem_test = Problem(M, obj_fun, beta = beta)
 On the one hand, we can use the interface provided by `cdopt.core.Problem` class to retrieve the constraint dissolving function that adopts `scipy.optimize` package. 
 
 ```python
-cdf_fun_np = lambda x: float(M.tensor2array(problem_test.cdf_fun_vectorized( M.array2tensor(x)) ))
-cdf_grad_np = lambda x: M.tensor2array(problem_test.cdf_grad_vectorized( M.array2tensor(x)) )
-cdf_hvp_np = lambda x,v: M.tensor2array(problem_test.cdf_hvp_vectorized(M.array2tensor(x), M.array2tensor(v))   )
+cdf_fun_np = problem_test.cdf_fun_vec_np   
+cdf_grad_np = problem_test.cdf_grad_vec_np
+cdf_hvp_np = problem_test.cdf_hvp_vec_np
 
 # Implement L-BFGS solver from scipy.optimize
 Xinit = M.tensor2array(M.Init_point())
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
 
+# Implement L-BFGS solver from scipy.optimize
+Xinit = M.tensor2array(M.Init_point())
+t_start = time.time()
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+t_end = time.time() - t_start
+
 # Statistics
-feas_lbfgs_b = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
-stationarity_lbfgs_b = np.linalg.norm(out_msg['jac'],2)   # stationarity
+feas = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
+stationarity = np.linalg.norm(out_msg['jac'],2)   # stationarity
+result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_end]
+print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*result_lbfgs))
 ```
 
 
