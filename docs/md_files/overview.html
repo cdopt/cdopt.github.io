@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview &#8212; An Introduction to CDF</title>
+    <title>Overview &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -80,7 +80,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <h1 class="site-logo" id="site-title">An Introduction to CDF</h1>
+      <h1 class="site-logo" id="site-title">Constraint Dissolving Approaches for Riemannian Optimization</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -221,8 +221,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constraint-dissolving-approaches-for-ocp">
-   Constraint dissolving approaches for (OCP)
+  <a class="reference internal nav-link" href="#a-deeper-introduction-to-constraint-dissolving-approaches">
+   A deeper introduction to constraint dissolving approaches
   </a>
  </li>
 </ul>
@@ -251,8 +251,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#constraint-dissolving-approaches-for-ocp">
-   Constraint dissolving approaches for (OCP)
+  <a class="reference internal nav-link" href="#a-deeper-introduction-to-constraint-dissolving-approaches">
+   A deeper introduction to constraint dissolving approaches
   </a>
  </li>
 </ul>
@@ -275,7 +275,7 @@ const thebe_selector_output = ".output, .cell_output"
 	\min_{x \in \mathbb{R}^n}\quad &amp;f(x) \\
 	\text{s. t.} \quad &amp;c(x) = 0.
 \end{aligned}
-\qquad (OCP)
+\qquad\qquad \text{(OCP)}
 \end{split}\]</div>
 <p>Here <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> refers to the feasible region of (OCP), namely, <span class="math notranslate nohighlight">\(\mathcal{M} := \{x \in \mathbb{R}^n: c(x) = 0\}\)</span>. Besides, we assume (OCP) satisfies the following assumptions:</p>
 <ul class="simple">
@@ -283,23 +283,30 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><span class="math notranslate nohighlight">\(c: \mathbb{R}^n \mapsto \mathbb{R}^p\)</span> is twice continuous differentiable in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p></li>
 <li><p>The linear independence constraint qualification (LICQ) holds at every <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.  That is, the transposed Jacobian of <span class="math notranslate nohighlight">\(c\)</span>, denoted as <span class="math notranslate nohighlight">\(J_c:= [\nabla c_1(x), \nabla c_2(x), ..., \nabla c_p(x)] \in \mathbb{R}^{n\times p}\)</span> , has full column rank at every <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
 </ul>
-<p>As <span class="math notranslate nohighlight">\(c\)</span> is smooth,  it is easy to verify that <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> is a Riemannian manifold embedded in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Therefore, (OCP) covers optimization problems over a wide range of Riemannian manifolds. Those Riemannian manifolds include sphere, oblique manifold, (generalized) Stiefel manifold, (generalized) Grassmann manifold, hyperbolic manifold, symplectic Stiefel manifold, etc. Interested readers could refer to the <a class="reference external" href="https://www.manopt.org/tutorial.html#manifolds">webpage</a> for more examples.</p>
+<p>As <span class="math notranslate nohighlight">\(c\)</span> is smooth,  it is easy to verify that <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> is a Riemannian manifold embedded in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Therefore, (OCP) covers optimization problems over a wide range of Riemannian manifolds. Those Riemannian manifolds include sphere, oblique manifold, (generalized) Stiefel manifold, (generalized) Grassmann manifold, hyperbolic manifold, symplectic Stiefel manifold, etc. Interested readers could refer to the <a class="reference external" href="https://www.manopt.org/tutorial.html#manifolds">webpage</a> for more examples on closed Riemannian manifolds.</p>
+<p>Existing Riemannian optimization packages, including PyManopt, and Geoopt, are developed based on the geometrical materials of the Riemannian manifold. Therefore, these packages only utilize the Riemannian solvers, which are quite limited when compared with unconstrained optimization solvers. Moreover, as determining the geometrical materials for unknown Riemannian manifold are typically challenging, these Riemannian optimization packages only support pre-defined Riemannian manifolds, which are restricted to several well-known cases. Furthermore, as the modules are highly specific, these Riemannian packages are generally hard for users to integrate it with existing popular machine learning frameworks.</p>
+<p>To overcome these issues and facilitate both high performance and ease of use in machine and deep learning, we introduce a new software package called cdopt, which is developed based on the <em>constraint dissolving approaches</em> for Riemannian optimization with some key features,</p>
+<ul class="simple">
+<li><p><strong>Direct optimization:</strong> <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> is developed from the <a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a>, which transforms Riemannian optimization problems to unconstrained optimization problem. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> is very efficient and avoids the difficulties in developing Riemannian optimization solvers.</p></li>
+<li><p><strong>Easy construction:</strong> The optimization problem in<code class="docutils literal notranslate"><span class="pre">cdopt</span></code> can be constructed only from the expressions of the objective and constraints. Different from existing Riemannian optimization packages, we can easily and directly describe Riemannian optimization problems in <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> without any geometrical materials of the Riemannian manifold (e.g., retractions, tangent spaces, vector-transports, etc.).</p></li>
+<li><p><strong>High compatibility :</strong> <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> has high compatibility with various numerical packages, including <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>, <code class="docutils literal notranslate"><span class="pre">JAX</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>, etc. Users can directly apply the advanced features of these numerical packages to accelerate the optimization, including the automatic differentiation, CUDA supports, distributed optimization supports, just-in-time compilations, etc.</p></li>
+</ul>
 </div>
-<div class="section" id="constraint-dissolving-approaches-for-ocp">
-<h2>Constraint dissolving approaches for (OCP)<a class="headerlink" href="#constraint-dissolving-approaches-for-ocp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-deeper-introduction-to-constraint-dissolving-approaches">
+<h2>A deeper introduction to constraint dissolving approaches<a class="headerlink" href="#a-deeper-introduction-to-constraint-dissolving-approaches" title="Permalink to this headline">¶</a></h2>
 <p>The <em>constraint dissolving approaches</em> aim to reshape (OCP) as an <strong>unconstrained optimization problem</strong> that adapts to unconstrained optimization approaches while keeping its stationary points unchanged. Therefore, constraint dissolving approaches enable <strong>direct implementation</strong> of unconstrained optimization approaches to solve (OCP).</p>
 <p>Given <span class="math notranslate nohighlight">\(c(x)\)</span>, we first consider a mapping <span class="math notranslate nohighlight">\(\mathcal{A}: \mathbb{R}^n \mapsto \mathbb{R}^n\)</span> that satisfies the following assumptions,</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is locally Lipschitz continuous in <span class="math notranslate nohighlight">\(\mathrm{R}^n\)</span>.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathcal{A}(x) = x\)</span> holds for any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
-<li><p>For any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>, the Jacobian of <span class="math notranslate nohighlight">\(c(\mathcal{A}(x))\)</span> equals <span class="math notranslate nohighlight">\(0\)</span>, i.e. the Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}\)</span>, denoted as <span class="math notranslate nohighlight">\(J_A(x):=[\nabla \mathcal{A}_1(x), \nabla \mathcal{A}_2(x), ..., \nabla \mathcal{A}_n(x)]\)</span>, satisfies <span class="math notranslate nohighlight">\(J_A(x) J_c(x) = 0\)</span> for any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
+<li><p>For any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>, the Jacobian of <span class="math notranslate nohighlight">\(c(\mathcal{A}(x))\)</span> equals <span class="math notranslate nohighlight">\(0\)</span>, i.e., the Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}\)</span>, denoted as <span class="math notranslate nohighlight">\(J_A(x):=[\nabla \mathcal{A}_1(x), \nabla \mathcal{A}_2(x), ..., \nabla \mathcal{A}_n(x)]\)</span>, satisfies <span class="math notranslate nohighlight">\(J_A(x) J_c(x) = 0\)</span> for any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
 </ul>
 <p>Based on the mapping <span class="math notranslate nohighlight">\(\mathcal{A}\)</span>,  we propose the constraint dissolving function for (OCP),</p>
 <div class="math notranslate nohighlight">
 \[
-h(x) := f(\mathcal{A}(x)) + \frac{\beta}{2} ||c(x)||_2^2. \qquad \text{(CDF)}
+h(x) := f(\mathcal{A}(x)) + \frac{\beta}{2} ||c(x)||_2^2. \qquad\qquad \text{(CDF)}
 \]</div>
-<p>Here <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>. Interested readers could found the detailed proof in [1, Section 3].</p>
+<p>Here <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>. Interested readers could found the detailed proof in the <a class="reference external" href="https://arxiv.org/abs/2203.10319">paper</a>.</p>
 <p>Noting that CDF has the same order of smoothness as the objective function <span class="math notranslate nohighlight">\(f(x)\)</span>. Therefore, the gradient of CDF is easy to achieve from <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
