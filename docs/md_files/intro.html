@@ -98,17 +98,39 @@ const thebe_selector_output = ".output, .cell_output"
    Overview
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="quick_start.html">
-   Tutorial
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="tutorial.html">
+   Tutorials
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/quick_start.html">
+     Quickstart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/define_manifolds.html">
+     Define your own manifold
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/build_networks.html">
+     Training neural networks with constrained weights
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -238,7 +260,12 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/quick_start.html">Quickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/define_manifolds.html">Define your own manifold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/build_networks.html">Training neural networks with constrained weights</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="apis/cdopt_core.html">cdopt.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="apis/cdopt_manifold.html">cdopt.manifold</a></li>

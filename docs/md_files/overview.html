@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tutorial" href="quick_start.html" />
+    <link rel="next" title="Tutorials" href="tutorial.html" />
     <link rel="prev" title="Welcome to CDOpt" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -101,17 +101,39 @@ const thebe_selector_output = ".output, .cell_output"
    Overview
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="quick_start.html">
-   Tutorial
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="tutorial.html">
+   Tutorials
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/quick_start.html">
+     Quickstart
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/define_manifolds.html">
+     Define your own manifold
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="tutorials/build_networks.html">
+     Training neural networks with constrained weights
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -408,10 +430,10 @@ h(x) := f(\mathcal{A}(x)) + \frac{\beta}{2} ||c(x)||_2^2. \qquad\qquad \text{(CD
             <p class="prev-next-title">Welcome to CDOpt</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="quick_start.html" title="next page">
+    <a class='right-next' id="next-link" href="tutorial.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tutorial</p>
+        <p class="prev-next-title">Tutorials</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
