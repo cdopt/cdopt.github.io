@@ -66,7 +66,7 @@ def obj_fun(X):
 
 
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
+M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 
 cdf_fun_np = problem_test.cdf_fun_vec_np
@@ -124,11 +124,11 @@ def obj_fun(X):
 
 
 
-Then we call `stiefel_torch` to generate a structure that describes the Stiefel manifold $\mathcal{S}_{n,p}$. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the [various supported manifolds](#manifolds) for details. The second instruction creates a structure named `problem_test`. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages. In our examples, we choose the  AD packages from PyTorch by setting `backbone = 'torch'`. 
+Then we call `stiefel_torch` to generate a structure that describes the Stiefel manifold $\mathcal{S}_{n,p}$. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the [various supported manifolds](#manifolds) for details. The second instruction creates a structure named `problem_test`. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages. 
 
 ```python
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
+M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 ```
 
@@ -256,7 +256,7 @@ def obj_fun(X):
 
 
 # Set optimization problems and retrieve constraint dissolving functions.
-M = stiefel_torch(m,s, device =local_device, dtype = local_dtype )
+M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
 problem_test = Problem(M, obj_fun, beta = beta)
 ```
 
