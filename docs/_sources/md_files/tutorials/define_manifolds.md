@@ -215,11 +215,15 @@ class my_manifold_np(basic_manifold_np):
 Defining the manifolds based on PyTorch is slightly different with those on Numpy and autograd. We strongly suggest that all the parameters should be stored in `basic_manifold._parameters`, which is an ordered dictionary (`OrderedDict`). Moreover, as PyTorch supports the numerical computations in  different data types and devices, we could specify the `device` and `dtype` in the initialization of `my_manifold_torch`. 
 
 ```python
-class my_manifold_torch(basic_manifold):
+from cdopt.manifold_torch import basic_manifold_torch
+
+class my_manifold_torch(basic_manifold_torch):
     def __init__(self, var_shape, T, device = torch.device('cpu'), dtype = torch.float64):
         
         m = var_shape[0]
         s = var_shape[1]
+
+        super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01,  device= device ,dtype= dtype)
         
         self._parameters["T"] = T.to(device = device, dtype = dtype)
         self._parameters["Is"] = torch.eye(s).to(device = device, dtype = dtype)
@@ -227,7 +231,7 @@ class my_manifold_torch(basic_manifold):
         self.T = self._parameters["T"]
         self.Is = self._parameters["Is"]
         
-        super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01, backbone = 'torch', device= device ,dtype= dtype)
+        
 
 
     def C(self, X):
