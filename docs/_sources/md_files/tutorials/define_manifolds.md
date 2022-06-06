@@ -92,7 +92,7 @@ import autograd.numpy as anp
 def obj_fun(X):
     return -0.5 * anp.sum(X * X) 
 
-problem_test = Problem(M, obj_fun, beta = 1000, backbone = 'autograd')
+problem_test = Problem(M, obj_fun, beta = 1000)
 ```
 
 Finally, we retrieve the gradients and hessians of CDF function from `problem.test` and apply `scipy.optimize.lbfgs` solver to minimize CDF. 
@@ -141,6 +141,12 @@ class my_manifold_with_A(basic_manifold):
     def A(self, X):
         return X - 0.5 * X@((X.T @ X)@ self.T  - self.Is)
     
+    def v2m(self,x):
+        return np.reshape(x, self.var_shape)
+
+    def m2v(self,X):
+        return X.flatten()
+    
     def array2tensor(self, X_array):
         return X_array
 
@@ -149,7 +155,8 @@ class my_manifold_with_A(basic_manifold):
 
     def Init_point(self, Xinit = None):
         if Xinit == None:
-        	Xinit = np.random.randn(*self.var_shape)
+            Xinit = np.random.randn(*self.var_shape) 
+          
         return Xinit
 ```
 
@@ -158,53 +165,6 @@ class my_manifold_with_A(basic_manifold):
 That would significantly accelerate the optimization. Generally speaking, the more one manually provides in defining the manifold, the faster those optimization algorithms could become. If one pursues the conveniences in defining the manifolds, he/she can only provide the expression of  constraints $c(x)$. On the other hand, if one pursues  the efficiency in optimization, he/she may need to provide all the essential materials in defining the manifolds. 
 
 
-
-
-
-## Define manifolds through PyTorch
-
-Defining the manifolds based on PyTorch is slightly different with those on Numpy and autograd. We strongly suggest that all the parameters should be stored in `basic_manifold._parameters`, which is an ordered dictionary (`OrderedDict`). Moreover, as PyTorch supports the numerical computations in  different data types and devices, we could specify the `device` and `dtype` in the initialization of `my_manifold_torch`. 
-
-```python
-class my_manifold_torch(basic_manifold):
-    def __init__(self, var_shape, T, device = torch.device('cpu'), dtype = torch.float64):
-        
-        m = var_shape[0]
-        s = var_shape[1]
-        
-        self._parameters["T"] = T.to(device = device, dtype = dtype)
-        self._parameters["Is"] = torch.eye(s).to(device = device, dtype = dtype)
-        
-        self.T = self._parameters["T"]
-        self.Is = self._parameters["Is"]
-        
-        super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01, backbone = 'torch', device= device ,dtype= dtype)
-
-
-    def C(self, X):
-        return (X.T @ X)@ self.T  - self.Is
-    
-    def v2m(self,x):
-        return torch.reshape(x, self.var_shape)
-
-    def m2v(self,X):
-        return X.flatten()
-
-
-    def array2tensor(self, X_array):
-        X = torch.as_tensor(X_array).to(device = self.device, dtype = self.dtype)
-        X.requires_grad = True 
-        return X
-
-    def tensor2array(self, X_tensor):
-        return X_tensor.detach().cpu().numpy()
-
-
-    def Init_point(self, Xinit = None):
-        Xinit = torch.randn(*self.var_shape).to(device = self.device, dtype = self.dtype)
-        Xinit.requires_grad = True
-        return Xinit
-```
 
 
 
@@ -247,6 +207,64 @@ class my_manifold_np(basic_manifold_np):
 ```
 
 
+
+
+
+## Define manifolds through PyTorch
+
+Defining the manifolds based on PyTorch is slightly different with those on Numpy and autograd. We strongly suggest that all the parameters should be stored in `basic_manifold._parameters`, which is an ordered dictionary (`OrderedDict`). Moreover, as PyTorch supports the numerical computations in  different data types and devices, we could specify the `device` and `dtype` in the initialization of `my_manifold_torch`. 
+
+```python
+class my_manifold_torch(basic_manifold):
+    def __init__(self, var_shape, T, device = torch.device('cpu'), dtype = torch.float64):
+        
+        m = var_shape[0]
+        s = var_shape[1]
+        
+        self._parameters["T"] = T.to(device = device, dtype = dtype)
+        self._parameters["Is"] = torch.eye(s).to(device = device, dtype = dtype)
+        
+        self.T = self._parameters["T"]
+        self.Is = self._parameters["Is"]
+        
+        super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01, backbone = 'torch', device= device ,dtype= dtype)
+
+
+    def C(self, X):
+        return (X.T @ X)@ self.T  - self.Is
+```
+
+
+
+Then we can test how it works. 
+
+```python
+m = 50
+s = 8
+T = np.random.randn(s,s)
+T = T @ T.T 
+T = T/np.linalg.norm(T,2) + np.eye(s)
+T = torch.as_tensor(T)
+
+M = my_manifold_torch((m, s), T, device = torch.device('cpu'), dtype = torch.float64) 
+
+def obj_fun(X):
+    return -0.5 * torch.sum(X * X) 
+
+problem_test = Problem(M, obj_fun, beta = 1000)
+
+
+cdf_fun_np = problem_test.cdf_fun_vec_np   
+cdf_grad_np = problem_test.cdf_grad_vec_np
+cdf_hvp_np = problem_test.cdf_hvp_vec_np
+
+
+import scipy as sp
+from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
+# Implement L-BFGS solver from scipy.optimize
+Xinit = M.tensor2array(M.Init_point())
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+```
 
 
 
