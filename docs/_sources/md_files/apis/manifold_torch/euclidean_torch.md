@@ -2,7 +2,7 @@
 
 # euclidean_torch
 
-`CLASS euclidean_torch(name,var_shape, device = torch.device('cpu'), dtype = torch.float64)`
+`CLASS euclidean_torch(var_shape, device = torch.device('cpu'), dtype = torch.float64)`
 
 This manifold class defines the Euclidean space, which is a special manifold with no constraints. 
 

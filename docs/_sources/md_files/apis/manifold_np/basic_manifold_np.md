@@ -1,30 +1,42 @@
-# cdopt.manifold
+ 
 
-## cdopt.manifold.basic_manifold
+# basic_manifold_np
 
-`CLASS basic_manifold(name,variable_shape, constraint_shape, backbone = 'torch',  regularize_value = 0.01, safegurad_value = 0, **kwargs)`
+`CLASS basic_manifold_np(name,variable_shape, constraint_shape,  regularize_value = 0.01, safegurad_value = 0)`
 
-The class that provides essential materials to transform a manifold optimization problem to its corresponding constraint dissolving function. 
+The class that provides essential materials to transform a manifold optimization problem to its corresponding constraint dissolving function, based on PyTorch. 
 
-
-
-**Parameters:**
+##  **Parameters:**
 
 * **name** (str) -- Name of the manifold.
-* **variable_shape** (tuple of floats) -- The shape of the variables of the manifold. 
-* **constraint shape** (tuple of floats) -- The shape of the constraints. 
-* **backbone = 'torch'** (str or core.backbone class, optional)
-  -- Determines the automatic differentiation packages.  If ``'torch'``, the ``Problem`` class uses the `torch.autograd` to automatically compute essential materials. If ``'autograd'``, the `Problem` class uses the `autograd` package. Otherwise, it can be set as the user-defined backbone class. 
+* **variable_shape** (tuple of ints) -- The shape of the variables of the manifold. 
+* **constraint shape** (tuple of ints) -- The shape of the constraints. 
 * **regularize_value = 0.01** (float, optional) -- The value of $\alpha$. 
 * **safeguard_value = 0** (float, optional) -- The value of $\gamma$. 
 
 
 
-
-
-**Attributes:**
+## **Attributes:**
 
 The attributes in the following must be defined in creating a specific manifold class. 
+
+
+
+### Attributes that must be specified
+
+`C(x)` (callable)
+
+The constraints $c(x)$. The shape of `C(x)` should be the same as `variable_shape`. 
+
+
+
+
+
+### Optional Attributes
+
+The attributes in the following are optional in creating a specific manifold class. If not provided, the code will automatically interfere these components. 
+
+
 
 `m2c(x)` (callable)
 
@@ -41,18 +53,6 @@ Recover flattened variables to its original shape as `variable_shape`.
 `Init_point(Xinit = None)` (callable)
 
 Generate the initial point. 
-
-
-
-`C(x)` (callable)
-
-The constraints $c(x)$. The shape of `C(x)` should be the same as `variable_shape`. 
-
-
-
-
-
-The attributes in the following are optional in creating a specific manifold class. If not provided, the code will automatically interfere these components. 
 
 
 
@@ -149,6 +149,9 @@ Return the gradient of the constraint dissolving function. `obj_grad` is a calla
 `generate_cdf_hess(obj_grad, obj_hvp, beta)` (callable)
 
 Return the hessian of the constraint dissolving function. `obj_grad` is a callable function that returns the gradient of $f$ at $x$. `obj_hvp` is the hessian-vector product of $f$ at $x$, i.e., $\nabla^2 h(x)[d]$.  `beta` is a float object that refers to the penalty parameter in the constraint dissolving function. 
+
+
+
 
 
 

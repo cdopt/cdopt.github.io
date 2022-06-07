@@ -1,22 +1,14 @@
  
 
-# oblique_torch
+# euclidean_np
 
-`CLASS oblique_torch(var_shape, device = torch.device('cpu'), dtype = torch.float64)`
+`CLASS euclidean_torch(name,var_shape)`
 
-This manifold class defines the oblique manifold i.e. 
-
-
-$$
-\{X \in \mathbb{R}^{n_1\times n_2\times \cdots n_k \times p}: \sum_i X_{n_1,...n_k,i}^2 = 1, \text{ for any} n_1,...,n_k \}.
-$$
-
+This manifold class defines the Euclidean space, which is a special manifold with no constraints. 
 
 ##  **Parameters:**
 
-* **var_shape** ( tuple of ints ) -- The shape of the variables of the manifold. Its length must be no smaller than 2. 
-* **device** (PyTorch device) -- The object representing the device on which a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor) is or will be allocated.
-* **dtype** (PyTorch dtype) -- The object that represents the data type of a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor).
+* **var_shape** (tuple of ints) -- The shape of the variables of the manifold. 
 
 
 
@@ -28,19 +20,13 @@ $$
 
 `A(x)` (callable) 
 
-The constraint dissolving mapping $\mathcal{A}(x)$. `A(X)`  is set as `(2*X)/( 1 + torch.sum( X * X, 1 )[:, None] )`. 
+The constraint dissolving mapping $\mathcal{A}(x)$. `A()` is defined as the identity mapping. 
 
 
 
 `C(X)` (callable)
 
-Describe the constraints $c$. `C(X)` returns `torch.sum( X * X, 1 )[:, None] - 1`.
-
-
-
-`_parameter()` (OrdDict)
-
-The ordered dictionary that contains all the variables that changes when `device` and `dtype` changes. 
+Describe the constraints $c$. `C(X) = 0` for any `X`. 
 
 
 
@@ -64,13 +50,15 @@ Generate the initial point.
 
 `tensor2array(x)` (callable)
 
-Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the `core.backbone_torch`. 
+Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the `core.backbone_autograd`. 
 
 
 
 `array2tensor(x)` (callable)
 
-Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the `core.backbone_torch`. 
+Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the `core.backbone_autograd`. 
+
+
 
 
 
@@ -127,7 +115,7 @@ Returns the feasibility of $x$, measured by value of $||c(x)||$.
 
 `Post_process(X)` (callable)
 
-Return the post-processing for `X` to achieve a point with better feasibility. 
+Return the post-processing for `X` to achieve a point with better feasibility. Default return `X`. 
 
 
 
@@ -146,4 +134,10 @@ Return the gradient of the constraint dissolving function. `obj_grad` is a calla
 `generate_cdf_hess(obj_grad, obj_hvp, beta)` (callable)
 
 Return the hessian of the constraint dissolving function. `obj_grad` is a callable function that returns the gradient of $f$ at $x$. `obj_hvp` is the hessian-vector product of $f$ at $x$, i.e., $\nabla^2 h(x)[d]$.  `beta` is a float object that refers to the penalty parameter in the constraint dissolving function. 
+
+
+
+
+
+
 

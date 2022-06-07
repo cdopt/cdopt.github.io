@@ -1,22 +1,26 @@
  
 
-# oblique_torch
+# hyperbolic_np
 
-`CLASS oblique_torch(var_shape, device = torch.device('cpu'), dtype = torch.float64)`
+`CLASS hyperbolic_np(var_shape, B = lambda X:X )`
 
-This manifold class defines the oblique manifold i.e. 
+This manifold class defines the hyperbolic manifold manifold, i.e. 
 
 
 $$
-\{X \in \mathbb{R}^{n_1\times n_2\times \cdots n_k \times p}: \sum_i X_{n_1,...n_k,i}^2 = 1, \text{ for any} n_1,...,n_k \}.
+\{X \in \mathbb{R}^{n\times p}: X^T B X = I_p \},
 $$
+
+where $B \in \mathbb{R}^{n\times n}$ is a symmetric matrix. The largest eigenvalue of $B$ should be greater than $0$, and the smallest eigenvalue of $B$ is possibly negative. 
+
 
 
 ##  **Parameters:**
 
-* **var_shape** ( tuple of ints ) -- The shape of the variables of the manifold. Its length must be no smaller than 2. 
-* **device** (PyTorch device) -- The object representing the device on which a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor) is or will be allocated.
-* **dtype** (PyTorch dtype) -- The object that represents the data type of a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor).
+* **var_shape** ( (int, int) ) -- The shape of the variables of the manifold. `len(var_shape)` must equal to $2$. 
+* `B = lambda X:X `: (callable )-- The function that maps $X$ to $BX$. 
+
+
 
 
 
@@ -28,19 +32,13 @@ $$
 
 `A(x)` (callable) 
 
-The constraint dissolving mapping $\mathcal{A}(x)$. `A(X)`  is set as `(2*X)/( 1 + torch.sum( X * X, 1 )[:, None] )`. 
+The constraint dissolving mapping $\mathcal{A}(x)$. `A(X)`  is set as `1.5 * X - X @ (X.T @ self.B(X) /2)`. 
 
 
 
 `C(X)` (callable)
 
-Describe the constraints $c$. `C(X)` returns `torch.sum( X * X, 1 )[:, None] - 1`.
-
-
-
-`_parameter()` (OrdDict)
-
-The ordered dictionary that contains all the variables that changes when `device` and `dtype` changes. 
+Describe the constraints $c$. `C(X)` returns `X.T @ self.B(X) - self.Ip`.
 
 
 
@@ -146,4 +144,10 @@ Return the gradient of the constraint dissolving function. `obj_grad` is a calla
 `generate_cdf_hess(obj_grad, obj_hvp, beta)` (callable)
 
 Return the hessian of the constraint dissolving function. `obj_grad` is a callable function that returns the gradient of $f$ at $x$. `obj_hvp` is the hessian-vector product of $f$ at $x$, i.e., $\nabla^2 h(x)[d]$.  `beta` is a float object that refers to the penalty parameter in the constraint dissolving function. 
+
+
+
+
+
+
 

@@ -2,7 +2,7 @@
 
 # sphere_torch
 
-`CLASS sphere_torch(name,var_shape, device = torch.device('cpu'), dtype = torch.float64)`
+`CLASS sphere_torch(var_shape, device = torch.device('cpu'), dtype = torch.float64)`
 
 This manifold class defines the shpere with unit Frobenius Norm, i.e. 
 
@@ -127,7 +127,7 @@ Returns the feasibility of $x$, measured by value of $||c(x)||$.
 
 `Post_process(X)` (callable)
 
-Return the post-processing for `X` to achieve a point with better feasibility. Default return `X`. 
+Return the post-processing for `X` to achieve a point with better feasibility. 
 
 
 

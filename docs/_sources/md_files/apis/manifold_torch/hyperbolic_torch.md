@@ -135,7 +135,7 @@ Returns the feasibility of $x$, measured by value of $||c(x)||$.
 
 `Post_process(X)` (callable)
 
-Return the post-processing for `X` to achieve a point with better feasibility. Default return `X`. 
+Return the post-processing for `X` to achieve a point with better feasibility. 
 
 
 

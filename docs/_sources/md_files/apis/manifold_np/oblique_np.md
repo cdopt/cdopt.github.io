@@ -1,22 +1,20 @@
  
 
-# oblique_torch
+# oblique_np
 
-`CLASS oblique_torch(var_shape, device = torch.device('cpu'), dtype = torch.float64)`
+`CLASS oblique_np(var_shape)`
 
 This manifold class defines the oblique manifold i.e. 
 
 
 $$
-\{X \in \mathbb{R}^{n_1\times n_2\times \cdots n_k \times p}: \sum_i X_{n_1,...n_k,i}^2 = 1, \text{ for any} n_1,...,n_k \}.
+\{X \in \mathbb{R}^{n_1\times n_2\times \cdots n_k \times p}: \sum_i X_{n_1,...n_k,i}^2 = 1, \text{ for any } n_1,...,n_k \}.
 $$
 
 
 ##  **Parameters:**
 
-* **var_shape** ( tuple of ints ) -- The shape of the variables of the manifold. Its length must be no smaller than 2. 
-* **device** (PyTorch device) -- The object representing the device on which a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor) is or will be allocated.
-* **dtype** (PyTorch dtype) -- The object that represents the data type of a [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch.Tensor).
+* **var_shape** ( tuple(int, int) ) -- The shape of the variables of the manifold. Its length must equal to 2. 
 
 
 
@@ -28,19 +26,13 @@ $$
 
 `A(x)` (callable) 
 
-The constraint dissolving mapping $\mathcal{A}(x)$. `A(X)`  is set as `(2*X)/( 1 + torch.sum( X * X, 1 )[:, None] )`. 
+The constraint dissolving mapping $\mathcal{A}(x)$. `A(X)`  is set as `(2*X)/( 1 + np.sum( X * X, 1 )[:, None] )`. 
 
 
 
 `C(X)` (callable)
 
-Describe the constraints $c$. `C(X)` returns `torch.sum( X * X, 1 )[:, None] - 1`.
-
-
-
-`_parameter()` (OrdDict)
-
-The ordered dictionary that contains all the variables that changes when `device` and `dtype` changes. 
+Describe the constraints $c$. `C(X)` returns `np.sum( X * X, 1 )[:, None] - 1`.
 
 
 
@@ -64,13 +56,13 @@ Generate the initial point.
 
 `tensor2array(x)` (callable)
 
-Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the `core.backbone_torch`. 
+Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the `core.backbone_autograd`. 
 
 
 
 `array2tensor(x)` (callable)
 
-Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the `core.backbone_torch`. 
+Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the `core.backbone_autograd`. 
 
 
 

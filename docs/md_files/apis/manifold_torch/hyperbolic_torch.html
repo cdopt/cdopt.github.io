@@ -101,6 +101,11 @@ const thebe_selector_output = ".output, .cell_output"
    Overview
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installation.html">
+   Installation
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../tutorial.html">
    Tutorials
@@ -148,12 +153,64 @@ const thebe_selector_output = ".output, .cell_output"
      cdopt.manifold
     </a>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../cdopt_manifold_np.html">
+     cdopt.manifold_np
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/basic_manifold_np.html">
+       basic_manifold_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/euclidean_np.html">
+       euclidean_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/sphere_np.html">
+       sphere_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/oblique_np.html">
+       oblique_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/stiefel_np.html">
+       stiefel_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/generalized_stiefel_np.html">
+       generalized_stiefel_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/hyperbolic_np.html">
+       hyperbolic_np
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../manifold_np/symp_stiefel_np.html">
+       symp_stiefel_np
+      </a>
+     </li>
+    </ul>
+   </li>
    <li class="toctree-l2 current active has-children">
     <a class="reference internal" href="../cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
-    <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-    <label for="toctree-checkbox-3">
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -400,7 +457,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><code class="docutils literal notranslate"><span class="pre">Feas_eval(X)</span></code> (callable)</p>
 <p>Returns the feasibility of <span class="math notranslate nohighlight">\(x\)</span>, measured by value of <span class="math notranslate nohighlight">\(||c(x)||\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Post_process(X)</span></code> (callable)</p>
-<p>Return the post-processing for <code class="docutils literal notranslate"><span class="pre">X</span></code> to achieve a point with better feasibility. Default return <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>Return the post-processing for <code class="docutils literal notranslate"><span class="pre">X</span></code> to achieve a point with better feasibility.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_fun(obj_fun,</span> <span class="pre">beta)</span></code> (callable)</p>
 <p>Return the function value of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_fun</span></code> is a callable function that returns the value of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_grad(obj_grad,</span> <span class="pre">beta)</span></code> (callable)</p>

@@ -27,8 +27,6 @@ where $T \in \mathbb{R}^{s\times s}$ is a positive definite matrix (i.e., all of
 1. `basic_manifold.C`: The expression of $c$.
 2. `basic_manifold.v2m`: Converting flattened vector to the variables in `autograd`. 
 3. `basic_manifold.m2v`: Flattening the variables in `autograd`. 
-4. `cdopt.manifold.basic_manifold.tensor2array`The function that converts the array-like variables in `autograd` to the numpy array. 
-5. `cdopt.manifold.basic_manifold.array2tensor`The function that converts the numpy array to the array-like variables in `autograd`. 
 6. `cdopt.manifold.basic_manifold.Init_point`: The function that generated initial points for solvers. 
 
 ```python
@@ -56,12 +54,6 @@ class my_manifold(basic_manifold):
 
     def m2v(self,X):
         return X.flatten()
-
-    def array2tensor(self, X_array):
-        return X_array
-
-    def tensor2array(self, X_tensor):
-        return X_tensor
 
     def Init_point(self, Xinit = None):
         if Xinit == None:
