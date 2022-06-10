@@ -1,3 +1,9 @@
-# Examples[¶](https://ncvx.org/examples/index.html#examples)
+# Examples
 
 Several illustrative examples to help users get started with CDOpt.
+
+
+
+```{tableofcontents}
+```
+
