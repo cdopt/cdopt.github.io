@@ -172,18 +172,18 @@ print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*re
 
 For several well-known manifolds, we provide build-in expressions for $\mathcal{A}$ in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table. 
 
-| Name                           | Expression of $c$                                            | Pre-defined structure from `autograd` | Pre-defined structure from`PyTorch`  |
-| ------------------------------ | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------ |
-| Euclidean space                | No constraint                                                | `manifold.euclidean_np`               | `manifold.euclidean_torch`           |
-| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `manifold.sphere_np`                  | `manifold.sphere_torch`              |
-| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}$ | `manifold.obluqie_np`                 | `manifold.obluqie_torch`             |
-| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `manifold.stiefel_np`                 | `manifold.stiefel_torch`             |
-| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `manifold.stiefel_np`                 | `manifold.stiefel_torch`             |
-| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold.generalized_stiefel_np`     | `manifold.generalized_stiefel_torch` |
-| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold.generalized_stiefel_np`     | `manifold.generalized_stiefel_torch` |
-| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `manifold.hyperbolic_np`              | `manifold.hyperbolic_torch`          |
-| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `manifold.symp_stiefel_np`            | `manifold.symp_stiefel_torch`        |
-| ...                            | ...                                                          | ...                                   |                                      |
+| Name                           | Expression of $c$                                            | Pre-defined structure from `autograd` | Pre-defined structure from`PyTorch`        |
+| ------------------------------ | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------ |
+| Euclidean space                | No constraint                                                | `manifold_np.euclidean_np`            | `manifold_torch.euclidean_torch`           |
+| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `manifold_np.sphere_np`               | `manifold_torch.sphere_torch`              |
+| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}$ | `manifold_np.obluqie_np`              | `manifold_torch.obluqie_torch`             |
+| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`              | `manifold_torch.stiefel_torch`             |
+| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`              | `manifold_torch.stiefel_torch`             |
+| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np`  | `manifold_torch.generalized_stiefel_torch` |
+| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np`  | `manifold_torch.generalized_stiefel_torch` |
+| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `manifold_np.hyperbolic_np`           | `manifold_torch.hyperbolic_torch`          |
+| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `manifold_np.symp_stiefel_np`         | `manifold_torch.symp_stiefel_torch`        |
+| ...                            | ...                                                          | ...                                   |                                            |
 
 
 
