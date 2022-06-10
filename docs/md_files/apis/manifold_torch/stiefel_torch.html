@@ -49,8 +49,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="generalized_stiefel_torch" href="generalized_stiefel_torch.html" />
@@ -149,7 +147,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../examples.html">
-   Examples¶
+   Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -165,6 +163,26 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../../../examples/nonlinear_eigenvalue.html">
      Discretized 1D Kohn-Sham Equation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/nearest_correlation_estimation.html">
+     Low-Rank Nearest Correlation Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/bose_einstein_condensates.html">
+     Bose–Einstein Condensates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/symplectic_eigenvalue.html">
+     Symplectic Eigenvalue Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../examples/LeNet_orth.html">
+     Traning Neural Networks with Constrained Weights
     </a>
    </li>
   </ul>
@@ -533,10 +551,9 @@ title="Print to PDF"
 <h1>stiefel_torch<a class="headerlink" href="#stiefel-torch" title="Permalink to this headline">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">stiefel_torch(var_shape,</span> <span class="pre">device</span> <span class="pre">=</span> <span class="pre">torch.device('cpu'),</span> <span class="pre">dtype</span> <span class="pre">=</span> <span class="pre">torch.float64)</span></code></p>
 <p>This manifold class defines the Stiefel manifold, i.e.</p>
-<div class="math notranslate nohighlight">
-\[
-\{X \in \mathbb{R}^{n\times p}: X^T X = I_p \}.
-\]</div>
+<p>$$
+{X \in \mathbb{R}^{n\times p}: X^T X = I_p }.
+$$</p>
 <div class="section" id="parameters">
 <h2><strong>Parameters:</strong><a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -544,14 +561,14 @@ title="Print to PDF"
 <li><p><strong>device</strong> (PyTorch device) – The object representing the device on which a <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor"><code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> is or will be allocated.</p></li>
 <li><p><strong>dtype</strong> (PyTorch dtype) – The object that represents the data type of a <a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor"><code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.</p></li>
 </ul>
-<p>The variables in <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> is not restricted in 2D-tensors, they can be Nd-tensors whose <code class="docutils literal notranslate"><span class="pre">.size()</span></code> is <code class="docutils literal notranslate"><span class="pre">var_shape</span></code>. In that cases, for each index <code class="docutils literal notranslate"><span class="pre">(i,j,k,...)</span></code>, we have <code class="docutils literal notranslate"><span class="pre">torch.matmul(</span> <span class="pre">X(i,j,k,...,:,:).T</span> <span class="pre">,X(i,j,k,...,:,:))</span> </code> is a <span class="math notranslate nohighlight">\(p\times p\)</span>-dimensional identity matrix.</p>
+<p>The variables in <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> is not restricted in 2D-tensors, they can be Nd-tensors whose <code class="docutils literal notranslate"><span class="pre">.size()</span></code> is <code class="docutils literal notranslate"><span class="pre">var_shape</span></code>. In that cases, for each index <code class="docutils literal notranslate"><span class="pre">(i,j,k,...)</span></code>, we have <code class="docutils literal notranslate"><span class="pre">torch.matmul(</span> <span class="pre">X(i,j,k,...,:,:).T</span> <span class="pre">,X(i,j,k,...,:,:))</span> </code> is a $p\times p$-dimensional identity matrix.</p>
 </div>
 <div class="section" id="attributes">
 <h2><strong>Attributes:</strong><a class="headerlink" href="#attributes" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">A(x)</span></code> (callable)</p>
-<p>The constraint dissolving mapping <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>. <code class="docutils literal notranslate"><span class="pre">A(X)</span></code>  is set as <code class="docutils literal notranslate"><span class="pre">1.5</span> <span class="pre">*</span> <span class="pre">X</span> <span class="pre">-</span> <span class="pre">torch.matmul(X</span> <span class="pre">,</span> <span class="pre">(torch.matmul(X.transpose(-2,-1),</span> <span class="pre">X)/2))</span></code>.</p>
+<p>The constraint dissolving mapping $\mathcal{A}(x)$. <code class="docutils literal notranslate"><span class="pre">A(X)</span></code>  is set as <code class="docutils literal notranslate"><span class="pre">1.5</span> <span class="pre">*</span> <span class="pre">X</span> <span class="pre">-</span> <span class="pre">torch.matmul(X</span> <span class="pre">,</span> <span class="pre">(torch.matmul(X.transpose(-2,-1),</span> <span class="pre">X)/2))</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">C(X)</span></code> (callable)</p>
-<p>Describe the constraints <span class="math notranslate nohighlight">\(c\)</span>. <code class="docutils literal notranslate"><span class="pre">C(X)</span></code> returns <code class="docutils literal notranslate"><span class="pre">torch.matmul(X.transpose(-2,-1),</span> <span class="pre">X)</span> <span class="pre">-</span> <span class="pre">self.Ip</span></code>.</p>
+<p>Describe the constraints $c$. <code class="docutils literal notranslate"><span class="pre">C(X)</span></code> returns <code class="docutils literal notranslate"><span class="pre">torch.matmul(X.transpose(-2,-1),</span> <span class="pre">X)</span> <span class="pre">-</span> <span class="pre">self.Ip</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">_parameter()</span></code> (OrdDict)</p>
 <p>The ordered dictionary that contains all the variables that changes when <code class="docutils literal notranslate"><span class="pre">device</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> changes. It contains</p>
 <p><code class="docutils literal notranslate"><span class="pre">self._parameters['Ip']</span> <span class="pre">=</span> <span class="pre">torch.diag_embed(torch.ones((*self.dim,</span> <span class="pre">self._p),</span> <span class="pre">device=self.device,</span> <span class="pre">dtype=self.dtype))</span></code></p>
@@ -568,27 +585,27 @@ title="Print to PDF"
 <p><code class="docutils literal notranslate"><span class="pre">JC(x,</span> <span class="pre">lambda)</span></code> (callable)</p>
 <p>The Jacobian of <code class="docutils literal notranslate"><span class="pre">C(x)</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JC_transpose(x,</span> <span class="pre">lambda)</span></code> (callable)</p>
-<p>The transpose of <span class="math notranslate nohighlight">\(J_c(x)\)</span>, expressed by matrix-vector production.</p>
+<p>The transpose of $J_c(x)$, expressed by matrix-vector production.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JA(x,</span> <span class="pre">d)</span></code> (callable)</p>
-<p>The transposed Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>.</p>
+<p>The transposed Jacobian of $\mathcal{A}(x)$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JA_transpose(x,</span> <span class="pre">d)</span></code> (callable)</p>
-<p>The transpose (or adjoint) of <code class="docutils literal notranslate"><span class="pre">JA(x)</span></code>, i.e. <span class="math notranslate nohighlight">\(\lim_{t \to 0} \frac{1}{t}(J_A(x+td) -J_A(x)) \)</span>.</p>
+<p>The transpose (or adjoint) of <code class="docutils literal notranslate"><span class="pre">JA(x)</span></code>, i.e. $\lim_{t \to 0} \frac{1}{t}(J_A(x+td) -J_A(x)) $.</p>
 <p><code class="docutils literal notranslate"><span class="pre">C_quad_penalty(x)</span></code> (callable)</p>
-<p>Returns the quadratical penalty term <span class="math notranslate nohighlight">\(||c(x)||^2\)</span>.</p>
+<p>Returns the quadratical penalty term $||c(x)||^2$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hessA(X,</span> <span class="pre">U,</span> <span class="pre">D)</span></code> (callable)</p>
-<p>Returns the Hessian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span> in a tensor-vector product form.</p>
+<p>Returns the Hessian of $\mathcal{A}(x)$ in a tensor-vector product form.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hess_feas(X,</span> <span class="pre">D)</span></code> (callable)</p>
-<p>Returns the hessian-vector product of <span class="math notranslate nohighlight">\(\frac{1}{2} ||c(x)||^2\)</span>.</p>
+<p>Returns the hessian-vector product of $\frac{1}{2} ||c(x)||^2$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Feas_eval(X)</span></code> (callable)</p>
-<p>Returns the feasibility of <span class="math notranslate nohighlight">\(x\)</span>, measured by value of <span class="math notranslate nohighlight">\(||c(x)||\)</span>.</p>
+<p>Returns the feasibility of $x$, measured by value of $||c(x)||$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Post_process(X)</span></code> (callable)</p>
 <p>Return the post-processing for <code class="docutils literal notranslate"><span class="pre">X</span></code> to achieve a point with better feasibility.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_fun(obj_fun,</span> <span class="pre">beta)</span></code> (callable)</p>
-<p>Return the function value of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_fun</span></code> is a callable function that returns the value of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
+<p>Return the function value of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_fun</span></code> is a callable function that returns the value of $f$ at $x$. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_grad(obj_grad,</span> <span class="pre">beta)</span></code> (callable)</p>
-<p>Return the gradient of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
+<p>Return the gradient of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of $f$ at $x$. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_hess(obj_grad,</span> <span class="pre">obj_hvp,</span> <span class="pre">beta)</span></code> (callable)</p>
-<p>Return the hessian of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">obj_hvp</span></code> is the hessian-vector product of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>, i.e., <span class="math notranslate nohighlight">\(\nabla^2 h(x)[d]\)</span>.  <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
+<p>Return the hessian of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of $f$ at $x$. <code class="docutils literal notranslate"><span class="pre">obj_hvp</span></code> is the hessian-vector product of $f$ at $x$, i.e., $\nabla^2 h(x)[d]$.  <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 </div>
 </div>
 

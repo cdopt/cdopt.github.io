@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dictionary Learning &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
+    <title>Bose–Einstein Condensates &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -51,8 +51,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Discretized 1D Kohn-Sham Equation" href="nonlinear_eigenvalue.html" />
-    <link rel="prev" title="Examples" href="../md_files/examples.html" />
+    <link rel="next" title="Symplectic Eigenvalue Problem" href="symplectic_eigenvalue.html" />
+    <link rel="prev" title="Low-Rank Nearest Correlation Estimation" href="nearest_correlation_estimation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -155,8 +155,8 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="dictionary_learning.html">
      Dictionary Learning
     </a>
    </li>
@@ -170,8 +170,8 @@ const thebe_selector_output = ".output, .cell_output"
      Low-Rank Nearest Correlation Estimation
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bose_einstein_condensates.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Bose–Einstein Condensates
     </a>
    </li>
@@ -372,7 +372,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/xnchxy/constraint_dissolving_lib/master?urlpath=tree/docs/examples/dictionary_learning.ipynb"
+        <a href="https://mybinder.org/v2/gh/xnchxy/constraint_dissolving_lib/master?urlpath=tree/docs/examples/bose_einstein_condensates.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -432,7 +432,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fexamples/dictionary_learning.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fexamples/bose_einstein_condensates.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -460,7 +460,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/examples/dictionary_learning.ipynb"
+        <a href="../_sources/examples/bose_einstein_condensates.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -563,7 +563,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dictionary Learning</h1>
+                <h1>Bose–Einstein Condensates</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -618,32 +618,39 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dictionary-learning">
-<h1>Dictionary Learning<a class="headerlink" href="#dictionary-learning" title="Permalink to this headline">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="boseeinstein-condensates">
+<h1>Bose–Einstein Condensates<a class="headerlink" href="#boseeinstein-condensates" title="Permalink to this headline">#</a></h1>
 <div class="section" id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
-<p>Given data ${y_i}_{i = 1,…,m}$ generated as $y_i = Q z_i$, where $Q$ is a fixed unknown orthogonal matrix and each $x_i$ folllows iid Bernoulli-Gaussian distributation with parameter $\theta \in (0,1)$. The goal is to recover $Z$ and $Q$ from the given data $Y = [y_1, …, y_m]^\top \in \mathrm{R}^{m\times n}$.</p>
-<p>Based on the $\ell_4$-norm maximization model proposed in [1,2], we can consider the following optimization problem,</p>
+<p>In Bose–Einstein condensates (BEC), under some proper discretization, such as finite difference, sine pseudospectral and Fourier pseudospectral methods, we obtain its discrete version as</p>
 <p>$$
 \begin{aligned}
-\min_{X = [x_1,…x_n] \in \mathbb{R}^{n\times n}} \quad &amp; f(X) := - \sum_{1\leq i\leq m, 1\leq j\leq n} (y_i^\top x_j)^4\
-\text{s. t.} \quad &amp; X^TX = I_n.
+\min_{X \in \mathbb{C}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \
+\text{s. t.} \quad &amp;  ||x||_2 = 1,
 \end{aligned}
 $$</p>
-<p>This problem is nonconvex due to the nonconvex constraints. The constraints define the Stiefel manifold, hence this problem can be regarded as the smooth optimization problem over the Stiefel manifold.</p>
+<p>where $A$ is a Hermitian matirx, and $\alpha$ is a parameter. Consider a simplified cases where $x$ and $A$ are both real, we each the following optimization problem over the sphere,</p>
+<p>$$
+\begin{aligned}
+\min_{X \in \mathbb{R}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \
+\text{s. t.} \quad &amp;  ||x||_2 = 1,
+\end{aligned}
+$$</p>
+<p>In this part, we aim to show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
 <h2>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">#</a></h2>
 <p>We first import all the necessary modules for this optimization problem.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">cdopt</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cdopt</span> 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span><span class="p">,</span> <span class="n">diags</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse.linalg</span> <span class="kn">import</span> <span class="n">spsolve</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">autograd</span> 
+<span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">anp</span>
 </pre></div>
 </div>
 </div>
@@ -657,24 +664,12 @@ No JAX package installed
 </div>
 <div class="section" id="generating-datas">
 <h2>Generating datas<a class="headerlink" href="#generating-datas" title="Permalink to this headline">#</a></h2>
-<p>We then specify torch device, and generate data</p>
-<p>We set the torch device as the GPU for this problem as default setting. If no cuda device available, we switch the device as the CPU.</p>
+<p>We generate necessary data. Notice that $L$ is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># dimension of the problem</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span>   <span class="c1"># sample complexity</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="mf">0.3</span>   <span class="c1"># sparsity level</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span><span class="p">)</span>   <span class="c1"># set torch device</span>
-<span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span>      <span class="c1"># set torch data type</span>
-
-<span class="n">Y</span><span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">theta</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>  <span class="c1"># generate Y matrix</span>
-
-<span class="n">Y</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([9000, 30])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -682,13 +677,15 @@ No JAX package installed
 </div>
 <div class="section" id="set-functions-and-problems">
 <h2>Set functions and problems<a class="headerlink" href="#set-functions-and-problems" title="Permalink to this headline">#</a></h2>
-<p>Then we set the objective function and the Stiefel manifold.</p>
+<p>Then we set the objective function and the Stiefel manifold.
+Notice that all the existing AD packages has limited support for operations on sparse matrices, we manually define the gradient and Hessian-vector product of the objective function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">obj_fun</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="k">return</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">**</span><span class="mi">4</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">anp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">X</span><span class="o">*</span> <span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="p">)</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">anp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">X</span> <span class="o">**</span> <span class="mi">4</span> <span class="p">)</span>
 
-<span class="n">M</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span> <span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>   <span class="c1"># The Stiefel manifold.</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_np</span><span class="o">.</span><span class="n">sphere_np</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>   <span class="c1"># The sphere</span>
 </pre></div>
 </div>
 </div>
@@ -696,10 +693,10 @@ No JAX package installed
 </div>
 <div class="section" id="describe-the-optimization-problem">
 <h2>Describe the optimization problem<a class="headerlink" href="#describe-the-optimization-problem" title="Permalink to this headline">#</a></h2>
-<p>The optimization problem can be described only by the manifold and the objective function. All the other components are automatically computed by the automatic differentiation algorithms provided in <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code>.</p>
+<p>The optimization problem can be described by the manifold and the drivatives of objective function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">300</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
 </pre></div>
 </div>
 </div>
@@ -721,7 +718,7 @@ No JAX package installed
 <span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>  <span class="c1"># set initial point</span>
 
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-05</span><span class="p">,})</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">0e-08</span><span class="p">,})</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>
@@ -738,7 +735,7 @@ No JAX package installed
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solver   fval         iter   f_eval   stationarity   feaibility     CPU time
-&amp; L-BFGS &amp; -5.09e+05  &amp; 56  &amp; 64    &amp; 1.24e-03     &amp; 7.26e-09     &amp; 0.16 \\
+&amp; L-BFGS &amp; 1.00e-03  &amp; 667  &amp; 893    &amp; 9.87e-06     &amp; 1.64e-07     &amp; 1.10 \\
 </pre></div>
 </div>
 </div>
@@ -747,8 +744,7 @@ No JAX package installed
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
-<li><p>Zhai Y, Yang Z, Liao Z, et al. Complete Dictionary Learning via L4-Norm Maximization over the Orthogonal Group[J]. J. Mach. Learn. Res., 2020, 21(165): 1-68.</p></li>
-<li><p>Hu X, Liu X. An efficient orthonormalization-free approach for sparse dictionary learning and dual principal component pursuit[J]. Sensors, 2020, 20(11): 3041.</p></li>
+<li><p>Hu J, Jiang B, Liu X, et al. A note on semidefinite programming relaxations for polynomial optimization over a single sphere[J]. Science China Mathematics, 2016, 59(8): 1543-1560.</p></li>
 </ol>
 </div>
 </div>
@@ -780,17 +776,17 @@ No JAX package installed
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../md_files/examples.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="nearest_correlation_estimation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Examples</p>
+            <p class="prev-next-title">Low-Rank Nearest Correlation Estimation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="nonlinear_eigenvalue.html" title="next page">
+    <a class='right-next' id="next-link" href="symplectic_eigenvalue.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Discretized 1D Kohn-Sham Equation</p>
+        <p class="prev-next-title">Symplectic Eigenvalue Problem</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

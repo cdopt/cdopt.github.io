@@ -49,11 +49,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../md_files/api_reference.html" />
+    <link rel="next" title="Low-Rank Nearest Correlation Estimation" href="nearest_correlation_estimation.html" />
     <link rel="prev" title="Dictionary Learning" href="dictionary_learning.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -149,7 +147,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../md_files/examples.html">
-   Examples¶
+   Examples
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -165,6 +163,26 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Discretized 1D Kohn-Sham Equation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nearest_correlation_estimation.html">
+     Low-Rank Nearest Correlation Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="bose_einstein_condensates.html">
+     Bose–Einstein Condensates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="symplectic_eigenvalue.html">
+     Symplectic Eigenvalue Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="LeNet_orth.html">
+     Traning Neural Networks with Constrained Weights
     </a>
    </li>
   </ul>
@@ -527,8 +545,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#apply-optimization-problem">
-   Apply optimization problem
+  <a class="reference internal nav-link" href="#apply-optimization-solvers">
+   Apply optimization solvers
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -581,8 +599,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#apply-optimization-problem">
-   Apply optimization problem
+  <a class="reference internal nav-link" href="#apply-optimization-solvers">
+   Apply optimization solvers
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -606,14 +624,13 @@ title="Print to PDF"
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
 <p>In this part, we consider the singleparticle Hamiltonian arising from discretizing an 1D Kohn-Sham equation in electronic structure
 calculations,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<p>$$
 \begin{aligned}
-    \min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} \mathrm{tr}\left( X^\top LX \right) + \frac{\alpha}{4} \rho^\top L^{-1} \rho\\
-    \text{s. t.} \quad &amp;X^\top X = I_p,
+\min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} \mathrm{tr}\left( X^\top LX \right) + \frac{\alpha}{4} \rho^\top L^{-1} \rho\
+\text{s. t.} \quad &amp;X^\top X = I_p,
 \end{aligned}
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\rho := \mathrm{Diag}(XX^\top)\)</span>, <span class="math notranslate nohighlight">\(L\)</span> is a tri-diagonal matrix with <span class="math notranslate nohighlight">\(2\)</span> on its diagonal and <span class="math notranslate nohighlight">\(-1\)</span> on its subdiagonal, and <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> is a parameter. Such problems have become standard testing problems for investigating the convergence of self-consistent field methods due to its simplicity. Clearly, these problems are smooth optimization problems on the Stiefel manifold, and we show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
+$$</p>
+<p>where $\rho := \mathrm{Diag}(XX^\top)$, $L$ is a tri-diagonal matrix with $2$ on its diagonal and $-1$ on its subdiagonal, and $\alpha &gt; 0$ is a parameter. Such problems have become standard testing problems for investigating the convergence of self-consistent field methods due to its simplicity. Clearly, these problems are smooth optimization problems on the Stiefel manifold, and we show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
 <h2>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">#</a></h2>
@@ -639,7 +656,7 @@ No JAX package installed
 </div>
 <div class="section" id="generating-datas">
 <h2>Generating datas<a class="headerlink" href="#generating-datas" title="Permalink to this headline">#</a></h2>
-<p>We generate necessary data. Notice that <span class="math notranslate nohighlight">\(L\)</span> is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
+<p>We generate necessary data. Notice that $L$ is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
@@ -692,8 +709,8 @@ Notice that all the existing AD packages has limited support for operations on s
 </div>
 </div>
 </div>
-<div class="section" id="apply-optimization-problem">
-<h2>Apply optimization problem<a class="headerlink" href="#apply-optimization-problem" title="Permalink to this headline">#</a></h2>
+<div class="section" id="apply-optimization-solvers">
+<h2>Apply optimization solvers<a class="headerlink" href="#apply-optimization-solvers" title="Permalink to this headline">#</a></h2>
 <p>After describe the optimization problem, we can directly function value, gradient and Hessian-vector product from the <code class="docutils literal notranslate"><span class="pre">cdopt.core.Problem</span></code> class.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -774,10 +791,10 @@ Notice that all the existing AD packages has limited support for operations on s
             <p class="prev-next-title">Dictionary Learning</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../md_files/api_reference.html" title="next page">
+    <a class='right-next' id="next-link" href="nearest_correlation_estimation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">Low-Rank Nearest Correlation Estimation</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

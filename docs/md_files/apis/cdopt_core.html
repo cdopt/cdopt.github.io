@@ -49,8 +49,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="cdopt.manifold" href="cdopt_manifold.html" />
@@ -149,7 +147,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../examples.html">
-   Examples¶
+   Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -165,6 +163,26 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../../examples/nonlinear_eigenvalue.html">
      Discretized 1D Kohn-Sham Equation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/nearest_correlation_estimation.html">
+     Low-Rank Nearest Correlation Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/bose_einstein_condensates.html">
+     Bose–Einstein Condensates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/symplectic_eigenvalue.html">
+     Symplectic Eigenvalue Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../examples/LeNet_orth.html">
+     Traning Neural Networks with Constrained Weights
     </a>
    </li>
   </ul>
@@ -556,23 +574,23 @@ title="Print to PDF"
 </ul>
 <p><strong>Attributes:</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_fun(x)</span></code> (callable)</p>
-<p>​				Returns the function value of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>​				Returns the function value of $f$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_grad(x)</span></code> (callable)</p>
-<p>​				Returns the gradient of <span class="math notranslate nohighlight">\(f\)</span>, which has the same shape as <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>​				Returns the gradient of $f$, which has the same shape as $x$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_hvp(x,</span> <span class="pre">v)</span></code> (callable)</p>
-<p>​				Returns the hessian-vector product of <span class="math notranslate nohighlight">\(\nabla^2 f(x)[v] := \lim_{t \to 0} \frac{1}{t}(\nabla f(x+t) - \nabla f(x))\)</span>, which has the same shape as <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>​				Returns the hessian-vector product of $\nabla^2 f(x)[v] := \lim_{t \to 0} \frac{1}{t}(\nabla f(x+t) - \nabla f(x))$, which has the same shape as $x$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_fun(x)</span></code> (callable)</p>
-<p>Returns the function value of the corresponding constraint dissolving function <span class="math notranslate nohighlight">\(h(x)\)</span>.</p>
+<p>Returns the function value of the corresponding constraint dissolving function $h(x)$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_grad(x)</span></code> (callable)</p>
 <p>Returns the gradient of   the corresponding constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_hvp(x,v)</span></code> (callable)</p>
-<p>Returns the hessian-vector product of <span class="math notranslate nohighlight">\(\nabla^2 h(x)[v]\)</span>.</p>
+<p>Returns the hessian-vector product of $\nabla^2 h(x)[v]$.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_fun_vectorized(x_vec)</span></code> (callable)</p>
-<p>Returns the function value of the corresponding constraint dissolving function <span class="math notranslate nohighlight">\(h(x)\)</span>. Here <code class="docutils literal notranslate"><span class="pre">x_vec</span></code> is a 1D-array or tensor.</p>
+<p>Returns the function value of the corresponding constraint dissolving function $h(x)$. Here <code class="docutils literal notranslate"><span class="pre">x_vec</span></code> is a 1D-array or tensor.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_grad_vectorized(x_vec)</span></code> (callable)</p>
 <p>Returns the gradient of  the corresponding constraint dissolving function. Here <code class="docutils literal notranslate"><span class="pre">x_vec</span></code> is a 1D-array  or tensor.</p>
 <p><code class="docutils literal notranslate"><span class="pre">cdf_hvp_vectorized(x_vec,v_vec)</span></code> (callable)</p>
-<p>Returns the hessian-vector product of <span class="math notranslate nohighlight">\(\nabla^2 h(x)[v]\)</span>. Here <code class="docutils literal notranslate"><span class="pre">x_vec</span></code> and <code class="docutils literal notranslate"><span class="pre">v_vec</span></code> are 1D-arrays or tensors.</p>
+<p>Returns the hessian-vector product of $\nabla^2 h(x)[v]$. Here <code class="docutils literal notranslate"><span class="pre">x_vec</span></code> and <code class="docutils literal notranslate"><span class="pre">v_vec</span></code> are 1D-arrays or tensors.</p>
 </div>
 <div class="section" id="cdopt-core-backbone-autograd">
 <h2>cdopt.core.backbone_autograd<a class="headerlink" href="#cdopt-core-backbone-autograd" title="Permalink to this headline">#</a></h2>

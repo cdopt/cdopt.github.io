@@ -49,8 +49,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Quickstart" href="tutorials/quick_start.html" />
@@ -149,7 +147,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="examples.html">
-   Examples¶
+   Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -165,6 +163,26 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="../examples/nonlinear_eigenvalue.html">
      Discretized 1D Kohn-Sham Equation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/nearest_correlation_estimation.html">
+     Low-Rank Nearest Correlation Estimation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/bose_einstein_condensates.html">
+     Bose–Einstein Condensates
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/symplectic_eigenvalue.html">
+     Symplectic Eigenvalue Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../examples/LeNet_orth.html">
+     Traning Neural Networks with Constrained Weights
     </a>
    </li>
   </ul>
@@ -515,8 +533,8 @@ title="Print to PDF"
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code>  is an easy-to-use modular package that separates the manifold modules, the problems descriptions, the automatic differentiation packages and solvers apart. All of the automatic differentiations are done behind the scenes so the amount of setup that user needs to do is minimal. Usually only the following steps are required:</p>
 <ol class="simple">
-<li><p>Instantiate a manifold <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> from the <code class="docutils literal notranslate"><span class="pre">cdopt.manifold</span></code> or define <span class="math notranslate nohighlight">\(\mathcal{M} = \{x \in \mathbb{R}^n: c(x) = 0_p \}\)</span> by the <code class="docutils literal notranslate"><span class="pre">cdopt.manifold.basic_manifold</span></code> module.</p></li>
-<li><p>Define a cost function <span class="math notranslate nohighlight">\(f: \mathbb{R}^{m\times s} \to \mathbb{R}\)</span> to minimize over the manifold <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>.</p></li>
+<li><p>Instantiate a manifold $\mathcal{M}$ from the <code class="docutils literal notranslate"><span class="pre">cdopt.manifold</span></code> or define $\mathcal{M} = {x \in \mathbb{R}^n: c(x) = 0_p }$ by the <code class="docutils literal notranslate"><span class="pre">cdopt.manifold.basic_manifold</span></code> module.</p></li>
+<li><p>Define a cost function $f: \mathbb{R}^{m\times s} \to \mathbb{R}$ to minimize over the manifold $\mathcal{M}$.</p></li>
 <li><p>Using the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> as a high-level interface to describe the optimization problem.</p></li>
 <li><p>Retrieve the corresponding constraint dissolving function and its differentials. Instantiate a solver from various of existing packages, including <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.optimizers</span></code>, to minimize the constraint dissolving function without any constraints.</p></li>
 </ol>
