@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Installation" href="installation.html" />
@@ -544,20 +546,21 @@ title="Print to PDF"
 <div class="section" id="background">
 <h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">#</a></h2>
 <p>This project illustrates that we could directly apply the build-in functions in <code class="docutils literal notranslate"><span class="pre">scipy</span></code> package to solve a broad class of optimization problems on Riemannian manifolds by the <a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a>. In this project, we consider a class of optimization problems that can be expressed as</p>
-<p>$$
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{x \in \mathbb{R}^n}\quad &amp;f(x) \
-\text{s. t.} \quad &amp;c(x) = 0.
+	\min_{x \in \mathbb{R}^n}\quad &amp;f(x) \\
+	\text{s. t.} \quad &amp;c(x) = 0.
 \end{aligned}
 \qquad\qquad \text{(OCP)}
-$$</p>
-<p>Here $\mathcal{M}$ refers to the feasible region of (OCP), namely, $\mathcal{M} := {x \in \mathbb{R}^n: c(x) = 0}$. Besides, we assume (OCP) satisfies the following assumptions:</p>
+\end{split}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> refers to the feasible region of (OCP), namely, <span class="math notranslate nohighlight">\(\mathcal{M} := \{x \in \mathbb{R}^n: c(x) = 0\}\)</span>. Besides, we assume (OCP) satisfies the following assumptions:</p>
 <ul class="simple">
-<li><p>$f: \mathbb{R}^n \mapsto \mathbb{R}$ is locally Lipschitz continuous in $\mathbb{R}^n$.</p></li>
-<li><p>$c: \mathbb{R}^n \mapsto \mathbb{R}^p$ is twice continuous differentiable in $\mathbb{R}^n$.</p></li>
-<li><p>The linear independence constraint qualification (LICQ) holds at every $x \in \mathcal{M}$.  That is, the transposed Jacobian of $c$, denoted as $J_c:= [\nabla c_1(x), \nabla c_2(x), …, \nabla c_p(x)] \in \mathbb{R}^{n\times p}$ , has full column rank at every $x \in \mathcal{M}$.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f: \mathbb{R}^n \mapsto \mathbb{R}\)</span> is locally Lipschitz continuous in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(c: \mathbb{R}^n \mapsto \mathbb{R}^p\)</span> is twice continuous differentiable in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p></li>
+<li><p>The linear independence constraint qualification (LICQ) holds at every <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.  That is, the transposed Jacobian of <span class="math notranslate nohighlight">\(c\)</span>, denoted as <span class="math notranslate nohighlight">\(J_c:= [\nabla c_1(x), \nabla c_2(x), ..., \nabla c_p(x)] \in \mathbb{R}^{n\times p}\)</span> , has full column rank at every <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
 </ul>
-<p>As $c$ is smooth,  it is easy to verify that $\mathcal{M}$ is a Riemannian manifold embedded in $\mathbb{R}^n$. Therefore, (OCP) covers optimization problems over a wide range of Riemannian manifolds. Those Riemannian manifolds include sphere, oblique manifold, (generalized) Stiefel manifold, (generalized) Grassmann manifold, hyperbolic manifold, symplectic Stiefel manifold, etc. Interested readers could refer to the <a class="reference external" href="https://www.manopt.org/tutorial.html#manifolds">webpage</a> for more examples on closed Riemannian manifolds.</p>
+<p>As <span class="math notranslate nohighlight">\(c\)</span> is smooth,  it is easy to verify that <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> is a Riemannian manifold embedded in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>. Therefore, (OCP) covers optimization problems over a wide range of Riemannian manifolds. Those Riemannian manifolds include sphere, oblique manifold, (generalized) Stiefel manifold, (generalized) Grassmann manifold, hyperbolic manifold, symplectic Stiefel manifold, etc. Interested readers could refer to the <a class="reference external" href="https://www.manopt.org/tutorial.html#manifolds">webpage</a> for more examples on closed Riemannian manifolds.</p>
 <p>Existing Riemannian optimization packages, including PyManopt, and Geoopt, are developed based on the geometrical materials of the Riemannian manifold. Therefore, these packages only utilize the Riemannian solvers, which are quite limited when compared with unconstrained optimization solvers. Moreover, as determining the geometrical materials for unknown Riemannian manifold are typically challenging, these Riemannian optimization packages only support pre-defined Riemannian manifolds, which are restricted to several well-known cases. Furthermore, as the modules are highly specific, these Riemannian packages are generally hard for users to integrate it with existing popular machine learning frameworks.</p>
 <p>To overcome these issues and facilitate both high performance and ease of use in machine and deep learning, we introduce a new software package called cdopt, which is developed based on the <em>constraint dissolving approaches</em> for Riemannian optimization with some key features,</p>
 <ul class="simple">
@@ -569,74 +572,77 @@ $$</p>
 <div class="section" id="a-deeper-introduction-to-constraint-dissolving-approaches">
 <h2>A deeper introduction to constraint dissolving approaches<a class="headerlink" href="#a-deeper-introduction-to-constraint-dissolving-approaches" title="Permalink to this headline">#</a></h2>
 <p>The <em>constraint dissolving approaches</em> aim to reshape (OCP) as an <strong>unconstrained optimization problem</strong> that adapts to unconstrained optimization approaches while keeping its stationary points unchanged. Therefore, constraint dissolving approaches enable <strong>direct implementation</strong> of unconstrained optimization approaches to solve (OCP).</p>
-<p>Given $c(x)$, we first consider a mapping $\mathcal{A}: \mathbb{R}^n \mapsto \mathbb{R}^n$ that satisfies the following assumptions,</p>
+<p>Given <span class="math notranslate nohighlight">\(c(x)\)</span>, we first consider a mapping <span class="math notranslate nohighlight">\(\mathcal{A}: \mathbb{R}^n \mapsto \mathbb{R}^n\)</span> that satisfies the following assumptions,</p>
 <ul class="simple">
-<li><p>$\mathcal{A}$ is locally Lipschitz continuous in $\mathrm{R}^n$.</p></li>
-<li><p>$\mathcal{A}(x) = x$ holds for any $x \in \mathcal{M}$.</p></li>
-<li><p>For any $x \in \mathcal{M}$, the Jacobian of $c(\mathcal{A}(x))$ equals $0$, i.e., the Jacobian of $\mathcal{A}$, denoted as $J_A(x):=[\nabla \mathcal{A}_1(x), \nabla \mathcal{A}_2(x), …, \nabla \mathcal{A}_n(x)]$, satisfies $J_A(x) J_c(x) = 0$ for any $x \in \mathcal{M}$.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{A}\)</span> is locally Lipschitz continuous in <span class="math notranslate nohighlight">\(\mathrm{R}^n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{A}(x) = x\)</span> holds for any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
+<li><p>For any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>, the Jacobian of <span class="math notranslate nohighlight">\(c(\mathcal{A}(x))\)</span> equals <span class="math notranslate nohighlight">\(0\)</span>, i.e., the Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}\)</span>, denoted as <span class="math notranslate nohighlight">\(J_A(x):=[\nabla \mathcal{A}_1(x), \nabla \mathcal{A}_2(x), ..., \nabla \mathcal{A}_n(x)]\)</span>, satisfies <span class="math notranslate nohighlight">\(J_A(x) J_c(x) = 0\)</span> for any <span class="math notranslate nohighlight">\(x \in \mathcal{M}\)</span>.</p></li>
 </ul>
-<p>Based on the mapping $\mathcal{A}$,  we propose the constraint dissolving function for (OCP),</p>
-<p>$$
+<p>Based on the mapping <span class="math notranslate nohighlight">\(\mathcal{A}\)</span>,  we propose the constraint dissolving function for (OCP),</p>
+<div class="math notranslate nohighlight">
+\[
 h(x) := f(\mathcal{A}(x)) + \frac{\beta}{2} ||c(x)||_2^2. \qquad\qquad \text{(CDF)}
-$$</p>
-<p>Here $\beta &gt; 0$ is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of $\mathcal{M}$. Interested readers could found the detailed proof in the <a class="reference external" href="https://arxiv.org/abs/2203.10319">paper</a>.</p>
-<p>Noting that CDF has the same order of smoothness as the objective function $f(x)$. Therefore, the gradient of CDF is easy to achieve from $f(x)$:</p>
-<p>$$
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>. Interested readers could found the detailed proof in the <a class="reference external" href="https://arxiv.org/abs/2203.10319">paper</a>.</p>
+<p>Noting that CDF has the same order of smoothness as the objective function <span class="math notranslate nohighlight">\(f(x)\)</span>. Therefore, the gradient of CDF is easy to achieve from <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
 \nabla h(x) = J_A(x) \nabla f(\mathcal{A}(x)) + \beta J_c(x) c(x).
-$$</p>
+\]</div>
 <p>Therefore, various approaches that is designed for unconstrained optimization can be <strong>directly</strong> applied to handle Riemannian optimization problems through CDF. Their convergence properties nearly automatically hold from the prior works on unconstrained cases.</p>
-<p>For generalized constraints $c(x) = 0$, we can design $\mathcal{A}$ by</p>
-<p>$$
+<p>For generalized constraints <span class="math notranslate nohighlight">\(c(x) = 0\)</span>, we can design <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
 \mathcal{A}(x) := x - J_c(x) \left(J_c(x)^T J_c(x) + \alpha||c(x)||^2  \right)^{-1}c(x).
-$$</p>
-<p>For several well-known manifolds, we also provide compact expressions for $\mathcal{A}$ in the following table.</p>
+\]</div>
+<p>For several well-known manifolds, we also provide compact expressions for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> in the following table.</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Expression of $c$</p></th>
-<th class="head"><p>Expression of $\mathcal{A}$</p></th>
+<th class="head"><p>Expression of <span class="math notranslate nohighlight">\(c\)</span></p></th>
+<th class="head"><p>Expression of <span class="math notranslate nohighlight">\(\mathcal{A}\)</span></p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Sphere</p></td>
-<td><p>$\left{ x \in \mathbb{R}^{n}: x^\top x = 1 \right}$</p></td>
-<td><p>$x \mapsto 2x\left(1 + x^\top x \right)^{-1} $</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(x \mapsto 2x\left(1 + x^\top x \right)^{-1} \)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>Oblique manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right}$</p></td>
-<td><p>$X \mapsto 2X\left( I_s + \mathrm{Diag}(X^\top X) \right)^{-1} $</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto 2X\left( I_s + \mathrm{Diag}(X^\top X) \right)^{-1} \)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right}$</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top X \right)\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>Grassmann manifold</p></td>
-<td><p>$\left{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right}$</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top X \right)\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>Complex Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{C}^{m\times s}: X^H X = I_s \right}$</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^H X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: X^H X = I_s \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^H X \right)\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>Complex Grassmann manifold</p></td>
-<td><p>$\left{ \mathrm{range}(X): X \in \mathbb{C}^{m\times s},  X^H X = I_s \right}$</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^H X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{C}^{m\times s},  X^H X = I_s \right\}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^H X \right)\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>Generalized Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right}$, $B$ is positive definite</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>Generalized Grassmann manifold</p></td>
-<td><p>$\left{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right}$, $B$ is positive definite</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>Hyperbolic manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right}$, $\lambda_{\min}(B)&lt; 0 &lt; \lambda_{\max}(B)$</p></td>
-<td><p>$X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(\lambda_{\min}(B)&lt; 0 &lt; \lambda_{\max}(B)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X\left( \frac{3}{2}I_s - \frac{1}{2} X^\top B X \right)\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p>Symplectic Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}<em>{m\times m} &amp; I_m\			 -I_m &amp; {\bf 0}</em>{m\times m}			\end{smallmatrix}\right]$</p></td>
-<td><p>$X \mapsto X \left(\frac{3}{2}I_{2s} + \frac{1}{2}Q_sX^\top Q_mX \right)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}\)</span>, <span class="math notranslate nohighlight">\(Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} &amp; I_m\\			 -I_m &amp; {\bf 0}_{m\times m}			\end{smallmatrix}\right]\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(X \mapsto X \left(\frac{3}{2}I_{2s} + \frac{1}{2}Q_sX^\top Q_mX \right)\)</span></p></td>
 </tr>
 <tr class="row-even"><td><p>…</p></td>
 <td><p>…</p></td>

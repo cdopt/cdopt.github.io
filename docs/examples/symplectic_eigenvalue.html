@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Traning Neural Networks with Constrained Weights" href="LeNet_orth.html" />
@@ -622,14 +624,15 @@ title="Print to PDF"
 <h1>Symplectic Eigenvalue Problem<a class="headerlink" href="#symplectic-eigenvalue-problem" title="Permalink to this headline">#</a></h1>
 <div class="section" id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
-<p>Given a positive definite matrix $L \in \mathbb{R}^{n\times n}$, the symplectic eigenvalue problem can be stated as the following optimization problem</p>
-<p>$$
+<p>Given a positive definite matrix <span class="math notranslate nohighlight">\(L \in \mathbb{R}^{n\times n}\)</span>, the symplectic eigenvalue problem can be stated as the following optimization problem</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{R}^{2n \times 2p}}\quad &amp; \frac{1}{2}  \mathrm{tr}\left( X^\top L X  \right)  \
-\text{s. t.} \quad &amp;  X^\top Q_m X = Q_p,
+    \min_{X \in \mathbb{R}^{2n \times 2p}}\quad &amp; \frac{1}{2}  \mathrm{tr}\left( X^\top L X  \right)  \\
+    \text{s. t.} \quad &amp;  X^\top Q_m X = Q_p,
 \end{aligned}
-$$</p>
-<p>where $Q_n := \left[ \begin{smallmatrix}	{\bf 0}<em>{n\times n} &amp; I_n\			 -I_n &amp; {\bf 0}</em>{n\times n}			\end{smallmatrix}\right]$. Such problem is a optimization optimization over the symplectic Stiefel manifold, and we aim to show how to solve it with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(Q_n := \left[ \begin{smallmatrix}	{\bf 0}_{n\times n} &amp; I_n\\			 -I_n &amp; {\bf 0}_{n\times n}			\end{smallmatrix}\right]\)</span>. Such problem is a optimization optimization over the symplectic Stiefel manifold, and we aim to show how to solve it with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
 <h2>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">#</a></h2>
@@ -655,7 +658,7 @@ No JAX package installed
 </div>
 <div class="section" id="generating-datas">
 <h2>Generating datas<a class="headerlink" href="#generating-datas" title="Permalink to this headline">#</a></h2>
-<p>We generate necessary data. Notice that $L$ is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
+<p>We generate necessary data. Notice that <span class="math notranslate nohighlight">\(L\)</span> is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>

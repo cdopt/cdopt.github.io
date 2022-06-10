@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Define your own manifold" href="define_manifolds.html" />
@@ -574,20 +576,23 @@ title="Print to PDF"
 <div class="section" id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Permalink to this headline">#</a></h2>
 <p>We begin with a simple optimization problem with orthogonality constraints,</p>
-<p>$$
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{R}^{m\times s}}\quad &amp;f(X) = -\frac{1}{2}\mathrm{tr}(X^\top HX)\
-\text{s.t.} \quad &amp; X^\top X = I_s,
-\end{aligned}
-$$</p>
-<p>where $H \in \mathbb{R}^{m\times m}$ is a symmetric matrix, and the gradient of $f$ can be expressed as</p>
-<p>$$
+		\min_{X \in \mathbb{R}^{m\times s}}\quad &amp;f(X) = -\frac{1}{2}\mathrm{tr}(X^\top HX)\\
+		\text{s.t.} \quad &amp; X^\top X = I_s,
+	\end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{m\times m}\)</span> is a symmetric matrix, and the gradient of <span class="math notranslate nohighlight">\(f\)</span> can be expressed as</p>
+<div class="math notranslate nohighlight">
+\[
 \nabla f(X) = -HX.
-$$</p>
-<p>The constraints on the matrix $X$ require that $X$ is an orthogonal matrix, i.e., $X$ lies on the Stiefel manifold,</p>
-<p>$$
-\mathcal{S}_{m,s} = {X \in \mathbb{R}^{m\times s}: X^\top X = I_s  }.
-$$</p>
+\]</div>
+<p>The constraints on the matrix <span class="math notranslate nohighlight">\(X\)</span> require that <span class="math notranslate nohighlight">\(X\)</span> is an orthogonal matrix, i.e., <span class="math notranslate nohighlight">\(X\)</span> lies on the Stiefel manifold,</p>
+<div class="math notranslate nohighlight">
+\[
+	\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}. 
+\]</div>
 <p>The following is a minimal working example of how to solve the above problem using <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using Autograd in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import basic functions</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -663,7 +668,7 @@ $$</p>
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">H</span><span class="nd">@X</span><span class="p">))</span>  
 </pre></div>
 </div>
-<p>Then we call <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> to generate a structure that describes the Stiefel manifold $\mathcal{S}_{n,p}$. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the <a class="reference external" href="#manifolds">various supported manifolds</a> for details. The second instruction creates a structure named <code class="docutils literal notranslate"><span class="pre">problem_test</span></code>. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages.</p>
+<p>Then we call <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> to generate a structure that describes the Stiefel manifold <span class="math notranslate nohighlight">\(\mathcal{S}_{n,p}\)</span>. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the <a class="reference external" href="#manifolds">various supported manifolds</a> for details. The second instruction creates a structure named <code class="docutils literal notranslate"><span class="pre">problem_test</span></code>. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set optimization problems and retrieve constraint dissolving functions.</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span> <span class="p">)</span>
 <span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
@@ -677,7 +682,7 @@ $$</p>
 <span class="n">cdf_hvp_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_hvp_vec_np</span>
 </pre></div>
 </div>
-<p>Finally, we call the unconstraint solver from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package to minimize the constraint dissolving function over $\mathbb{R}^{n\times p}$.</p>
+<p>Finally, we call the unconstraint solver from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package to minimize the constraint dissolving function over <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times p}\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
 <span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -694,11 +699,11 @@ $$</p>
 </div>
 <div class="section" id="manifolds">
 <h2>Manifolds<a class="headerlink" href="#manifolds" title="Permalink to this headline">#</a></h2>
-<p>For several well-known manifolds, we provide build-in expressions for $\mathcal{A}$ in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table.</p>
+<p>For several well-known manifolds, we provide build-in expressions for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table.</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Expression of $c$</p></th>
+<th class="head"><p>Expression of <span class="math notranslate nohighlight">\(c\)</span></p></th>
 <th class="head"><p>Pre-defined structure from <code class="docutils literal notranslate"><span class="pre">autograd</span></code></p></th>
 <th class="head"><p>Pre-defined structure from<code class="docutils literal notranslate"><span class="pre">PyTorch</span></code></p></th>
 </tr>
@@ -710,42 +715,42 @@ $$</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.euclidean_torch</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Sphere</p></td>
-<td><p>$\left{ x \in \mathbb{R}^{n}: x^\top x = 1 \right}$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.sphere_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.sphere_torch</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Oblique manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right}$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.obluqie_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.obluqie_torch</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right}$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.stiefel_torch</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Grassmann manifold</p></td>
-<td><p>$\left{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right}$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.stiefel_torch</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Generalized Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right}$, $B$ is positive definite</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.generalized_stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.generalized_stiefel_torch</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Generalized Grassmann manifold</p></td>
-<td><p>$\left{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right}$, $B$ is positive definite</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.generalized_stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.generalized_stiefel_torch</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Hyperbolic manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right}$, $\lambda_{\min}(B)&lt; 0 &lt; \lambda_{\max}(B)$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(\lambda_{\min}(B)&lt; 0 &lt; \lambda_{\max}(B)\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.hyperbolic_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.hyperbolic_torch</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Symplectic Stiefel manifold</p></td>
-<td><p>$\left{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}<em>{m\times m} &amp; I_m\			 -I_m &amp; {\bf 0}</em>{m\times m}			\end{smallmatrix}\right]$</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}\)</span>, <span class="math notranslate nohighlight">\(Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} &amp; I_m\\			 -I_m &amp; {\bf 0}_{m\times m}			\end{smallmatrix}\right]\)</span></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.symp_stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.symp_stiefel_torch</span></code></p></td>
 </tr>
@@ -759,7 +764,7 @@ $$</p>
 </div>
 <div class="section" id="solvers">
 <h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code> and <code class="docutils literal notranslate"><span class="pre">torch_optimizer</span></code> can be directly applied to minimize CDF over $\mathbb{R}^n$.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code> and <code class="docutils literal notranslate"><span class="pre">torch_optimizer</span></code> can be directly applied to minimize CDF over <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
 </div>
 <div class="section" id="automatic-differentiation-backbones">
 <h2>Automatic differentiation backbones<a class="headerlink" href="#automatic-differentiation-backbones" title="Permalink to this headline">#</a></h2>

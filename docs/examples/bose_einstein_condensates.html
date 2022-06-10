@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Symplectic Eigenvalue Problem" href="symplectic_eigenvalue.html" />
@@ -623,19 +625,21 @@ title="Print to PDF"
 <div class="section" id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
 <p>In Bose–Einstein condensates (BEC), under some proper discretization, such as finite difference, sine pseudospectral and Fourier pseudospectral methods, we obtain its discrete version as</p>
-<p>$$
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{C}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \
-\text{s. t.} \quad &amp;  ||x||_2 = 1,
+    \min_{X \in \mathbb{C}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \\
+    \text{s. t.} \quad &amp;  ||x||_2 = 1,
 \end{aligned}
-$$</p>
-<p>where $A$ is a Hermitian matirx, and $\alpha$ is a parameter. Consider a simplified cases where $x$ and $A$ are both real, we each the following optimization problem over the sphere,</p>
-<p>$$
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is a Hermitian matirx, and <span class="math notranslate nohighlight">\(\alpha\)</span> is a parameter. Consider a simplified cases where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(A\)</span> are both real, we each the following optimization problem over the sphere,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{R}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \
-\text{s. t.} \quad &amp;  ||x||_2 = 1,
+    \min_{X \in \mathbb{R}^{n}}\quad &amp; \frac{1}{2} x^H A x + \frac{\alpha}{2}  \sum_{i = 1}^n |x_i|^4  \\
+    \text{s. t.} \quad &amp;  ||x||_2 = 1,
 \end{aligned}
-$$</p>
+\end{split}\]</div>
 <p>In this part, we aim to show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
@@ -664,7 +668,7 @@ No JAX package installed
 </div>
 <div class="section" id="generating-datas">
 <h2>Generating datas<a class="headerlink" href="#generating-datas" title="Permalink to this headline">#</a></h2>
-<p>We generate necessary data. Notice that $L$ is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
+<p>We generate necessary data. Notice that <span class="math notranslate nohighlight">\(L\)</span> is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>

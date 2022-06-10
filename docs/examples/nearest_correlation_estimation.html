@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Bose–Einstein Condensates" href="bose_einstein_condensates.html" />
@@ -622,20 +624,22 @@ title="Print to PDF"
 <h1>Low-Rank Nearest Correlation Estimation<a class="headerlink" href="#low-rank-nearest-correlation-estimation" title="Permalink to this headline">#</a></h1>
 <div class="section" id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
-<p>Given a symmetrix matrix $G \in \mathbb{R}^{n\times n}$ and a nonnegative symmetric weigh matrix $H \in \mathbb{R}^{n\times n}$, the low-rank nearest correlation estimation (NCM) problem aims to find a correlation matrix $W \in \mathbb{R}^{n\times n}$ that minimizes the weighted distance between $W$ and $G$,</p>
-<p>$$
+<p>Given a symmetrix matrix <span class="math notranslate nohighlight">\(G \in \mathbb{R}^{n\times n}\)</span> and a nonnegative symmetric weigh matrix <span class="math notranslate nohighlight">\(H \in \mathbb{R}^{n\times n}\)</span>, the low-rank nearest correlation estimation (NCM) problem aims to find a correlation matrix <span class="math notranslate nohighlight">\(W \in \mathbb{R}^{n\times n}\)</span> that minimizes the weighted distance between <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(G\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{W \in \mathbb{R}^{n\times n}}\quad &amp;\frac{1}{2} || H\circ( W - G ) ||<em>F^2  \
-\text{s. t.} \quad &amp;W</em>{ii} = 1,~ i = 1,2,…,n, ~ \mathrm{rank}(W) \leq p.
+    \min_{W \in \mathbb{R}^{n\times n}}\quad &amp;\frac{1}{2} || H\circ( W - G ) ||_F^2  \\
+    \text{s. t.} \quad &amp;W_{ii} = 1,~ i = 1,2,...,n, ~ \mathrm{rank}(W) \leq p. 
 \end{aligned}
-$$</p>
-<p>We consider the low-rand descomposition of $W = X^\top X$ with $X = [x_1,…, x_n]^\top \in \mathbb{R}^{n\times p}$. Then the NCM problem becomes</p>
-<p>$$
+\end{split}\]</div>
+<p>We consider the low-rand descomposition of <span class="math notranslate nohighlight">\(W = X^\top X\)</span> with <span class="math notranslate nohighlight">\(X = [x_1,..., x_n]^\top \in \mathbb{R}^{n\times p}\)</span>. Then the NCM problem becomes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} || H\circ( X^\top X - G ) ||_F^2  \
-\text{s. t.} \quad &amp; ||x_i||_2^2 = 1, ~i = 1,…,n.
+    \min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} || H\circ( X^\top X - G ) ||_F^2  \\
+    \text{s. t.} \quad &amp; ||x_i||_2^2 = 1, ~i = 1,...,n. 
 \end{aligned}
-$$</p>
+\end{split}\]</div>
 <p>Clearly, this problem is a smooth optimization problem on the Oblique manifold, and we show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
@@ -748,7 +752,7 @@ No JAX package installed
 <div class="section" id="reference">
 <h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
-<li><p>Gao Y, Sun D F. A majorized penalty approach for calibrating rank constrained correlation matrix problems[J]. Preprint available at http://www.math.nus.edu.sg/~matsundf/MajorPen_May5.pdf, 2010, 4(9): 17.</p></li>
+<li><p>Gao Y, Sun D F. A majorized penalty approach for calibrating rank constrained correlation matrix problems[J]. Preprint available at <a class="reference external" href="http://www.math.nus.edu.sg/~matsundf/MajorPen_May5.pdf">http://www.math.nus.edu.sg/~matsundf/MajorPen_May5.pdf</a>, 2010, 4(9): 17.</p></li>
 </ol>
 </div>
 </div>

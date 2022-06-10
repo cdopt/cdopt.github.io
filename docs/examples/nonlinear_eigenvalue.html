@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Low-Rank Nearest Correlation Estimation" href="nearest_correlation_estimation.html" />
@@ -624,13 +626,14 @@ title="Print to PDF"
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
 <p>In this part, we consider the singleparticle Hamiltonian arising from discretizing an 1D Kohn-Sham equation in electronic structure
 calculations,</p>
-<p>$$
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} \mathrm{tr}\left( X^\top LX \right) + \frac{\alpha}{4} \rho^\top L^{-1} \rho\
-\text{s. t.} \quad &amp;X^\top X = I_p,
+    \min_{X \in \mathbb{R}^{n\times p}}\quad &amp;\frac{1}{2} \mathrm{tr}\left( X^\top LX \right) + \frac{\alpha}{4} \rho^\top L^{-1} \rho\\
+    \text{s. t.} \quad &amp;X^\top X = I_p,
 \end{aligned}
-$$</p>
-<p>where $\rho := \mathrm{Diag}(XX^\top)$, $L$ is a tri-diagonal matrix with $2$ on its diagonal and $-1$ on its subdiagonal, and $\alpha &gt; 0$ is a parameter. Such problems have become standard testing problems for investigating the convergence of self-consistent field methods due to its simplicity. Clearly, these problems are smooth optimization problems on the Stiefel manifold, and we show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho := \mathrm{Diag}(XX^\top)\)</span>, <span class="math notranslate nohighlight">\(L\)</span> is a tri-diagonal matrix with <span class="math notranslate nohighlight">\(2\)</span> on its diagonal and <span class="math notranslate nohighlight">\(-1\)</span> on its subdiagonal, and <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> is a parameter. Such problems have become standard testing problems for investigating the convergence of self-consistent field methods due to its simplicity. Clearly, these problems are smooth optimization problems on the Stiefel manifold, and we show how to solve these problems with <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package.</p>
 </div>
 <div class="section" id="importing-modules">
 <h2>Importing modules<a class="headerlink" href="#importing-modules" title="Permalink to this headline">#</a></h2>
@@ -656,7 +659,7 @@ No JAX package installed
 </div>
 <div class="section" id="generating-datas">
 <h2>Generating datas<a class="headerlink" href="#generating-datas" title="Permalink to this headline">#</a></h2>
-<p>We generate necessary data. Notice that $L$ is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
+<p>We generate necessary data. Notice that <span class="math notranslate nohighlight">\(L\)</span> is a sparse matrix, we apply the functions from <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> to accelerate the computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>

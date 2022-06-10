@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Discretized 1D Kohn-Sham Equation" href="nonlinear_eigenvalue.html" />
@@ -622,14 +624,15 @@ title="Print to PDF"
 <h1>Dictionary Learning<a class="headerlink" href="#dictionary-learning" title="Permalink to this headline">#</a></h1>
 <div class="section" id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
-<p>Given data ${y_i}_{i = 1,…,m}$ generated as $y_i = Q z_i$, where $Q$ is a fixed unknown orthogonal matrix and each $x_i$ folllows iid Bernoulli-Gaussian distributation with parameter $\theta \in (0,1)$. The goal is to recover $Z$ and $Q$ from the given data $Y = [y_1, …, y_m]^\top \in \mathrm{R}^{m\times n}$.</p>
-<p>Based on the $\ell_4$-norm maximization model proposed in [1,2], we can consider the following optimization problem,</p>
-<p>$$
+<p>Given data <span class="math notranslate nohighlight">\(\{y_i\}_{i = 1,...,m}\)</span> generated as <span class="math notranslate nohighlight">\(y_i = Q z_i\)</span>, where <span class="math notranslate nohighlight">\(Q\)</span> is a fixed unknown orthogonal matrix and each <span class="math notranslate nohighlight">\(x_i\)</span> folllows iid Bernoulli-Gaussian distributation with parameter <span class="math notranslate nohighlight">\(\theta \in (0,1)\)</span>. The goal is to recover <span class="math notranslate nohighlight">\(Z\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> from the given data <span class="math notranslate nohighlight">\(Y = [y_1, ..., y_m]^\top \in \mathrm{R}^{m\times n}\)</span>.</p>
+<p>Based on the <span class="math notranslate nohighlight">\(\ell_4\)</span>-norm maximization model proposed in [1,2], we can consider the following optimization problem,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{aligned}
-\min_{X = [x_1,…x_n] \in \mathbb{R}^{n\times n}} \quad &amp; f(X) := - \sum_{1\leq i\leq m, 1\leq j\leq n} (y_i^\top x_j)^4\
-\text{s. t.} \quad &amp; X^TX = I_n.
+    \min_{X = [x_1,...x_n] \in \mathbb{R}^{n\times n}} \quad &amp; f(X) := - \sum_{1\leq i\leq m, 1\leq j\leq n} (y_i^\top x_j)^4\\
+    \text{s. t.} \quad &amp; X^TX = I_n. 
 \end{aligned}
-$$</p>
+\end{split}\]</div>
 <p>This problem is nonconvex due to the nonconvex constraints. The constraints define the Stiefel manifold, hence this problem can be regarded as the smooth optimization problem over the Stiefel manifold.</p>
 </div>
 <div class="section" id="importing-modules">
