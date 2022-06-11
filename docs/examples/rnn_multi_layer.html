@@ -206,7 +206,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul class="current">
      <li class="toctree-l3">
       <a class="reference internal" href="LeNet_orth.html">
-       Traning Neural Networks with Constrained Weights
+       Training LeNet with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
@@ -631,12 +631,13 @@ title="Print to PDF"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="training-multi-layer-rnn-with-constrained-weights">
 <h1>Training Multi-Layer RNN with Constrained Weights<a class="headerlink" href="#training-multi-layer-rnn-with-constrained-weights" title="Permalink to this headline">#</a></h1>
-<p>The multi-layer RNN are developed to create higher-level abstractions and capture more non-linearities between the data. With <code class="docutils literal notranslate"><span class="pre">N_layer</span></code> layers, multi-layer RNN has <code class="docutils literal notranslate"><span class="pre">N_layer</span></code> hidden states. Here is an example for two-layer RNN,
-<img src='https://i.imgur.com/NIHrqIO.png' width=500></p>
+<p>The multi-layer RNN are developed to create higher-level abstractions and capture more non-linearities between the data. With <code class="docutils literal notranslate"><span class="pre">N_layer</span></code> layers, multi-layer RNN has <code class="docutils literal notranslate"><span class="pre">N_layer</span></code> hidden states. Here is an example for two-layer RNN,</p>
+<p><img alt="MLRNN1.png" src="../_images/NIHrqIO.png" /></p>
 <p>Similar to single-layer cases, when applied to the classification tasks on MNIST dataset, the structure of multi-layer RNN can be expressed as</p>
-<img src='https://i.imgur.com/j2Yto51.png' width=500>
+<p><img alt="MLRNN2.png" src="../_images/j2Yto51.png" /></p>
 <p>If we unfold the Multilayer RNN layer, it can be expressed as</p>
-<img src='https://i.imgur.com/oyhyofT.png' width=500><div class="section" id="import-modules">
+<p><img alt="MLRNN3.png" src="../_images/oyhyofT.png" /></p>
+<div class="section" id="import-modules">
 <h2>Import modules<a class="headerlink" href="#import-modules" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

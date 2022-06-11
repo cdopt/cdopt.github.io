@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../examples/LeNet_orth.html">
-       Traning Neural Networks with Constrained Weights
+       Training LeNet with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
@@ -511,36 +511,12 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation">
-   Installation
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
@@ -552,19 +528,6 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation">
-   Installation
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -581,21 +544,13 @@ title="Print to PDF"
 <li><p>Using the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> as a high-level interface to describe the optimization problem.</p></li>
 <li><p>Retrieve the corresponding constraint dissolving function and its differentials. Instantiate a solver from various of existing packages, including <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.optimizers</span></code>, to minimize the constraint dissolving function without any constraints.</p></li>
 </ol>
-<p>It is worth mentioning that <code class="docutils literal notranslate"><span class="pre">cdopt.problem</span></code> integrates various pre-processing and concurrency checking steps for the optimization problems. Moreover, it provides an integrated API for calling the related solvers. Therefore, although we can run the solvers without the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> interface, using  <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> to define the problem is always recommended.</p>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> is compatible with Python 3.6+, and depends on NumPy, SciPy and autograd.  To get the latest version of <code class="docutils literal notranslate"><span class="pre">cdopt</span></code>, you can install it via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install cdopt
-</pre></div>
-</div>
-<p>Moreover, <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> supports PyTorch&gt;=1.9.0 in its numerical computation, and one can easily build neural networks where some of the weights are constrained on manifolds. Therefore, we strongly suggest the users to install the PyTorch package.</p>
+<p>It is worth mentioning that <code class="docutils literal notranslate"><span class="pre">cdopt.problem</span></code> integrates various pre-processing and concurrency checking steps for the optimization problems. Moreover, it provides integrated APIs for calling the related solvers. Therefore, although we can run the solvers without the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> interface, using  <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> to define the problem is always recommended.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/quick_start.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/define_manifolds.html">Define your own manifold</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/build_networks.html">Training neural networks with constrained weights</a></li>
 </ul>
-</div>
 </div>
 </div>
 

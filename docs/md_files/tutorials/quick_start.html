@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/LeNet_orth.html">
-       Traning Neural Networks with Constrained Weights
+       Training LeNet with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
@@ -723,7 +723,7 @@ title="Print to PDF"
 <span class="n">cdf_hvp_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_hvp_vec_np</span>
 </pre></div>
 </div>
-<p>Finally, we call the unconstraint solver from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package to minimize the constraint dissolving function over <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times p}\)</span>.</p>
+<p>Finally, we call the L-BFGS solver from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package to minimize the constraint dissolving function over <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times p}\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
 <span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -745,8 +745,8 @@ title="Print to PDF"
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Expression of <span class="math notranslate nohighlight">\(c\)</span></p></th>
-<th class="head"><p>Pre-defined structure from <code class="docutils literal notranslate"><span class="pre">autograd</span></code></p></th>
-<th class="head"><p>Pre-defined structure from<code class="docutils literal notranslate"><span class="pre">PyTorch</span></code></p></th>
+<th class="head"><p>Pre-defined structure from autograd</p></th>
+<th class="head"><p>Pre-defined structure from PyTorch</p></th>
 </tr>
 </thead>
 <tbody>
@@ -805,7 +805,7 @@ title="Print to PDF"
 </div>
 <div class="section" id="solvers">
 <h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>, <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code> and <code class="docutils literal notranslate"><span class="pre">torch_optimizer</span></code> can be directly applied to minimize CDF over <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <a class="reference external" href="https://www.pdfo.net/index.html">PDFO</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize">SciPy</a>, <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">PyTorch</a>, and <a class="reference external" href="https://github.com/jettify/pytorch-optimizer">pytorch-optimizer</a> packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt.</p>
 </div>
 <div class="section" id="automatic-differentiation-backbones">
 <h2>Automatic differentiation backbones<a class="headerlink" href="#automatic-differentiation-backbones" title="Permalink to this headline">#</a></h2>

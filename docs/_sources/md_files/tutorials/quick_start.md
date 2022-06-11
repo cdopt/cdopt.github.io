@@ -146,7 +146,7 @@ cdf_hvp_np = problem_test.cdf_hvp_vec_np
 
 
 
-Finally, we call the unconstraint solver from `scipy.optimize` package to minimize the constraint dissolving function over $\mathbb{R}^{n\times p}$. 
+Finally, we call the L-BFGS solver from `scipy.optimize` package to minimize the constraint dissolving function over $\mathbb{R}^{n\times p}$. 
 
 ```python
 # Implement L-BFGS solver from scipy.optimize
@@ -172,18 +172,18 @@ print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*re
 
 For several well-known manifolds, we provide build-in expressions for $\mathcal{A}$ in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table. 
 
-| Name                           | Expression of $c$                                            | Pre-defined structure from `autograd` | Pre-defined structure from`PyTorch`        |
-| ------------------------------ | ------------------------------------------------------------ | ------------------------------------- | ------------------------------------------ |
-| Euclidean space                | No constraint                                                | `manifold_np.euclidean_np`            | `manifold_torch.euclidean_torch`           |
-| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `manifold_np.sphere_np`               | `manifold_torch.sphere_torch`              |
-| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}$ | `manifold_np.obluqie_np`              | `manifold_torch.obluqie_torch`             |
-| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`              | `manifold_torch.stiefel_torch`             |
-| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`              | `manifold_torch.stiefel_torch`             |
-| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np`  | `manifold_torch.generalized_stiefel_torch` |
-| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np`  | `manifold_torch.generalized_stiefel_torch` |
-| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `manifold_np.hyperbolic_np`           | `manifold_torch.hyperbolic_torch`          |
-| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `manifold_np.symp_stiefel_np`         | `manifold_torch.symp_stiefel_torch`        |
-| ...                            | ...                                                          | ...                                   |                                            |
+| Name                           | Expression of $c$                                            | Pre-defined structure from autograd  | Pre-defined structure from PyTorch         |
+| ------------------------------ | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------ |
+| Euclidean space                | No constraint                                                | `manifold_np.euclidean_np`           | `manifold_torch.euclidean_torch`           |
+| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `manifold_np.sphere_np`              | `manifold_torch.sphere_torch`              |
+| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}$ | `manifold_np.obluqie_np`             | `manifold_torch.obluqie_torch`             |
+| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`             | `manifold_torch.stiefel_torch`             |
+| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`             | `manifold_torch.stiefel_torch`             |
+| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np` | `manifold_torch.generalized_stiefel_torch` |
+| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np` | `manifold_torch.generalized_stiefel_torch` |
+| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `manifold_np.hyperbolic_np`          | `manifold_torch.hyperbolic_torch`          |
+| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `manifold_np.symp_stiefel_np`        | `manifold_torch.symp_stiefel_torch`        |
+| ...                            | ...                                                          | ...                                  |                                            |
 
 
 
@@ -195,7 +195,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## Solvers
 
-`cdopt` package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from `scipy.optimize`, `torch.optim` and `torch_optimizer` can be directly applied to minimize CDF over $\mathbb{R}^n$. 
+`cdopt` package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), and [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
 
 
 
