@@ -49,10 +49,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../md_files/api_reference.html" />
-    <link rel="prev" title="Symplectic Eigenvalue Problem" href="symplectic_eigenvalue.html" />
+    <link rel="next" title="Training Single-Layer RNN with Constrained Weights" href="rnn_single_layer.html" />
+    <link rel="prev" title="Training Neural Networks with Manifold Constraints via PyTorch" href="example_torch.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -155,35 +157,74 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="dictionary_learning.html">
-     Dictionary Learning
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="example_scipy.html">
+     Optimization via SciPy
     </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="dictionary_learning.html">
+       Dictionary Learning
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="nonlinear_eigenvalue.html">
+       Discretized 1D Kohn-Sham Equation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="nearest_correlation_estimation.html">
+       Low-Rank Nearest Correlation Estimation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="bose_einstein_condensates.html">
+       Bose–Einstein Condensates
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="symplectic_eigenvalue.html">
+       Symplectic Eigenvalue Problem
+      </a>
+     </li>
+    </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nonlinear_eigenvalue.html">
-     Discretized 1D Kohn-Sham Equation
+   <li class="toctree-l2 current active has-children">
+    <a class="reference internal" href="example_torch.html">
+     Training Neural Networks with Manifold Constraints via PyTorch
     </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nearest_correlation_estimation.html">
-     Low-Rank Nearest Correlation Estimation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="bose_einstein_condensates.html">
-     Bose–Einstein Condensates
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="symplectic_eigenvalue.html">
-     Symplectic Eigenvalue Problem
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Traning Neural Networks with Constrained Weights
-    </a>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul class="current">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Traning Neural Networks with Constrained Weights
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rnn_single_layer.html">
+       Training Single-Layer RNN with Constrained Weights
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rnn_multi_layer.html">
+       Training Multi-Layer RNN with Constrained Weights
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="rnn_lstm.html">
+       Training LSTM with Constrained Weights
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -191,8 +232,8 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal" href="../md_files/api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -211,8 +252,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../md_files/apis/cdopt_manifold_np.html">
      cdopt.manifold_np
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -263,8 +304,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../md_files/apis/cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-    <label for="toctree-checkbox-5">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -910,17 +951,17 @@ Test set: Average loss: 0.0343, Accuracy: 9892/10000 (99%)
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="symplectic_eigenvalue.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="example_torch.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Symplectic Eigenvalue Problem</p>
+            <p class="prev-next-title">Training Neural Networks with Manifold Constraints via PyTorch</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../md_files/api_reference.html" title="next page">
+    <a class='right-next' id="next-link" href="rnn_single_layer.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">Training Single-Layer RNN with Constrained Weights</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
