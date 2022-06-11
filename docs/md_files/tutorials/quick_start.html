@@ -208,7 +208,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/LeNet_orth.html">
-       Training LeNet with Constrained Weights
+       Training LeNet with Constrained Convolution Kernals
       </a>
      </li>
      <li class="toctree-l3">
@@ -639,7 +639,7 @@ title="Print to PDF"
 \[
 	\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}. 
 \]</div>
-<p>The following is a minimal working example of how to solve the above problem using <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using Autograd in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers.</p>
+<p>The following is a minimal working example of how to solve the above problem using <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using PyTorch in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import basic functions</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
@@ -705,7 +705,7 @@ title="Print to PDF"
 <span class="n">local_dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span>  <span class="c1"># the data type of the pytorch tensor</span>
 </pre></div>
 </div>
-<p>Then we describe the objective function, where the variables are PyTorch tensors. The cost function should be a</p>
+<p>Then we describe the objective function, where the variables are PyTorch tensors. The cost function can be compatible to the automatic differentiation (AD) packages in PyTorch, otherwise, we need to manually provide the gradient and Hessian-vector produce of the objective function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define object function</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span><span class="p">)</span>
 <span class="n">H</span> <span class="o">=</span> <span class="n">H</span><span class="o">+</span><span class="n">H</span><span class="o">.</span><span class="n">T</span> 
@@ -714,13 +714,13 @@ title="Print to PDF"
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">H</span><span class="nd">@X</span><span class="p">))</span>  
 </pre></div>
 </div>
-<p>Then we call <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> to generate a structure that describes the Stiefel manifold <span class="math notranslate nohighlight">\(\mathcal{S}_{n,p}\)</span>. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the <a class="reference external" href="#manifolds">various supported manifolds</a> for details. The second instruction creates a structure named <code class="docutils literal notranslate"><span class="pre">problem_test</span></code>. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages.</p>
+<p>Then we call <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> to generate a structure that describes the Stiefel manifold <span class="math notranslate nohighlight">\(\mathcal{S}_{n,p}\)</span>. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the <a class="reference external" href="#manifolds">various supported manifolds</a> for details. The second instruction creates a structure named <code class="docutils literal notranslate"><span class="pre">problem_test</span></code>. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the AD packages provided by PyTorch.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set optimization problems and retrieve constraint dissolving functions.</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span> <span class="p">)</span>
 <span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian of the corresponding constraint dissolving function.</p>
+<p>After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian-vector product of the corresponding constraint dissolving function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the objective function, gradient, hessian-vector product </span>
 <span class="c1"># of the corresponding constraint dissolving function</span>
 <span class="n">cdf_fun_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_fun_vec_np</span>   
@@ -810,15 +810,15 @@ title="Print to PDF"
 </div>
 <div class="section" id="solvers">
 <h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <a class="reference external" href="https://www.pdfo.net/index.html">PDFO</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize">SciPy</a>, <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">PyTorch</a>, and <a class="reference external" href="https://github.com/jettify/pytorch-optimizer">pytorch-optimizer</a> packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt.</p>
+<p>Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <a class="reference external" href="https://www.pdfo.net/index.html">PDFO</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize">SciPy</a>, <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">PyTorch</a>, and <a class="reference external" href="https://github.com/jettify/pytorch-optimizer">pytorch-optimizer</a> packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt.</p>
 </div>
 <div class="section" id="automatic-differentiation-backbones">
 <h2>Automatic differentiation backbones<a class="headerlink" href="#automatic-differentiation-backbones" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt</span></code> relies on the automatic differentiation (AD) packages to compute the derivatives of the objective function and build the constraint dissolving mapping. In <code class="docutils literal notranslate"><span class="pre">cdopt</span></code>, we provide various of plug-in AD backbones in <code class="docutils literal notranslate"><span class="pre">cdopt.core</span></code> based on <code class="docutils literal notranslate"><span class="pre">autograd</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> packages. Moreover, one can easily build his own AD backbones by other packages, including the <code class="docutils literal notranslate"><span class="pre">jax</span></code> and <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>.</p>
+<p>CDOpt relies on the automatic differentiation (AD) packages to compute the derivatives of the objective function and build the constraint dissolving mapping. In CDOpt, we provide various of plug-in AD backbones in <code class="docutils literal notranslate"><span class="pre">cdopt.core</span></code> based on autograd and PyTorch packages. Moreover, one can easily build his own AD backbones based on other packages, including the <code class="docutils literal notranslate"><span class="pre">jax</span></code> and <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>.</p>
 </div>
 <div class="section" id="cuda-support">
 <h2>CUDA support<a class="headerlink" href="#cuda-support" title="Permalink to this headline">#</a></h2>
-<p>The CUDA support for<code class="docutils literal notranslate"><span class="pre">cdopt</span></code> relies on the employed backbones. Both the computation of constraint dissolving mappings and the unconstrained minimization of CDF can be accelerated by the CUDA support of the selected backbones.</p>
+<p>CDOpt utilizes the CUDA supports from the employed backbones. Both the computation of constraint dissolving mappings and the unconstrained minimization of the constraint dissolving functions can be accelerated by the CUDA support of the selected backbones.</p>
 <p>For example, by setting the <code class="docutils literal notranslate"><span class="pre">local_device</span> <span class="pre">=</span> <span class="pre">torch.device('cuda')</span></code> in the following code blocks, all the computations for CDF are accelerated by CUDA.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import basic functions</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -834,7 +834,7 @@ title="Print to PDF"
 <span class="n">m</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># column size</span>
 <span class="n">s</span> <span class="o">=</span> <span class="mi">8</span>    <span class="c1"># row size</span>
 <span class="n">beta</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># penalty parameter</span>
-<span class="n">local_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>  <span class="c1"># the device to perform the computation</span>
+<span class="n">local_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>  <span class="c1"># the device to perform the computation</span>
 <span class="n">local_dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span>  <span class="c1"># the data type of the pytorch tensor</span>
 
 <span class="c1"># Define object function</span>

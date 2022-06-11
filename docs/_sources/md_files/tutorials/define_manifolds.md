@@ -1,6 +1,6 @@
 # Define your own manifold
 
-Although cdopt provides various pre-defined manifolds in `cdopt.manifold_np` and `cdopt.manifold_torch`, in many scenarios the users may only known the expression of the manifold, and it is difficult to determine all the essential materials for Riemannian optimization. Existing Riemannian optimization packages cannot deal with that issue, since they require geometrical materials (e.g., retractions and their inverse, vector transports, exponential mappings, logarithmic mappings, ...) to describe the Riemannian manifold. 
+Although CDOpt provides various pre-defined manifolds in `cdopt.manifold_np` and `cdopt.manifold_torch`, in many scenarios the users may only known the expression of the manifold, and it is difficult to determine all the essential materials for Riemannian optimization. Existing Riemannian optimization packages cannot deal with that issue, since they require geometrical materials (e.g., retractions and their inverse, vector transports, exponential mappings, logarithmic mappings, ...) to describe the Riemannian manifold. 
 
 
 
@@ -42,12 +42,12 @@ class my_manifold(basic_manifold):
         s = var_shape[1]
         self.T = T
         self.Is = np.eye(s)
+        
         super().__init__('custom_manifold',(m,s), (s,s),  regularize_value = 0.01, backbone = backbone_autograd)
 
 
     def C(self, X):
         return (X.T @ X)@ self.T  - self.Is
-    
     
     def v2m(self,x):
         return np.reshape(x, self.var_shape)
@@ -138,12 +138,6 @@ class my_manifold_with_A(basic_manifold):
 
     def m2v(self,X):
         return X.flatten()
-    
-    def array2tensor(self, X_array):
-        return X_array
-
-    def tensor2array(self, X_tensor):
-        return X_tensor
 
     def Init_point(self, Xinit = None):
         if Xinit == None:

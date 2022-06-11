@@ -192,3 +192,4 @@ This would be an ever increasing list of features. CDOpt currently supports:
 
 - Linear layers and Bilinear layers.
 - Convolutional layers: Conv1d, Conv2d, Conv3d. 
+- Recurrent Layers: RNN, LSTM, GRU, and their [cells](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell). 

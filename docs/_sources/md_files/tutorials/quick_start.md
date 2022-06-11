@@ -37,7 +37,7 @@ $$
 
 
 
-The following is a minimal working example of how to solve the above problem using `cdopt` for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using Autograd in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers. 
+The following is a minimal working example of how to solve the above problem using `cdopt` for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using PyTorch in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers. 
 
 ```python
 # Import basic functions
@@ -111,7 +111,7 @@ local_dtype = torch.float64  # the data type of the pytorch tensor
 
 
 
-Then we describe the objective function, where the variables are PyTorch tensors. The cost function should be a 
+Then we describe the objective function, where the variables are PyTorch tensors. The cost function can be compatible to the automatic differentiation (AD) packages in PyTorch, otherwise, we need to manually provide the gradient and Hessian-vector produce of the objective function. 
 
 ```python
 # Define object function
@@ -124,7 +124,7 @@ def obj_fun(X):
 
 
 
-Then we call `stiefel_torch` to generate a structure that describes the Stiefel manifold $\mathcal{S}_{n,p}$. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the [various supported manifolds](#manifolds) for details. The second instruction creates a structure named `problem_test`. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the automatic differentiation (AD) packages. 
+Then we call `stiefel_torch` to generate a structure that describes the Stiefel manifold $\mathcal{S}_{n,p}$. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the [various supported manifolds](#manifolds) for details. The second instruction creates a structure named `problem_test`. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the AD packages provided by PyTorch.  
 
 ```python
 # Set optimization problems and retrieve constraint dissolving functions.
@@ -134,7 +134,7 @@ problem_test = Problem(M, obj_fun, beta = beta)
 
 
 
-After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian of the corresponding constraint dissolving function. 
+After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian-vector product of the corresponding constraint dissolving function. 
 
 ```python
 # Get the objective function, gradient, hessian-vector product 
@@ -189,13 +189,11 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 
 
-
-
  
 
 ## Solvers
 
-`cdopt` package does not contain any solvers. However, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), and [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
+Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), and [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
 
 
 
@@ -207,7 +205,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## Automatic differentiation backbones
 
-`cdopt` relies on the automatic differentiation (AD) packages to compute the derivatives of the objective function and build the constraint dissolving mapping. In `cdopt`, we provide various of plug-in AD backbones in `cdopt.core` based on `autograd` and `torch.autograd` packages. Moreover, one can easily build his own AD backbones by other packages, including the `jax` and `tensorflow`.  
+CDOpt relies on the automatic differentiation (AD) packages to compute the derivatives of the objective function and build the constraint dissolving mapping. In CDOpt, we provide various of plug-in AD backbones in `cdopt.core` based on autograd and PyTorch packages. Moreover, one can easily build his own AD backbones based on other packages, including the `jax` and `tensorflow`.  
 
 
 
@@ -223,7 +221,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## CUDA support
 
-The CUDA support for`cdopt` relies on the employed backbones. Both the computation of constraint dissolving mappings and the unconstrained minimization of CDF can be accelerated by the CUDA support of the selected backbones. 
+CDOpt utilizes the CUDA supports from the employed backbones. Both the computation of constraint dissolving mappings and the unconstrained minimization of the constraint dissolving functions can be accelerated by the CUDA support of the selected backbones. 
 
 
 
@@ -244,7 +242,7 @@ import time
 m = 200  # column size
 s = 8    # row size
 beta = 100  # penalty parameter
-local_device = torch.device('cpu')  # the device to perform the computation
+local_device = torch.device('cuda')  # the device to perform the computation
 local_dtype = torch.float64  # the data type of the pytorch tensor
 
 # Define object function
