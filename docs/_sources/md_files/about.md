@@ -1,5 +1,15 @@
 # About CDOpt
 
+
+
+## Developers
+
+The Python version of CDOptis developed by Nachuan Xiao, Xiaoyin Hu, Xin Liu and Kim-Chuan Toh. The package is stable and can be used right away. Being research software, it is also perpetually work in progress. We welcome contributions, bug reports and feedback. 
+
+
+
+## Cite CDOpt
+
 If you publish work that uses or refers to CDOpt, please cite the following two papers, which respectively propose the constraint dissolving approaches and describes the CDOpt package:
 
 1. Xiao N, Liu X, Toh K C. Constraint Dissolving Approaches for Riemannian Optimization[J]. arXiv preprint arXiv:2203.10319, 2022.

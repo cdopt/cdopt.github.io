@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -224,6 +226,11 @@ const thebe_selector_output = ".output, .cell_output"
      <li class="toctree-l3">
       <a class="reference internal" href="../examples/sine_sequence.html">
        Time Sequence Prediction with Orthogonality Constrained LSTM
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../examples/distributed_rnn_basic.html">
+       Distributed Training for RNN with Constrained Weights
       </a>
      </li>
     </ul>
@@ -615,12 +622,12 @@ title="Print to PDF"
   <div class="tex2jax_ignore mathjax_ignore section" id="welcome-to-cdopt">
 <h1>Welcome to CDOpt<a class="headerlink" href="#welcome-to-cdopt" title="Permalink to this headline">#</a></h1>
 <p><strong>A Python toolbox for optimization on closed Riemannian manifolds with support for deep learning</strong></p>
-<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of constraint dissolving functions, CDOpt allows for elegant and direct implementations of various unconstrained optimization approaches.</p>
+<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of constraint dissolving functions, CDOpt allows for elegant and direct utilization for various unconstrained optimization approaches, together with a great number of advanced features in modern numerical packages, including SciPy, PyTorch and JAX.</p>
 <p>The constraint dissolving approaches have the following advantages:</p>
 <ul class="simple">
-<li><p><strong>Direct optimization &amp; high efficiency:</strong> CDOpt is developed from the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a></em>, which transforms Riemannian optimization problems to unconstrained optimization problem. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, CDOpt is very efficient and avoids the difficulties in developing Riemannian optimization solvers.</p></li>
+<li><p><strong>Direct optimization &amp; high efficiency:</strong> CDOpt is developed from the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a></em>, which transforms Riemannian optimization problems to unconstrained optimization problem. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, CDOpt is very efficient and naturally avoids the difficulties in developing specialized solvers for Riemannian optimization.</p></li>
+<li><p><strong>High compatibility:</strong> CDOpt has high compatibility with various numerical packages, including Numpy, PyTorch, JAX, etc. Users can directly apply the advanced features of these numerical packages to accelerate the optimization, including the automatic differentiation, CUDA supports, distributed optimization supports, etc.</p></li>
 <li><p><strong>Easy to use:</strong> CDOpt provides various plug-in layers for PyTorch packages. With only minor changes in the original codes, users can easily train the neural network while constrain the weights over various of closed manifolds.</p></li>
-<li><p><strong>High compatibility:</strong> CDOpt has high compatibility with various numerical packages, including Numpy, PyTorch, JAX, etc. Users can directly apply the advanced features of these numerical packages to accelerate the optimization, including the automatic differentiation, CUDA supports, distributed optimization supports, just-in-time compilations, etc.</p></li>
 <li><p><strong>Various constraints:</strong> The optimization problem in CDOpt can be constructed only from the expressions of the objective and constraints. Different from existing Riemannian optimization packages, we can easily and directly describe Riemannian optimization problems in CDOpt without any geometrical materials of the Riemannian manifold (e.g., retractions, tangent spaces, vector-transports, etc.).</p></li>
 </ul>
 <div class="toctree-wrapper compound">
@@ -648,6 +655,7 @@ title="Print to PDF"
 <li class="toctree-l3"><a class="reference internal" href="../examples/rnn_multi_layer.html">Training Multi-Layer RNN with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/rnn_lstm.html">Training LSTM with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/sine_sequence.html">Time Sequence Prediction with Orthogonality Constrained LSTM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/distributed_rnn_basic.html">Distributed Training for RNN with Constrained Weights</a></li>
 </ul>
 </li>
 </ul>
