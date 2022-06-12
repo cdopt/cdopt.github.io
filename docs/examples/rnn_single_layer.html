@@ -352,6 +352,78 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../md_files/apis/cdopt_nn.html">
+     cdopt.nn
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/linear_cdopt.html">
+       Linear_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/bilinear_cdopt.html">
+       Bilinear
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv1d_cdopt.html">
+       Conv1d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv2d_cdopt.html">
+       Conv2d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv3d_cdopt.html">
+       Conv3d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnnbase_cdopt.html">
+       RNNBase_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnn_cdopt.html">
+       RNN_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstm_cdopt.html">
+       LSTM_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/gru_cdopt.html">
+       GRU_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnncell_cdopt.html">
+       RNNCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstmcell_cdopt.html">
+       LSTMCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/grucell_cdopt.html">
+       GRUCell_cdopt
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -666,7 +738,7 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">euclidean_torch</span><span class="p">,</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.utils_torch.nn.modules</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span>
 
 
 
@@ -692,7 +764,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
-Warning: no JAX package installed
+Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
 Device available now: cuda
 </pre></div>
 </div>
@@ -713,10 +785,11 @@ Device available now: cuda
         <span class="nb">super</span><span class="p">(</span><span class="n">VanillaRNN_MNIST</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span>
         
-        <span class="c1"># replace nn.RNN Layer by cdopt.utils.nn.modules.RNN_cdopt</span>
+        <span class="c1"># replace nn.RNN Layer by the layers from `cdopt.nn.RNN_cdopt`. Users can try other manifold classes from `cdopt.manifold_torch`</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">RNN_cdopt</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">manifold_class</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">)</span>
-        <span class="c1"># Fully Connected Layer</span>
+        <span class="c1"># Fully Connected Layer. Users can try other manifold classes from `cdopt.manifold_torch`.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span>
+        <span class="c1"># self.layer = cdopt.nn.Linear_cdopt(hidden_size, self.output_size, manifold_class= stiefel_torch)</span>
     
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">prints</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">prints</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Original Images Shape:&#39;</span><span class="p">,</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>

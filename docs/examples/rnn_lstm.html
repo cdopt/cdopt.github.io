@@ -352,6 +352,78 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../md_files/apis/cdopt_nn.html">
+     cdopt.nn
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/linear_cdopt.html">
+       Linear_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/bilinear_cdopt.html">
+       Bilinear
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv1d_cdopt.html">
+       Conv1d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv2d_cdopt.html">
+       Conv2d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv3d_cdopt.html">
+       Conv3d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnnbase_cdopt.html">
+       RNNBase_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnn_cdopt.html">
+       RNN_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstm_cdopt.html">
+       LSTM_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/gru_cdopt.html">
+       GRU_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnncell_cdopt.html">
+       RNNCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstmcell_cdopt.html">
+       LSTMCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/grucell_cdopt.html">
+       GRUCell_cdopt
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -707,7 +779,7 @@ title="Print to PDF"
 <span class="c1"># To display youtube videos</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">euclidean_torch</span><span class="p">,</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.utils_torch.nn.modules</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span><span class="p">,</span> <span class="n">LSTM_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span><span class="p">,</span> <span class="n">LSTM_cdopt</span>
 
 
 <span class="k">def</span> <span class="nf">set_seed</span><span class="p">(</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">):</span>
@@ -731,7 +803,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
-Warning: no JAX package installed
+Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
 Device available now: cuda
 </pre></div>
 </div>
@@ -825,7 +897,7 @@ Device available now: cuda
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
 <span class="n">input_size</span> <span class="o">=</span> <span class="mi">28</span>       <span class="c1"># width of image</span>
 <span class="n">hidden_size</span> <span class="o">=</span> <span class="mi">128</span>     <span class="c1"># number of hidden neurons</span>
-<span class="n">layer_size</span> <span class="o">=</span> <span class="mi">2</span>        <span class="c1"># number of layers</span>
+<span class="n">layer_size</span> <span class="o">=</span> <span class="mi">4</span>        <span class="c1"># number of layers</span>
 <span class="n">output_size</span> <span class="o">=</span> <span class="mi">10</span>      <span class="c1"># possible choices</span>
 <span class="c1"># =====================</span>
 </pre></div>
@@ -857,16 +929,16 @@ Device available now: cuda
 reshaped images shape: torch.Size([64, 28, 28]) 
 
 lstm_example: LSTM_MNIST(
-  (lstm): LSTM_cdopt(28, 128, num_layers=2, batch_first=True, bidirectional=True)
+  (lstm): LSTM_cdopt(28, 128, num_layers=4, batch_first=True, bidirectional=True)
   (layer): Linear(in_features=256, out_features=10, bias=True)
 ) 
 
 images shape: torch.Size([64, 28, 28])
-hidden_state t0 shape: torch.Size([4, 64, 128]) 
-cell_state t0 shape: torch.Size([4, 64, 128])
+hidden_state t0 shape: torch.Size([8, 64, 128]) 
+cell_state t0 shape: torch.Size([8, 64, 128])
 LSTM: output shape: torch.Size([64, 28, 256]) 
-LSTM: last_hidden_state shape: torch.Size([4, 64, 128]) 
-LSTM: last_cell_state shape: torch.Size([4, 64, 128])
+LSTM: last_hidden_state shape: torch.Size([8, 64, 128]) 
+LSTM: last_cell_state shape: torch.Size([8, 64, 128])
 output reshape: torch.Size([64, 256])
 FNN: Final output shape: torch.Size([64, 10])
 </pre></div>
@@ -987,17 +1059,17 @@ FNN: Final output shape: torch.Size([64, 10])
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Get data ready...
 Training started...
 TRAIN | Epoch: 1/10 | Loss: 0.63 | Accuracy: 0.80
-TRAIN | Epoch: 2/10 | Loss: 0.16 | Accuracy: 0.95
-TRAIN | Epoch: 3/10 | Loss: 0.12 | Accuracy: 0.97
+TRAIN | Epoch: 2/10 | Loss: 0.16 | Accuracy: 0.96
+TRAIN | Epoch: 3/10 | Loss: 0.11 | Accuracy: 0.97
 TRAIN | Epoch: 4/10 | Loss: 0.09 | Accuracy: 0.98
-TRAIN | Epoch: 5/10 | Loss: 0.08 | Accuracy: 0.98
-TRAIN | Epoch: 6/10 | Loss: 0.07 | Accuracy: 0.98
-TRAIN | Epoch: 7/10 | Loss: 0.06 | Accuracy: 0.98
+TRAIN | Epoch: 5/10 | Loss: 0.07 | Accuracy: 0.98
+TRAIN | Epoch: 6/10 | Loss: 0.06 | Accuracy: 0.98
+TRAIN | Epoch: 7/10 | Loss: 0.06 | Accuracy: 0.99
 TRAIN | Epoch: 8/10 | Loss: 0.05 | Accuracy: 0.99
 TRAIN | Epoch: 9/10 | Loss: 0.05 | Accuracy: 0.99
 TRAIN | Epoch: 10/10 | Loss: 0.04 | Accuracy: 0.99
 Testing Started...
-TEST | Average Accuracy per 155 Loaders: 0.98407
+TEST | Average Accuracy per 155 Loaders: 0.98982
 </pre></div>
 </div>
 </div>
@@ -1009,7 +1081,7 @@ TEST | Average Accuracy per 155 Loaders: 0.98407
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.0070, device=&#39;cuda:0&#39;, grad_fn=&lt;AddBackward0&gt;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor(0.0052, device=&#39;cuda:0&#39;, grad_fn=&lt;AddBackward0&gt;)
 </pre></div>
 </div>
 </div>
@@ -1054,7 +1126,10 @@ TEST | Average Accuracy per 155 Loaders: 0.98407
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/rnn_lstm_15_0.png" src="../_images/rnn_lstm_15_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Confusion Matrix: LSTM&#39;)
+</pre></div>
+</div>
+<img alt="../_images/rnn_lstm_15_1.png" src="../_images/rnn_lstm_15_1.png" />
 </div>
 </div>
 </div>
@@ -1083,16 +1158,16 @@ TEST | Average Accuracy per 155 Loaders: 0.98407
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "comp"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "comp",
+            kernelName: "python3",
             path: "./examples"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'comp'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               

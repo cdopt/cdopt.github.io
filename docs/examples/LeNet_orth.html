@@ -352,6 +352,78 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../md_files/apis/cdopt_nn.html">
+     cdopt.nn
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/linear_cdopt.html">
+       Linear_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/bilinear_cdopt.html">
+       Bilinear
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv1d_cdopt.html">
+       Conv1d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv2d_cdopt.html">
+       Conv2d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/conv3d_cdopt.html">
+       Conv3d_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnnbase_cdopt.html">
+       RNNBase_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnn_cdopt.html">
+       RNN_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstm_cdopt.html">
+       LSTM_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/gru_cdopt.html">
+       GRU_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/rnncell_cdopt.html">
+       RNNCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/lstmcell_cdopt.html">
+       LSTMCell_cdopt
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/nn/grucell_cdopt.html">
+       GRUCell_cdopt
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -677,14 +749,14 @@ weights), combined with layers from <code class="docutils literal notranslate"><
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
-<span class="kn">from</span> <span class="nn">cdopt.utils_torch.nn.modules</span> <span class="kn">import</span> <span class="n">Linear_cdopt</span><span class="p">,</span> <span class="n">Conv2d_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">Linear_cdopt</span><span class="p">,</span> <span class="n">Conv2d_cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error importing backbone_jax Possibly JAX is not installed.
-No JAX package installed
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
+Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
 </pre></div>
 </div>
 </div>
@@ -699,7 +771,7 @@ No JAX package installed
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># 1 input image channel, 6 output channels, 5x5 square convolution</span>
-        <span class="c1"># kernel</span>
+        <span class="c1"># kernel, the `manifold_class` can be chosen as any manifold class provided in `cdopt.manifold_torch`</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">)</span>
         <span class="c1"># an affine operation: y = Wx + b</span>
@@ -795,12 +867,12 @@ No JAX package installed
 <span class="n">args</span> <span class="o">=</span> <span class="n">ARGS</span><span class="p">()</span>
 <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>    
 <span class="n">args</span><span class="o">.</span><span class="n">test_batch_size</span> <span class="o">=</span> <span class="mi">1000</span> 
-<span class="n">args</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">args</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">args</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.5</span>    <span class="c1"># learning rate</span>
 <span class="n">args</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.7</span> <span class="c1"># weight-decay parameter</span>
 <span class="n">args</span><span class="o">.</span><span class="n">no_cuda</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># whether use cuda </span>
 <span class="n">args</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># random seed for traning</span>
-<span class="n">args</span><span class="o">.</span><span class="n">log_interval</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># the interval to print trainning information</span>
+<span class="n">args</span><span class="o">.</span><span class="n">log_interval</span> <span class="o">=</span> <span class="mi">200</span>   <span class="c1"># the interval to print trainning information</span>
 <span class="n">args</span><span class="o">.</span><span class="n">save_model</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># whether to save the model</span>
 </pre></div>
 </div>
@@ -860,43 +932,44 @@ No JAX package installed
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Epoch: 1 [0/60000 (0%)]	Loss: 2.323425
-Train Epoch: 1 [6400/60000 (11%)]	Loss: 0.305454
-Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.342166
-Train Epoch: 1 [19200/60000 (32%)]	Loss: 0.076598
-Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.152457
-Train Epoch: 1 [32000/60000 (53%)]	Loss: 0.073171
-Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.043472
-Train Epoch: 1 [44800/60000 (75%)]	Loss: 0.052750
-Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.153437
-Train Epoch: 1 [57600/60000 (96%)]	Loss: 0.096991
+Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.337492
+Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.173824
+Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.047076
+Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.142316
 
-Test set: Average loss: 0.0640, Accuracy: 9791/10000 (98%)
+Test set: Average loss: 0.0612, Accuracy: 9793/10000 (98%)
 
-Train Epoch: 2 [0/60000 (0%)]	Loss: 0.091840
-Train Epoch: 2 [6400/60000 (11%)]	Loss: 0.140720
-Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.014814
-Train Epoch: 2 [19200/60000 (32%)]	Loss: 0.082415
-Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.025335
-Train Epoch: 2 [32000/60000 (53%)]	Loss: 0.008109
-Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.033871
-Train Epoch: 2 [44800/60000 (75%)]	Loss: 0.054052
-Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.167911
-Train Epoch: 2 [57600/60000 (96%)]	Loss: 0.127440
+Train Epoch: 2 [0/60000 (0%)]	Loss: 0.077553
+Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.018011
+Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.019138
+Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.028631
+Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.152057
 
-Test set: Average loss: 0.0522, Accuracy: 9822/10000 (98%)
+Test set: Average loss: 0.0469, Accuracy: 9830/10000 (98%)
 
-Train Epoch: 3 [0/60000 (0%)]	Loss: 0.012227
-Train Epoch: 3 [6400/60000 (11%)]	Loss: 0.065486
-Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.032675
-Train Epoch: 3 [19200/60000 (32%)]	Loss: 0.060754
-Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.008059
-Train Epoch: 3 [32000/60000 (53%)]	Loss: 0.067576
-Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.010240
-Train Epoch: 3 [44800/60000 (75%)]	Loss: 0.054405
-Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.013625
-Train Epoch: 3 [57600/60000 (96%)]	Loss: 0.015315
+Train Epoch: 3 [0/60000 (0%)]	Loss: 0.012290
+Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.030673
+Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.008544
+Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.012734
+Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.011106
 
-Test set: Average loss: 0.0343, Accuracy: 9892/10000 (99%)
+Test set: Average loss: 0.0363, Accuracy: 9889/10000 (99%)
+
+Train Epoch: 4 [0/60000 (0%)]	Loss: 0.004471
+Train Epoch: 4 [12800/60000 (21%)]	Loss: 0.051616
+Train Epoch: 4 [25600/60000 (43%)]	Loss: 0.017461
+Train Epoch: 4 [38400/60000 (64%)]	Loss: 0.137033
+Train Epoch: 4 [51200/60000 (85%)]	Loss: 0.098844
+
+Test set: Average loss: 0.0329, Accuracy: 9904/10000 (99%)
+
+Train Epoch: 5 [0/60000 (0%)]	Loss: 0.020107
+Train Epoch: 5 [12800/60000 (21%)]	Loss: 0.026760
+Train Epoch: 5 [25600/60000 (43%)]	Loss: 0.120611
+Train Epoch: 5 [38400/60000 (64%)]	Loss: 0.004775
+Train Epoch: 5 [51200/60000 (85%)]	Loss: 0.081922
+
+Test set: Average loss: 0.0325, Accuracy: 9902/10000 (99%)
 </pre></div>
 </div>
 </div>
@@ -908,8 +981,8 @@ Test set: Average loss: 0.0343, Accuracy: 9892/10000 (99%)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(6.2068e-05, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
- tensor(0.0007, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;)]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(7.8502e-05, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
+ tensor(0.0003, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;)]
 </pre></div>
 </div>
 </div>

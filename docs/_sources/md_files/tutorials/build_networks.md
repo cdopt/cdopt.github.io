@@ -10,7 +10,7 @@ CDOpt supports PyTorch functions in addition to Manifold optimization. Researche
 
 * CDOpt utilizes tensor computation and GPU/TPU acceleration based on PyTorch.
 * CDOpt is compatible to all the optimizers provided in `torch.optim` and `torch_optimizers`.
-* CDOpt allows building networks by the mixture of layers from `torch.nn` and `cdopt.utils_torch.nn`. The layers provided by CDOpt are plug-in components to various neural networks. 
+* CDOpt allows building networks by the mixture of layers from `torch.nn` and `cdopt.nn`. The layers provided by CDOpt are plug-in components to various neural networks. 
 
 
 
@@ -27,7 +27,7 @@ from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
 import cdopt 
-from cdopt.utils_torch.nn.modules import Linear_cdopt, Conv2d_cdopt
+from cdopt.nn.modules import Linear_cdopt, Conv2d_cdopt
 from cdopt.manifold_torch import stiefel_torch
 ```
 
