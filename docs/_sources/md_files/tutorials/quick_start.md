@@ -27,12 +27,12 @@ $$
 
 
 
-The constraints on the matrix $X$ require that $X$ is an orthogonal matrix, i.e., $X$ lies on the Stiefel manifold, 
+The constraints on the matrix $X$ require that $X$ should be an orthogonal matrix, i.e., $X$ lies on the Stiefel manifold, 
 
 
 
 $$
-	\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}. 
+\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}.
 $$
 
 
@@ -170,20 +170,23 @@ print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*re
 
 ## Manifolds
 
-For several well-known manifolds, we provide build-in expressions for $\mathcal{A}$ in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table. 
+For several well-known manifolds, we provide build-in expressions for $\mathcal{A}$ in the following table. We strongly suggest you to use the pre-defined manifold class if it is included in the following table. 
 
-| Name                           | Expression of $c$                                            | Pre-defined structure from autograd  | Pre-defined structure from PyTorch         |
-| ------------------------------ | ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------ |
-| Euclidean space                | No constraint                                                | `manifold_np.euclidean_np`           | `manifold_torch.euclidean_torch`           |
-| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `manifold_np.sphere_np`              | `manifold_torch.sphere_torch`              |
-| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}$ | `manifold_np.obluqie_np`             | `manifold_torch.obluqie_torch`             |
-| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`             | `manifold_torch.stiefel_torch`             |
-| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `manifold_np.stiefel_np`             | `manifold_torch.stiefel_torch`             |
-| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np` | `manifold_torch.generalized_stiefel_torch` |
-| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `manifold_np.generalized_stiefel_np` | `manifold_torch.generalized_stiefel_torch` |
-| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `manifold_np.hyperbolic_np`          | `manifold_torch.hyperbolic_torch`          |
-| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `manifold_np.symp_stiefel_np`        | `manifold_torch.symp_stiefel_torch`        |
-| ...                            | ...                                                          | ...                                  |                                            |
+| Name                           | Expression of $c$                                            | Pre-defined structure by Numpy | Pre-defined structure by PyTorch | Pre-defined structure by JAX |
+| ------------------------------ | ------------------------------------------------------------ | ------------------------------ | -------------------------------- | ---------------------------- |
+| Euclidean space                | No constraint                                                | `euclidean_np`                 | `euclidean_torch`                | `euclidean_jax`              |
+| Sphere                         | $\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}$        | `sphere_np`                    | `sphere_torch`                   | `sphere_jax`                 |
+| Oblique manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}$ | `obluqie_np`                   | `obluqie_torch`                  | `obluqie_jax`                |
+| Stiefel manifold               | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}$ | `stiefel_np`                   | `stiefel_torch`                  | `stiefel_jax`                |
+| Grassmann manifold             | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}$ | `stiefel_np`                   | `stiefel_torch`                  | `stiefel_jax`                |
+| Generalized Stiefel manifold   | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $B$ is positive definite | `generalized_stiefel_np`       | `generalized_stiefel_torch`      | `generalized_stiefel_jax`    |
+| Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `generalized_stiefel_np`       | `generalized_stiefel_torch`      | `generalized_stiefel_jax`    |
+| Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `hyperbolic_np`                | `hyperbolic_torch`               | `hyperbolic_jax`             |
+| Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `symp_stiefel_np`              | `symp_stiefel_torch`             | `symp_stiefel_jax`           |
+| Complex pshere                 | $\left\{ x \in \mathbb{C}^{n}: x^\top x = 1 \right\}$        | -                              | `complex_shpere_torch`           |                              |
+| Complex oblique manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}$ | -                              | `complex_oblique_torch`          |                              |
+| Complex Stiefel manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: X ^\top X = I_s \right\}$ | -                              | `complex_stiefel_torch`          |                              |
+| ...                            | ...                                                          | ...                            |                                  |                              |
 
 
 

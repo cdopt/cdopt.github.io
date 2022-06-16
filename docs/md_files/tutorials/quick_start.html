@@ -175,6 +175,11 @@ const thebe_selector_output = ".output, .cell_output"
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../examples/dictionary_learning_jax.html">
+       Dictionary Learning accelerated by JIT
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../examples/nonlinear_eigenvalue.html">
        Discretized 1D Kohn-Sham Equation
       </a>
@@ -721,10 +726,10 @@ title="Print to PDF"
 \[
 \nabla f(X) = -HX.
 \]</div>
-<p>The constraints on the matrix <span class="math notranslate nohighlight">\(X\)</span> require that <span class="math notranslate nohighlight">\(X\)</span> is an orthogonal matrix, i.e., <span class="math notranslate nohighlight">\(X\)</span> lies on the Stiefel manifold,</p>
+<p>The constraints on the matrix <span class="math notranslate nohighlight">\(X\)</span> require that <span class="math notranslate nohighlight">\(X\)</span> should be an orthogonal matrix, i.e., <span class="math notranslate nohighlight">\(X\)</span> lies on the Stiefel manifold,</p>
 <div class="math notranslate nohighlight">
 \[
-	\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}. 
+\mathcal{S}_{m,s} = \{X \in \mathbb{R}^{m\times s}: X^\top X = I_s  \}.
 \]</div>
 <p>The following is a minimal working example of how to solve the above problem using <code class="docutils literal notranslate"><span class="pre">cdopt</span></code> for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using PyTorch in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import basic functions</span>
@@ -832,64 +837,93 @@ title="Print to PDF"
 </div>
 <div class="section" id="manifolds">
 <h2>Manifolds<a class="headerlink" href="#manifolds" title="Permalink to this headline">#</a></h2>
-<p>For several well-known manifolds, we provide build-in expressions for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> in the following table. We strongly suggest you to use the provided structures to define the manifold if it is included in the following table.</p>
+<p>For several well-known manifolds, we provide build-in expressions for <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> in the following table. We strongly suggest you to use the pre-defined manifold class if it is included in the following table.</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Expression of <span class="math notranslate nohighlight">\(c\)</span></p></th>
-<th class="head"><p>Pre-defined structure from autograd</p></th>
-<th class="head"><p>Pre-defined structure from PyTorch</p></th>
+<th class="head"><p>Pre-defined structure by Numpy</p></th>
+<th class="head"><p>Pre-defined structure by PyTorch</p></th>
+<th class="head"><p>Pre-defined structure by JAX</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Euclidean space</p></td>
 <td><p>No constraint</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.euclidean_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.euclidean_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">euclidean_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">euclidean_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">euclidean_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Sphere</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ x \in \mathbb{R}^{n}: x^\top x = 1 \right\}\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.sphere_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.sphere_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sphere_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sphere_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sphere_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Oblique manifold</p></td>
-<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X ^\top X) = I_s \right\}\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.obluqie_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.obluqie_torch</span></code></p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obluqie_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obluqie_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">obluqie_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Stiefel manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top X = I_s \right\}\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.stiefel_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Grassmann manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top X = I_s \right\}\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.stiefel_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Generalized Stiefel manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.generalized_stiefel_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.generalized_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Generalized Grassmann manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is positive definite</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.generalized_stiefel_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.generalized_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generalized_stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Hyperbolic manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}\)</span>, <span class="math notranslate nohighlight">\(\lambda_{\min}(B)&lt; 0 &lt; \lambda_{\max}(B)\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.hyperbolic_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.hyperbolic_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hyperbolic_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hyperbolic_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">hyperbolic_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Symplectic Stiefel manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}\)</span>, <span class="math notranslate nohighlight">\(Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} &amp; I_m\\			 -I_m &amp; {\bf 0}_{m\times m}			\end{smallmatrix}\right]\)</span></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_np.symp_stiefel_np</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">manifold_torch.symp_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_jax</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>…</p></td>
+<tr class="row-odd"><td><p>Complex pshere</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ x \in \mathbb{C}^{n}: x^\top x = 1 \right\}\)</span></p></td>
+<td><p>-</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_shpere_torch</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Complex oblique manifold</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}\)</span></p></td>
+<td><p>-</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_oblique_torch</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Complex Stiefel manifold</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: X ^\top X = I_s \right\}\)</span></p></td>
+<td><p>-</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_stiefel_torch</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>…</p></td>
 <td><p>…</p></td>
 <td><p>…</p></td>
+<td><p></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
