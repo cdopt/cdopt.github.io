@@ -2,7 +2,7 @@
 
 ## cdopt.core.Problem
 
-`CLASS cdopt.core.Problem(manifold, obj_fun, obj_grad=None, obj_hvp=None, beta = 0, enable_autodiff = True, backbone = 'torch',  **kwargs)`
+`CLASS cdopt.core.Problem(manifold, obj_fun, obj_grad=None, obj_hvp=None, beta = 0, enable_autodiff = True, backbone = 'torch', enable_jit = False, **kwargs)`
 
 Problem class to define a Riemannian optimization problem. 
 
@@ -24,6 +24,8 @@ Problem class to define a Riemannian optimization problem.
   -- Controls whether to perform the automatic differentiation packages to automatically compute essential materials. If `False`, the `Problem` class does not use any AD package. In that cases, users must provide the expression of `obj_grad` and `obj_hvp`. 
 * **backbone = 'torch'** (str or core.backbone class, optional)
   -- Determines the automatic differentiation packages.  If ``'torch'``, the ``Problem`` class uses the `torch.autograd` to automatically compute essential materials. If ``'autograd'``, the `Problem` class uses the `autograd` package. Otherwise, it can be set as the user-defined backbone class. 
+* **enable_jit = False** (bool)
+  -- Option to enable the JIT for the code. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when `backbone` is chosen based on PyTorch or Numpy. 
 
 
 

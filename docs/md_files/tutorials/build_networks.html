@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Training neural networks with constrained weights &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
+    <title>Training neural networks with constraints &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -142,7 +142,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     Training neural networks with constrained weights
+     Training neural networks with constraints
     </a>
    </li>
   </ul>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/dictionary_learning_jax.html">
-       Dictionary Learning accelerated by JIT
+       Dictionary Learning Accelerated by JIT
       </a>
      </li>
      <li class="toctree-l3">
@@ -211,7 +211,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/LeNet_orth.html">
-       Training LeNet with Constrained Convolution Kernals
+       Training LeNet with Constrained Convolution Kernels
       </a>
      </li>
      <li class="toctree-l3">
@@ -246,14 +246,31 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../examples/example_jax.html">
+     Training Neural Networks with Manifold Constraints via JAX and FLAX
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../examples/LeNet_orth_jax.html">
+       Training LeNet with Constrained Convolution Kernels by JAX and FLAX
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -272,8 +289,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../apis/cdopt_manifold_np.html">
      cdopt.manifold_np
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -324,8 +341,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../apis/cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -376,8 +393,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../apis/cdopt_nn.html">
      cdopt.nn
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -629,6 +646,16 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-pytorch">
+   Training by PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
+   Training by JAX and FLAX
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supported-components">
    Supported components
   </a>
@@ -659,7 +686,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Training neural networks with constrained weights</h1>
+                <h1>Training neural networks with constraints</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -669,6 +696,16 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-pytorch">
+   Training by PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
+   Training by JAX and FLAX
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supported-components">
    Supported components
@@ -701,15 +738,17 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="training-neural-networks-with-constrained-weights">
-<h1>Training neural networks with constrained weights<a class="headerlink" href="#training-neural-networks-with-constrained-weights" title="Permalink to this headline">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="training-neural-networks-with-constraints">
+<h1>Training neural networks with constraints<a class="headerlink" href="#training-neural-networks-with-constraints" title="Permalink to this headline">#</a></h1>
 <p>Training deep neural networks is usually thought to be challenging both theoretically and practically, for which the vanishing/exploding gradients is one of the most important reasons.  To address such issue, several recent works focus on imposing Riemannian constraints to the weights of the layers in these deep neural networks. For example, some existing works demonstrate that the orthogonal constraints can stabilize the distribution of activations over layers within convolutional neural networks and make their optimization more efficient. And they observe encouraging improvements in the accuracy and robustness of the networks with orthogonal constraints.</p>
-<p>CDOpt supports PyTorch functions in addition to Manifold optimization. Researchers and developers can easily train neurnal networks with constrained weights based on the combination of CDOpt and PyTorch. Compared with existing PyTorch-based Riemannian optimization packages, CDOpt has the following features,</p>
+<p>CDOpt supports PyTorch functions in addition to Manifold optimization. Researchers and developers can easily train neural networks with constrained weights based on the combination of CDOpt and PyTorch. Compared with existing PyTorch-based Riemannian optimization packages, CDOpt has the following features,</p>
 <ul class="simple">
-<li><p>CDOpt utilizes tensor computation and GPU/TPU acceleration based on PyTorch.</p></li>
-<li><p>CDOpt is compatible to all the optimizers provided in <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code> and <code class="docutils literal notranslate"><span class="pre">torch_optimizers</span></code>.</p></li>
-<li><p>CDOpt allows building networks by the mixture of layers from <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code>. The layers provided by CDOpt are plug-in components to various neural networks.</p></li>
+<li><p>CDOpt utilizes tensor computation and GPU/TPU acceleration based on PyTorch and JAX.</p></li>
+<li><p>CDOpt is compatible to all the optimizers provided in <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code>,<code class="docutils literal notranslate"><span class="pre">torch_optimizers</span></code> and Optax.</p></li>
+<li><p>CDOpt provides plug-in neural layers  in <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.linen</span></code>.  These layers can be directly plugged in any network built by PyTorch and JAX.</p></li>
 </ul>
+<div class="section" id="training-by-pytorch">
+<h2>Training by PyTorch<a class="headerlink" href="#training-by-pytorch" title="Permalink to this headline">#</a></h2>
 <p>Let us start with a simple example on training neural networks with orthogonal weights. We first import essential packages.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
@@ -851,28 +890,189 @@ title="Print to PDF"
     <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;mnist_cnn.pt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="training-by-jax-and-flax">
+<h2>Training by JAX and FLAX<a class="headerlink" href="#training-by-jax-and-flax" title="Permalink to this headline">#</a></h2>
+<p>Let us start with a simple example on training neural networks with orthogonal weights by FLAX, a neural network library developed from JAX . We first import essential packages.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax</span>
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>                <span class="c1"># JAX NumPy</span>
+
+<span class="kn">from</span> <span class="nn">flax</span> <span class="kn">import</span> <span class="n">linen</span> <span class="k">as</span> <span class="n">nn</span>           <span class="c1"># The Linen API</span>
+<span class="kn">from</span> <span class="nn">flax.training</span> <span class="kn">import</span> <span class="n">train_state</span>  <span class="c1"># Useful dataclass to keep train state</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                     <span class="c1"># Ordinary NumPy</span>
+<span class="kn">import</span> <span class="nn">optax</span>                           <span class="c1"># Optimizers</span>
+<span class="kn">import</span> <span class="nn">tensorflow_datasets</span> <span class="k">as</span> <span class="nn">tfds</span>     <span class="c1"># TFDS for MNIST</span>
+
+<span class="kn">import</span> <span class="nn">cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.linen</span> <span class="kn">import</span> <span class="n">Conv_cdopt</span><span class="p">,</span> <span class="n">Dense_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.manifold_jax</span> <span class="kn">import</span> <span class="n">sphere_jax</span><span class="p">,</span> <span class="n">stiefel_jax</span><span class="p">,</span> <span class="n">euclidean_jax</span>
+</pre></div>
+</div>
+<p>Then we build the network by the neural layers from <code class="docutils literal notranslate"><span class="pre">cdopt.linen</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;A simple CNN model.&quot;&quot;&quot;</span>
+
+  <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
+  <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">quad_penalty</span> <span class="o">=</span> <span class="n">Conv_cdopt</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">manifold_class</span> <span class="o">=</span> <span class="n">sphere_jax</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">avg_pool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">avg_pool</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># flatten</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">256</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">features</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">quad_penalty</span>
+</pre></div>
+</div>
+<p>Then we define the cross entropy loss and metrics</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cross_entropy_loss</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+  <span class="n">labels_onehot</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">optax</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels_onehot</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+  
+<span class="k">def</span> <span class="nf">compute_metrics</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">feas</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+  <span class="n">accuracy</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span>
+  <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span>
+      <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span>
+      <span class="s1">&#39;feas&#39;</span><span class="p">:</span> <span class="n">feas</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">metrics</span>
+</pre></div>
+</div>
+<p>Then we define how to train the network by utilizing the <code class="docutils literal notranslate"><span class="pre">train_state</span></code> class provided in FLAX,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_train_state</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">momentum</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Creates initial `TrainState`.&quot;&quot;&quot;</span>
+  <span class="n">cnn</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">()</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span>
+  <span class="n">tx</span> <span class="o">=</span> <span class="n">optax</span><span class="o">.</span><span class="n">sgd</span><span class="p">(</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">momentum</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">train_state</span><span class="o">.</span><span class="n">TrainState</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+      <span class="n">apply_fn</span><span class="o">=</span><span class="n">cnn</span><span class="o">.</span><span class="n">apply</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="n">tx</span><span class="p">)</span>
+      
+      
+<span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Train for a single step.&quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">logits</span><span class="p">,</span> <span class="n">quad_penalty</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">({</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">},</span> <span class="n">batch</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">quad_penalty</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">logits</span>
+  <span class="n">grad_fn</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">value_and_grad</span><span class="p">(</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">has_aux</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">logits</span><span class="p">),</span> <span class="n">grads</span> <span class="o">=</span> <span class="n">grad_fn</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+  <span class="n">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="n">grads</span><span class="o">=</span><span class="n">grads</span><span class="p">)</span>
+  <span class="n">metrics</span> <span class="o">=</span> <span class="n">compute_metrics</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">])</span>
+  <span class="k">return</span> <span class="n">state</span><span class="p">,</span> <span class="n">metrics</span>
+  
+<span class="k">def</span> <span class="nf">train_epoch</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">rng</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Train for a single epoch.&quot;&quot;&quot;</span>
+  <span class="n">train_ds_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_ds</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
+  <span class="n">steps_per_epoch</span> <span class="o">=</span> <span class="n">train_ds_size</span> <span class="o">//</span> <span class="n">batch_size</span>
+
+  <span class="n">perms</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span> <span class="n">train_ds_size</span><span class="p">)</span>
+  <span class="n">perms</span> <span class="o">=</span> <span class="n">perms</span><span class="p">[:</span><span class="n">steps_per_epoch</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">]</span>  <span class="c1"># skip incomplete batch</span>
+  <span class="n">perms</span> <span class="o">=</span> <span class="n">perms</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">steps_per_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">))</span>
+  <span class="n">batch_metrics</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">perm</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">:</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="n">perm</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">state</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+    <span class="n">batch_metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+
+  <span class="c1"># compute mean of metrics across each batch in epoch.</span>
+  <span class="n">batch_metrics_np</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_get</span><span class="p">(</span><span class="n">batch_metrics</span><span class="p">)</span>
+  <span class="n">epoch_metrics_np</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">metrics</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">batch_metrics_np</span><span class="p">])</span>
+      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">batch_metrics_np</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train epoch: </span><span class="si">%d</span><span class="s1">, loss: </span><span class="si">%.4f</span><span class="s1">, accuracy: </span><span class="si">%.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
+      <span class="n">epoch</span><span class="p">,</span> <span class="n">epoch_metrics_np</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">epoch_metrics_np</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+
+  <span class="k">return</span> <span class="n">state</span>
+</pre></div>
+</div>
+<p>Then we define the test steps,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">def</span> <span class="nf">eval_step</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+  <span class="n">logits</span><span class="p">,</span> <span class="n">quad_penalty</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">({</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="n">params</span><span class="p">},</span> <span class="n">batch</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span>
+  <span class="k">return</span> <span class="n">compute_metrics</span><span class="p">(</span><span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span> <span class="n">feas</span> <span class="o">=</span> <span class="n">quad_penalty</span><span class="p">)</span>
+  
+  
+<span class="k">def</span> <span class="nf">eval_model</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">test_ds</span><span class="p">):</span>
+  <span class="n">metrics</span> <span class="o">=</span> <span class="n">eval_step</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">test_ds</span><span class="p">)</span>
+  <span class="n">metrics</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_get</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+  <span class="n">summary</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">tree_map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">metrics</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">],</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">],</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;feas&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Next, we load the dataset by Tensorflow,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_datasets</span><span class="p">():</span>
+  <span class="sd">&quot;&quot;&quot;Load MNIST train and test datasets into memory.&quot;&quot;&quot;</span>
+  <span class="n">ds_builder</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">builder</span><span class="p">(</span><span class="s1">&#39;mnist&#39;</span><span class="p">)</span>
+  <span class="n">ds_builder</span><span class="o">.</span><span class="n">download_and_prepare</span><span class="p">()</span>
+  <span class="n">train_ds</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">as_numpy</span><span class="p">(</span><span class="n">ds_builder</span><span class="o">.</span><span class="n">as_dataset</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+  <span class="n">test_ds</span> <span class="o">=</span> <span class="n">tfds</span><span class="o">.</span><span class="n">as_numpy</span><span class="p">(</span><span class="n">ds_builder</span><span class="o">.</span><span class="n">as_dataset</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
+  <span class="n">train_ds</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">train_ds</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mf">255.</span>
+  <span class="n">test_ds</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">test_ds</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mf">255.</span>
+  <span class="k">return</span> <span class="n">train_ds</span><span class="p">,</span> <span class="n">test_ds</span>
+  
+<span class="n">train_ds</span><span class="p">,</span> <span class="n">test_ds</span> <span class="o">=</span> <span class="n">get_datasets</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Finally, we set the arguments and start the training,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">rng</span><span class="p">,</span> <span class="n">init_rng</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">momentum</span> <span class="o">=</span> <span class="mf">0.9</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">create_train_state</span><span class="p">(</span><span class="n">init_rng</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">momentum</span><span class="p">)</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+  <span class="c1"># Use a separate PRNG key to permute image data during shuffling</span>
+  <span class="n">rng</span><span class="p">,</span> <span class="n">input_rng</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rng</span><span class="p">)</span>
+  <span class="c1"># Run an optimization step over a training batch</span>
+  <span class="n">state</span> <span class="o">=</span> <span class="n">train_epoch</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">train_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">input_rng</span><span class="p">)</span>
+  <span class="c1"># Evaluate on the test set after each training epoch </span>
+  <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_accuracy</span><span class="p">,</span> <span class="n">feas</span> <span class="o">=</span> <span class="n">eval_model</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">params</span><span class="p">,</span> <span class="n">test_ds</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; test epoch: </span><span class="si">%d</span><span class="s1">, loss: </span><span class="si">%.2f</span><span class="s1">, accuracy: </span><span class="si">%.2f</span><span class="s1">, feas: </span><span class="si">%.2e</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
+      <span class="n">epoch</span><span class="p">,</span> <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_accuracy</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">feas</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="supported-components">
 <h2>Supported components<a class="headerlink" href="#supported-components" title="Permalink to this headline">#</a></h2>
 <p>This would be an ever increasing list of features. CDOpt currently supports:</p>
 <div class="section" id="manifolds">
 <h3>Manifolds<a class="headerlink" href="#manifolds" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>All the manifolds in <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_torch</span></code>.</p></li>
+<li><p>All the manifolds in <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_torch</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_jax</span></code>.</p></li>
 </ul>
 </div>
 <div class="section" id="optimizers">
 <h3>Optimizers<a class="headerlink" href="#optimizers" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>All the optimizers in <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code>.</p></li>
-<li><p>All the optimizers in <code class="docutils literal notranslate"><span class="pre">torch_optimizer</span></code>.</p></li>
+<li><p>All the optimizers from PyTorch.</p></li>
+<li><p>All the optimizers from Torch-optimizer.</p></li>
+<li><p>All the optimizers from Optax.</p></li>
 </ul>
 </div>
 <div class="section" id="layers">
 <h3>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">#</a></h3>
+<p>For PyTorch</p>
 <ul class="simple">
 <li><p>Linear layers and Bilinear layers.</p></li>
 <li><p>Convolutional layers: Conv1d, Conv2d, Conv3d.</p></li>
 <li><p>Recurrent Layers: RNN, LSTM, GRU, and their <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell">cells</a>.</p></li>
+<li></li>
+</ul>
+<p>For JAX/FLAX:</p>
+<ul class="simple">
+<li><p>Linear layers</p></li>
+<li><p>Convolutional layers</p></li>
 </ul>
 </div>
 </div>

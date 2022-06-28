@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -139,7 +141,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="tutorials/build_networks.html">
-     Training neural networks with constrained weights
+     Training neural networks with constraints
     </a>
    </li>
   </ul>
@@ -208,7 +210,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../examples/LeNet_orth.html">
-       Training LeNet with Constrained Convolution Kernals
+       Training LeNet with Constrained Convolution Kernels
       </a>
      </li>
      <li class="toctree-l3">
@@ -243,14 +245,31 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../examples/example_jax.html">
+     Training Neural Networks with Manifold Constraints via JAX and FLAX
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../examples/LeNet_orth_jax.html">
+       Training LeNet with Constrained Convolution Kernels by JAX and FLAX
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -269,8 +288,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="apis/cdopt_manifold_np.html">
      cdopt.manifold_np
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -321,8 +340,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="apis/cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -373,8 +392,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="apis/cdopt_nn.html">
      cdopt.nn
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -645,7 +664,7 @@ title="Print to PDF"
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorials</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/quick_start.html">Quickstart</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/define_manifolds.html">Define your own manifold</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/build_networks.html">Training neural networks with constrained weights</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/build_networks.html">Training neural networks with constraints</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
@@ -659,13 +678,17 @@ title="Print to PDF"
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples/example_torch.html">Training Neural Networks with Manifold Constraints via PyTorch</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../examples/LeNet_orth.html">Training LeNet with Constrained Convolution Kernals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../examples/LeNet_orth.html">Training LeNet with Constrained Convolution Kernels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/rnn_single_layer.html">Training Single-Layer RNN with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/rnn_multi_layer.html">Training Multi-Layer RNN with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/rnn_lstm.html">Training LSTM with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/sine_sequence.html">Time Sequence Prediction with Orthogonality Constrained LSTM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/distributed_rnn_basic.html">Distributed Training for RNN with Constrained Weights</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../examples/distributed_linear_basic.html">Distributed Training for A Simple Network by Distributed RPC Framework</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/example_jax.html">Training Neural Networks with Manifold Constraints via JAX and FLAX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../examples/LeNet_orth_jax.html">Training LeNet with Constrained Convolution Kernels by JAX and FLAX</a></li>
 </ul>
 </li>
 </ul>

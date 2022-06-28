@@ -144,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../tutorials/build_networks.html">
-     Training neural networks with constrained weights
+     Training neural networks with constraints
     </a>
    </li>
   </ul>
@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/dictionary_learning_jax.html">
-       Dictionary Learning accelerated by JIT
+       Dictionary Learning Accelerated by JIT
       </a>
      </li>
      <li class="toctree-l3">
@@ -213,7 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../../examples/LeNet_orth.html">
-       Training LeNet with Constrained Convolution Kernals
+       Training LeNet with Constrained Convolution Kernels
       </a>
      </li>
      <li class="toctree-l3">
@@ -248,14 +248,31 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../examples/example_jax.html">
+     Training Neural Networks with Manifold Constraints via JAX and FLAX
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../examples/LeNet_orth_jax.html">
+       Training LeNet with Constrained Convolution Kernels by JAX and FLAX
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../api_reference.html">
    API Reference
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -274,8 +291,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="cdopt_manifold_np.html">
      cdopt.manifold_np
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -326,8 +343,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -378,8 +395,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="cdopt_nn.html">
      cdopt.nn
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -693,7 +710,7 @@ title="Print to PDF"
 <h1>cdopt.core<a class="headerlink" href="#cdopt-core" title="Permalink to this headline">#</a></h1>
 <div class="section" id="cdopt-core-problem">
 <h2>cdopt.core.Problem<a class="headerlink" href="#cdopt-core-problem" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">cdopt.core.Problem(manifold,</span> <span class="pre">obj_fun,</span> <span class="pre">obj_grad=None,</span> <span class="pre">obj_hvp=None,</span> <span class="pre">beta</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">enable_autodiff</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">backbone</span> <span class="pre">=</span> <span class="pre">'torch',</span>&#160; <span class="pre">**kwargs)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">cdopt.core.Problem(manifold,</span> <span class="pre">obj_fun,</span> <span class="pre">obj_grad=None,</span> <span class="pre">obj_hvp=None,</span> <span class="pre">beta</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">enable_autodiff</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">backbone</span> <span class="pre">=</span> <span class="pre">'torch',</span> <span class="pre">enable_jit</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">**kwargs)</span></code></p>
 <p>Problem class to define a Riemannian optimization problem.</p>
 <p><strong>Parameters:</strong></p>
 <ul class="simple">
@@ -711,6 +728,8 @@ title="Print to PDF"
 – Controls whether to perform the automatic differentiation packages to automatically compute essential materials. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class does not use any AD package. In that cases, users must provide the expression of <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> and <code class="docutils literal notranslate"><span class="pre">obj_hvp</span></code>.</p></li>
 <li><p><strong>backbone = ‘torch’</strong> (str or core.backbone class, optional)
 – Determines the automatic differentiation packages.  If <code class="docutils literal notranslate"><span class="pre">'torch'</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class uses the <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> to automatically compute essential materials. If <code class="docutils literal notranslate"><span class="pre">'autograd'</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class uses the <code class="docutils literal notranslate"><span class="pre">autograd</span></code> package. Otherwise, it can be set as the user-defined backbone class.</p></li>
+<li><p><strong>enable_jit = False</strong> (bool)
+– Option to enable the JIT for the code. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when <code class="docutils literal notranslate"><span class="pre">backbone</span></code> is chosen based on PyTorch or Numpy.</p></li>
 </ul>
 <p><strong>Attributes:</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_fun(x)</span></code> (callable)</p>
