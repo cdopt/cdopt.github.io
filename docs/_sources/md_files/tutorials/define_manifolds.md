@@ -33,7 +33,7 @@ where $T \in \mathbb{R}^{s\times s}$ is a positive definite matrix (i.e., all of
 import numpy as np
 import cdopt
 from cdopt.manifold import basic_manifold
-from cdopt.core.problem import Problem
+from cdopt.core.problem import problem
 from cdopt.core.backbone_autograd import backbone_autograd
 class my_manifold(basic_manifold):
     def __init__(self, var_shape, T):
@@ -84,7 +84,7 @@ import autograd.numpy as anp
 def obj_fun(X):
     return -0.5 * anp.sum(X * X) 
 
-problem_test = Problem(M, obj_fun, beta = 1000)
+problem_test = problem(M, obj_fun, beta = 1000)
 ```
 
 Finally, we retrieve the gradients and hessians of CDF function from `problem.test` and apply `scipy.optimize.lbfgs` solver to minimize CDF. 
@@ -241,7 +241,7 @@ M = my_manifold_torch((m, s), T, device = torch.device('cpu'), dtype = torch.flo
 def obj_fun(X):
     return -0.5 * torch.sum(X * X) 
 
-problem_test = Problem(M, obj_fun, beta = 1000)
+problem_test = problem(M, obj_fun, beta = 1000)
 
 
 cdf_fun_np = problem_test.cdf_fun_vec_np   

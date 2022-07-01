@@ -1,8 +1,8 @@
 # cdopt.core
 
-## cdopt.core.Problem
+## cdopt.core.problem
 
-`CLASS cdopt.core.Problem(manifold, obj_fun, obj_grad=None, obj_hvp=None, beta = 0, enable_autodiff = True, backbone = 'torch', enable_jit = False, **kwargs)`
+`CLASS cdopt.core.problem(manifold, obj_fun, obj_grad=None, obj_hvp=None, beta = 'auto', enable_autodiff = True, backbone = 'torch', enable_jit = True, autobeta_args = {}, **kwargs)`
 
 Problem class to define a Riemannian optimization problem. 
 
@@ -18,20 +18,46 @@ Problem class to define a Riemannian optimization problem.
   -- The Euclidean gradient of the objective function.
 * **obj_hvp=None** (callable, optional)
   -- The Euclidean hessian-vector product of the objective function.
-* **beta = 0** (float, optional)
-  -- The penalty parameter.
+* **beta = 'auto'** (str or float, optional)
+  -- The penalty parameter $\beta$ for the constraint dissolving function. When set as `'auto'`, CDOpt will automatically choose the penalty parameter by a heuristic rule. 
 * **enable_autodiff  = True** (bool, optional) 
   -- Controls whether to perform the automatic differentiation packages to automatically compute essential materials. If `False`, the `Problem` class does not use any AD package. In that cases, users must provide the expression of `obj_grad` and `obj_hvp`. 
 * **backbone = 'torch'** (str or core.backbone class, optional)
   -- Determines the automatic differentiation packages.  If ``'torch'``, the ``Problem`` class uses the `torch.autograd` to automatically compute essential materials. If ``'autograd'``, the `Problem` class uses the `autograd` package. Otherwise, it can be set as the user-defined backbone class. 
 * **enable_jit = False** (bool)
-  -- Option to enable the JIT for the code. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when `backbone` is chosen based on PyTorch or Numpy. 
+  -- Option to enable the JIT for the constraint dissolving functions. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when `backbone` is chosen based on PyTorch or Numpy. 
+* **Xinit = None** (Numpy array) 
+  -- Option to set the initial point. 
+* **autobeta_args  = {}** (Dict) 
+  -- Options for automatically choosing the penalty parameter $\beta$. 
+  * `'max_samples': 100  `   -- The number of samples. 
+  * `'sample_dist': 1e-2`    -- The sampling distance.
+  * `'thresholding': 1e-5`  -- The lower-bound for the penalty parameter.
+  * `'coeffs': 2.5` -- The coefficients that adjust the penalty parameter.
 
 
 
 
 
 **Attributes:**
+
+`beta` (float)
+
+​				The penalty parameter $\beta$.
+
+
+
+`Xinit` (NumPy array or PyTorch Tensor or JAX device array)
+
+​				The initial point.
+
+
+
+`Xinit_np_vec` (NumPy 1D array)
+
+​				The flattened initial point.
+
+
 
 `obj_fun(x)` (callable)
 

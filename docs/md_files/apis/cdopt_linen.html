@@ -5,56 +5,56 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Installation &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
+    <title>cdopt.linen &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
     
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tutorials" href="tutorial.html" />
-    <link rel="prev" title="Overview" href="overview.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="linen.linear" href="linen/Linear_cdopt.html" />
+    <link rel="prev" title="GRUCell_cdopt" href="nn/grucell_cdopt.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -89,14 +89,14 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="bd-sidebar noprint" id="site-navigation">
     <div class="bd-sidebar__content">
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
       
       
       <h1 class="site-logo" id="site-title">Constraint Dissolving Approaches for Riemannian Optimization</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -104,24 +104,24 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
+                <a class="reference internal" href="../intro.html">
                     Welcome to CDOpt
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="overview.html">
+  <a class="reference internal" href="../overview.html">
    Overview
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../installation.html">
    Installation
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="tutorial.html">
+  <a class="reference internal" href="../tutorial.html">
    Tutorials
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -131,24 +131,24 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/quick_start.html">
+    <a class="reference internal" href="../tutorials/quick_start.html">
      Quickstart
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/define_manifolds.html">
+    <a class="reference internal" href="../tutorials/define_manifolds.html">
      Define your own manifold
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/build_networks.html">
+    <a class="reference internal" href="../tutorials/build_networks.html">
      Training neural networks with constraints
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="examples.html">
+  <a class="reference internal" href="../examples.html">
    Examples
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -158,7 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../examples/example_scipy.html">
+    <a class="reference internal" href="../../examples/example_scipy.html">
      Optimization via SciPy
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -168,39 +168,39 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/dictionary_learning.html">
+      <a class="reference internal" href="../../examples/dictionary_learning.html">
        Dictionary Learning
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/dictionary_learning_jax.html">
+      <a class="reference internal" href="../../examples/dictionary_learning_jax.html">
        Dictionary Learning Accelerated by JIT
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/nonlinear_eigenvalue.html">
+      <a class="reference internal" href="../../examples/nonlinear_eigenvalue.html">
        Discretized 1D Kohn-Sham Equation
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/nearest_correlation_estimation.html">
+      <a class="reference internal" href="../../examples/nearest_correlation_estimation.html">
        Low-Rank Nearest Correlation Estimation
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/bose_einstein_condensates.html">
+      <a class="reference internal" href="../../examples/bose_einstein_condensates.html">
        Bose–Einstein Condensates
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/symplectic_eigenvalue.html">
+      <a class="reference internal" href="../../examples/symplectic_eigenvalue.html">
        Symplectic Eigenvalue Problem
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../examples/example_torch.html">
+    <a class="reference internal" href="../../examples/example_torch.html">
      Training Neural Networks with Manifold Constraints via PyTorch
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
@@ -210,44 +210,44 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/LeNet_orth.html">
+      <a class="reference internal" href="../../examples/LeNet_orth.html">
        Training LeNet with Constrained Convolution Kernels
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/rnn_single_layer.html">
+      <a class="reference internal" href="../../examples/rnn_single_layer.html">
        Training Single-Layer RNN with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/rnn_multi_layer.html">
+      <a class="reference internal" href="../../examples/rnn_multi_layer.html">
        Training Multi-Layer RNN with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/rnn_lstm.html">
+      <a class="reference internal" href="../../examples/rnn_lstm.html">
        Training LSTM with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/sine_sequence.html">
+      <a class="reference internal" href="../../examples/sine_sequence.html">
        Time Sequence Prediction with Orthogonality Constrained LSTM
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/distributed_rnn_basic.html">
+      <a class="reference internal" href="../../examples/distributed_rnn_basic.html">
        Distributed Training for RNN with Constrained Weights
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/distributed_linear_basic.html">
+      <a class="reference internal" href="../../examples/distributed_linear_basic.html">
        Distributed Training for A Simple Network by Distributed RPC Framework
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../examples/example_jax.html">
+    <a class="reference internal" href="../../examples/example_jax.html">
      Training Neural Networks with Manifold Constraints via JAX and FLAX
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
@@ -257,7 +257,7 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../examples/LeNet_orth_jax.html">
+      <a class="reference internal" href="../../examples/LeNet_orth_jax.html">
        Training LeNet with Constrained Convolution Kernels by JAX and FLAX
       </a>
      </li>
@@ -265,28 +265,28 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="api_reference.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../api_reference.html">
    API Reference
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
   <label for="toctree-checkbox-6">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="apis/cdopt_core.html">
+    <a class="reference internal" href="cdopt_core.html">
      cdopt.core
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="apis/cdopt_manifold.html">
+    <a class="reference internal" href="cdopt_manifold.html">
      cdopt.manifold
     </a>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="apis/cdopt_manifold_np.html">
+    <a class="reference internal" href="cdopt_manifold_np.html">
      cdopt.manifold_np
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
@@ -296,49 +296,49 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/basic_manifold_np.html">
+      <a class="reference internal" href="manifold_np/basic_manifold_np.html">
        basic_manifold_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/euclidean_np.html">
+      <a class="reference internal" href="manifold_np/euclidean_np.html">
        euclidean_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/sphere_np.html">
+      <a class="reference internal" href="manifold_np/sphere_np.html">
        sphere_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/oblique_np.html">
+      <a class="reference internal" href="manifold_np/oblique_np.html">
        oblique_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/stiefel_np.html">
+      <a class="reference internal" href="manifold_np/stiefel_np.html">
        stiefel_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/generalized_stiefel_np.html">
+      <a class="reference internal" href="manifold_np/generalized_stiefel_np.html">
        generalized_stiefel_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/hyperbolic_np.html">
+      <a class="reference internal" href="manifold_np/hyperbolic_np.html">
        hyperbolic_np
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_np/symp_stiefel_np.html">
+      <a class="reference internal" href="manifold_np/symp_stiefel_np.html">
        symp_stiefel_np
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="apis/cdopt_manifold_torch.html">
+    <a class="reference internal" href="cdopt_manifold_torch.html">
      cdopt.manifold_torch
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
@@ -348,49 +348,49 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/basic_manifold_torch.html">
+      <a class="reference internal" href="manifold_torch/basic_manifold_torch.html">
        basic_manifold_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/euclidean_torch.html">
+      <a class="reference internal" href="manifold_torch/euclidean_torch.html">
        euclidean_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/sphere_torch.html">
+      <a class="reference internal" href="manifold_torch/sphere_torch.html">
        sphere_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/oblique_torch.html">
+      <a class="reference internal" href="manifold_torch/oblique_torch.html">
        oblique_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/stiefel_torch.html">
+      <a class="reference internal" href="manifold_torch/stiefel_torch.html">
        stiefel_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/generalized_stiefel_torch.html">
+      <a class="reference internal" href="manifold_torch/generalized_stiefel_torch.html">
        generalized_stiefel_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/hyperbolic_torch.html">
+      <a class="reference internal" href="manifold_torch/hyperbolic_torch.html">
        hyperbolic_torch
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/manifold_torch/symp_stiefel_torch.html">
+      <a class="reference internal" href="manifold_torch/symp_stiefel_torch.html">
        symp_stiefel_torch
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="apis/cdopt_nn.html">
+    <a class="reference internal" href="cdopt_nn.html">
      cdopt.nn
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
@@ -400,79 +400,79 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/linear_cdopt.html">
+      <a class="reference internal" href="nn/linear_cdopt.html">
        Linear_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/bilinear_cdopt.html">
+      <a class="reference internal" href="nn/bilinear_cdopt.html">
        Bilinear
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv1d_cdopt.html">
+      <a class="reference internal" href="nn/conv1d_cdopt.html">
        Conv1d_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv2d_cdopt.html">
+      <a class="reference internal" href="nn/conv2d_cdopt.html">
        Conv2d_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv3d_cdopt.html">
+      <a class="reference internal" href="nn/conv3d_cdopt.html">
        Conv3d_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnnbase_cdopt.html">
+      <a class="reference internal" href="nn/rnnbase_cdopt.html">
        RNNBase_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnn_cdopt.html">
+      <a class="reference internal" href="nn/rnn_cdopt.html">
        RNN_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/lstm_cdopt.html">
+      <a class="reference internal" href="nn/lstm_cdopt.html">
        LSTM_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/gru_cdopt.html">
+      <a class="reference internal" href="nn/gru_cdopt.html">
        GRU_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnncell_cdopt.html">
+      <a class="reference internal" href="nn/rnncell_cdopt.html">
        RNNCell_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/lstmcell_cdopt.html">
+      <a class="reference internal" href="nn/lstmcell_cdopt.html">
        LSTMCell_cdopt
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/grucell_cdopt.html">
+      <a class="reference internal" href="nn/grucell_cdopt.html">
        GRUCell_cdopt
       </a>
      </li>
     </ul>
    </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="apis/cdopt_linen.html">
+   <li class="toctree-l2 current active has-children">
+    <a class="current reference internal" href="#">
      cdopt.linen
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
     <label for="toctree-checkbox-10">
      <i class="fas fa-chevron-down">
      </i>
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/linen/Linear_cdopt.html">
+      <a class="reference internal" href="linen/Linear_cdopt.html">
        linen.linear
       </a>
      </li>
@@ -481,12 +481,12 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="about.html">
+  <a class="reference internal" href="../about.html">
    About CDOpt
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="update_log.html">
+  <a class="reference internal" href="../update_log.html">
    Update log
   </a>
  </li>
@@ -580,7 +580,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fmd_files/installation.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fmd_files/apis/cdopt_linen.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -608,7 +608,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/md_files/installation.md"
+        <a href="../../_sources/md_files/apis/cdopt_linen.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -657,7 +657,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Installation</h1>
+                <h1>cdopt.linen</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -669,13 +669,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
-<p>CDOpt is compatible with Python 3.6+, and depends on NumPy and SciPy. CDOpt is available to install via the <a class="reference external" href="https://pypi.org/project/cdopt/">Python Package Index</a>, and can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code>,</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install cdopt --upgrade
-</pre></div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="cdopt-linen">
+<h1>cdopt.linen<a class="headerlink" href="#cdopt-linen" title="Permalink to this headline">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt.linen</span></code> contains predefined neural layers for Flax.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linen/Linear_cdopt.html">linen.linear</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linen/Linear_cdopt.html#convtranspose-cdopt">ConvTranspose_cdopt</a></li>
+</ul>
 </div>
-<p>Moreover, to use the advanced features of CDOpt, including the automatic differentiation, customized manifolds, CUDA supports and training neural networks, the users need to install some numerical packages, such as <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a>, <a class="reference external" href="https://pytorch.org/">PyTorch</a>, or <a class="reference external" href="https://jax.readthedocs.io/en/latest/index.html">JAX</a>. We strongly recommend the users to install autograd and PyTorch packages. Please follow the installation guide for <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a> and <a class="reference external" href="https://pytorch.org/get-started/locally/">PyTorch</a> to install these packages.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -691,7 +693,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./md_files"
+            path: "./md_files\apis"
         },
         predefinedOutput: true
     }
@@ -705,17 +707,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="overview.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="nn/grucell_cdopt.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Overview</p>
+            <p class="prev-next-title">GRUCell_cdopt</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="tutorial.html" title="next page">
+    <a class='right-next' id="next-link" href="linen/Linear_cdopt.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tutorials</p>
+        <p class="prev-next-title">linen.linear</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -740,7 +742,7 @@ title="Print to PDF"
     </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
   </body>

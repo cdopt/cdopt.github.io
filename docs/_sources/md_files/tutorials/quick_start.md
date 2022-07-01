@@ -47,7 +47,7 @@ from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
 import cdopt
 from cdopt.manifold_torch import stiefel_torch
-from cdopt.core.problem import Problem
+from cdopt.core.problem import problem
 import time
 
 # Set parameters
@@ -67,7 +67,7 @@ def obj_fun(X):
 
 # Set optimization problems and retrieve constraint dissolving functions.
 M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
-problem_test = Problem(M, obj_fun, beta = beta)
+problem_test = problem(M, obj_fun, beta = beta)
 
 cdf_fun_np = problem_test.cdf_fun_vec_np
 cdf_grad_np = problem_test.cdf_grad_vec_np
@@ -98,7 +98,7 @@ from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
 import cdopt
 from cdopt.manifold_torch import stiefel_torch
-from cdopt.core.problem import Problem
+from cdopt.core.problem import problem
 import time
 
 # Set parameters
@@ -129,7 +129,7 @@ Then we call `stiefel_torch` to generate a structure that describes the Stiefel 
 ```python
 # Set optimization problems and retrieve constraint dissolving functions.
 M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
-problem_test = Problem(M, obj_fun, beta = beta)
+problem_test = problem(M, obj_fun, beta = beta)
 ```
 
 
@@ -183,9 +183,9 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 | Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `generalized_stiefel_np`       | `generalized_stiefel_torch`      | `generalized_stiefel_jax`    |
 | Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `hyperbolic_np`                | `hyperbolic_torch`               | `hyperbolic_jax`             |
 | Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `symp_stiefel_np`              | `symp_stiefel_torch`             | `symp_stiefel_jax`           |
-| Complex pshere                 | $\left\{ x \in \mathbb{C}^{n}: x^\top x = 1 \right\}$        | -                              | `complex_shpere_torch`           |                              |
-| Complex oblique manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}$ | -                              | `complex_oblique_torch`          |                              |
-| Complex Stiefel manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: X ^\top X = I_s \right\}$ | -                              | `complex_stiefel_torch`          |                              |
+| Complex sphere                 | $\{x \in \mathbb{C}^n: ||x|| = 1  \}$                        | `complex_shpere_np`            | `complex_shpere_torch`           | `complex_shpere_jax`         |
+| Complex oblique manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^H) = I_m \right\}$ | `complex_oblique_np`           | `complex_oblique_torch`          | `complex_oblique_jax`        |
+| Complex Stiefel manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: X ^H X = I_s \right\}$ | `complex_stiefel_np`           | `complex_stiefel_torch`          | `complex_stiefel_jax`        |
 | ...                            | ...                                                          | ...                            |                                  |                              |
 
 
@@ -238,7 +238,7 @@ from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 import torch 
 import cdopt
 from cdopt.manifold_torch import stiefel_torch
-from cdopt.core.problem import Problem
+from cdopt.core.problem import problem
 import time
 
 # Set parameters
@@ -258,7 +258,7 @@ def obj_fun(X):
 
 # Set optimization problems and retrieve constraint dissolving functions.
 M = stiefel_torch((m,s), device =local_device, dtype = local_dtype )
-problem_test = Problem(M, obj_fun, beta = beta)
+problem_test = problem(M, obj_fun, beta = beta)
 ```
 
 

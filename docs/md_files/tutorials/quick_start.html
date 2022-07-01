@@ -463,11 +463,33 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../apis/cdopt_linen.html">
+     cdopt.linen
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../apis/linen/Linear_cdopt.html">
+       linen.linear
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../about.html">
    About CDOpt
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../update_log.html">
+   Update log
   </a>
  </li>
 </ul>
@@ -756,7 +778,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">torch</span> 
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">Problem</span>
+<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">problem</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="c1"># Set parameters</span>
@@ -776,7 +798,7 @@ title="Print to PDF"
 
 <span class="c1"># Set optimization problems and retrieve constraint dissolving functions.</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span> <span class="p">)</span>
-<span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
+<span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
 
 <span class="n">cdf_fun_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_fun_vec_np</span>
 <span class="n">cdf_grad_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_grad_vec_np</span>
@@ -803,7 +825,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">torch</span> 
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">Problem</span>
+<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">problem</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="c1"># Set parameters</span>
@@ -826,7 +848,7 @@ title="Print to PDF"
 <p>Then we call <code class="docutils literal notranslate"><span class="pre">stiefel_torch</span></code> to generate a structure that describes the Stiefel manifold <span class="math notranslate nohighlight">\(\mathcal{S}_{n,p}\)</span>. This manifold corresponds to the constraint appearing in our optimization problem. For other constraints, take a look at the <a class="reference external" href="#manifolds">various supported manifolds</a> for details. The second instruction creates a structure named <code class="docutils literal notranslate"><span class="pre">problem_test</span></code>. Here the gradients and hessians of the objective function are not necessary, as they can be computed by the AD packages provided by PyTorch.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set optimization problems and retrieve constraint dissolving functions.</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span> <span class="p">)</span>
-<span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
+<span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After describe the optimization problem, we can directly retrieve the function value, gradients, Hessian-vector product of the corresponding constraint dissolving function.</p>
@@ -919,23 +941,23 @@ title="Print to PDF"
 <td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_torch</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_jax</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>Complex pshere</p></td>
-<td><p><span class="math notranslate nohighlight">\(\left\{ x \in \mathbb{C}^{n}: x^\top x = 1 \right\}\)</span></p></td>
-<td><p>-</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">complex_shpere_torch</span></code></p></td>
+<tr class="row-odd"><td><p>Complex sphere</p></td>
+<td><p>${x \in \mathbb{C}^n:</p></td>
+<td><p></p></td>
+<td><p>x</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p>Complex oblique manifold</p></td>
-<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^\top) = I_m \right\}\)</span></p></td>
-<td><p>-</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^H) = I_m \right\}\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_oblique_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">complex_oblique_torch</span></code></p></td>
-<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_oblique_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Complex Stiefel manifold</p></td>
-<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: X ^\top X = I_s \right\}\)</span></p></td>
-<td><p>-</p></td>
+<td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: X ^H X = I_s \right\}\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_stiefel_np</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">complex_stiefel_torch</span></code></p></td>
-<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>…</p></td>
 <td><p>…</p></td>
@@ -965,7 +987,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">torch</span> 
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">Problem</span>
+<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">problem</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="c1"># Set parameters</span>
@@ -985,7 +1007,7 @@ title="Print to PDF"
 
 <span class="c1"># Set optimization problems and retrieve constraint dissolving functions.</span>
 <span class="n">M</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">s</span><span class="p">),</span> <span class="n">device</span> <span class="o">=</span><span class="n">local_device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">local_dtype</span> <span class="p">)</span>
-<span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
+<span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>On the one hand, we can use the interface provided by <code class="docutils literal notranslate"><span class="pre">cdopt.core.Problem</span></code> class to retrieve the constraint dissolving function that adopts <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package.</p>

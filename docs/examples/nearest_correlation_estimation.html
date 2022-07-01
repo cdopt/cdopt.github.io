@@ -463,11 +463,33 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../md_files/apis/cdopt_linen.html">
+     cdopt.linen
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/linen/Linear_cdopt.html">
+       linen.linear
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../md_files/about.html">
    About CDOpt
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../md_files/update_log.html">
+   Update log
   </a>
  </li>
 </ul>
@@ -810,12 +832,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error importing backbone_jax Possibly JAX is not installed.
-No JAX package installed
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="generating-datas">
@@ -859,7 +875,7 @@ No JAX package installed
 <p>The optimization problem can be described by the manifold and the expression of the objective function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
 </pre></div>
 </div>
 </div>
@@ -878,7 +894,7 @@ No JAX package installed
 
 <span class="c1">## Apply limit memory BFGS solver from scipy.minimize </span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin_bfgs</span><span class="p">,</span> <span class="n">fmin_cg</span><span class="p">,</span> <span class="n">fmin_l_bfgs_b</span><span class="p">,</span> <span class="n">fmin_ncg</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>  <span class="c1"># set initial point</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>  <span class="c1"># set initial point</span>
 </pre></div>
 </div>
 </div>
@@ -887,7 +903,7 @@ No JAX package installed
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># optimize by L-BFGS method</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">0e-08</span><span class="p">,})</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">0e-08</span><span class="p">,})</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>
@@ -904,7 +920,7 @@ No JAX package installed
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solver   fval         iter   f_eval   stationarity   feaibility     CPU time
-&amp; L-BFGS &amp; 6.96e+04  &amp; 81  &amp; 88    &amp; 2.63e-05     &amp; 6.58e-07     &amp; 0.84 \\
+&amp; L-BFGS &amp; 6.98e+04  &amp; 94  &amp; 101    &amp; 2.99e-05     &amp; 1.51e-09     &amp; 0.98 \\
 </pre></div>
 </div>
 </div>
@@ -913,7 +929,7 @@ No JAX package installed
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># optimize by CG method</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;CG&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span><span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;CG&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span><span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>
@@ -930,7 +946,7 @@ No JAX package installed
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solver   fval         iter   f_eval   stationarity   feaibility     CPU time
-&amp; CG     &amp; 6.96e+04  &amp; 83  &amp; 143    &amp; 3.20e-05     &amp; 3.15e-07     &amp; 0.81 \\
+&amp; CG     &amp; 6.98e+04  &amp; 103  &amp; 166    &amp; 4.00e-05     &amp; 2.68e-07     &amp; 0.95 \\
 </pre></div>
 </div>
 </div>

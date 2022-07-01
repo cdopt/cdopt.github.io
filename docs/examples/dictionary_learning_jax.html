@@ -463,11 +463,33 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../md_files/apis/cdopt_linen.html">
+     cdopt.linen
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../md_files/apis/linen/Linear_cdopt.html">
+       linen.linear
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../md_files/about.html">
    About CDOpt
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../md_files/update_log.html">
+   Update log
   </a>
  </li>
 </ul>
@@ -852,8 +874,8 @@ title="Print to PDF"
 <p>The optimization problem can be described only by the manifold and the objective function. All the other components are automatically computed by the automatic differentiation algorithms provided in <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">enable_jit</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
-<span class="n">problem_nojit</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">enable_jit</span><span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">problem_test</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">enable_jit</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># describe the optimization problem and set the penalty parameter \beta.</span>
+<span class="n">problem_nojit</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">enable_jit</span><span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -904,7 +926,7 @@ title="Print to PDF"
 
 <span class="c1">## Apply limit memory BFGS solver from scipy.minimize </span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin_bfgs</span><span class="p">,</span> <span class="n">fmin_cg</span><span class="p">,</span> <span class="n">fmin_l_bfgs_b</span><span class="p">,</span> <span class="n">fmin_ncg</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>  <span class="c1"># set initial point</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>  <span class="c1"># set initial point</span>
 </pre></div>
 </div>
 </div>
@@ -913,7 +935,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># optimize by L-BFGS method</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">0e-08</span><span class="p">,})</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disp&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;maxcor&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;ftol&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;gtol&#39;</span><span class="p">:</span> <span class="mf">1e-06</span><span class="p">,</span> <span class="s1">&#39;eps&#39;</span><span class="p">:</span> <span class="mf">0e-08</span><span class="p">,})</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>

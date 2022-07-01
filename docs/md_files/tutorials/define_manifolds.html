@@ -463,11 +463,33 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../apis/cdopt_linen.html">
+     cdopt.linen
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../apis/linen/Linear_cdopt.html">
+       linen.linear
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../about.html">
    About CDOpt
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../update_log.html">
+   Update log
   </a>
  </li>
 </ul>
@@ -727,7 +749,7 @@ title="Print to PDF"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold</span> <span class="kn">import</span> <span class="n">basic_manifold</span>
-<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">Problem</span>
+<span class="kn">from</span> <span class="nn">cdopt.core.problem</span> <span class="kn">import</span> <span class="n">problem</span>
 <span class="kn">from</span> <span class="nn">cdopt.core.backbone_autograd</span> <span class="kn">import</span> <span class="n">backbone_autograd</span>
 <span class="k">class</span> <span class="nc">my_manifold</span><span class="p">(</span><span class="n">basic_manifold</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var_shape</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
@@ -770,7 +792,7 @@ title="Print to PDF"
 <span class="k">def</span> <span class="nf">obj_fun</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">anp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> 
 
-<span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we retrieve the gradients and hessians of CDF function from <code class="docutils literal notranslate"><span class="pre">problem.test</span></code> and apply <code class="docutils literal notranslate"><span class="pre">scipy.optimize.lbfgs</span></code> solver to minimize CDF.</p>
@@ -894,7 +916,7 @@ Then we can add such information to the definition of <code class="docutils lite
 <span class="k">def</span> <span class="nf">obj_fun</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> 
 
-<span class="n">problem_test</span> <span class="o">=</span> <span class="n">Problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
 
 
 <span class="n">cdf_fun_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_fun_vec_np</span>   

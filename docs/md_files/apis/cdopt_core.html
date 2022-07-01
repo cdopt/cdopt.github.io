@@ -463,11 +463,33 @@ const thebe_selector_output = ".output, .cell_output"
      </li>
     </ul>
    </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="cdopt_linen.html">
+     cdopt.linen
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="linen/Linear_cdopt.html">
+       linen.linear
+      </a>
+     </li>
+    </ul>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../about.html">
    About CDOpt
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../update_log.html">
+   Update log
   </a>
  </li>
 </ul>
@@ -649,7 +671,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cdopt-core-problem">
-   cdopt.core.Problem
+   cdopt.core.problem
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -683,7 +705,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cdopt-core-problem">
-   cdopt.core.Problem
+   cdopt.core.problem
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -709,8 +731,8 @@ title="Print to PDF"
   <div class="tex2jax_ignore mathjax_ignore section" id="cdopt-core">
 <h1>cdopt.core<a class="headerlink" href="#cdopt-core" title="Permalink to this headline">#</a></h1>
 <div class="section" id="cdopt-core-problem">
-<h2>cdopt.core.Problem<a class="headerlink" href="#cdopt-core-problem" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">cdopt.core.Problem(manifold,</span> <span class="pre">obj_fun,</span> <span class="pre">obj_grad=None,</span> <span class="pre">obj_hvp=None,</span> <span class="pre">beta</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">enable_autodiff</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">backbone</span> <span class="pre">=</span> <span class="pre">'torch',</span> <span class="pre">enable_jit</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">**kwargs)</span></code></p>
+<h2>cdopt.core.problem<a class="headerlink" href="#cdopt-core-problem" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">cdopt.core.problem(manifold,</span> <span class="pre">obj_fun,</span> <span class="pre">obj_grad=None,</span> <span class="pre">obj_hvp=None,</span> <span class="pre">beta</span> <span class="pre">=</span> <span class="pre">'auto',</span> <span class="pre">enable_autodiff</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">backbone</span> <span class="pre">=</span> <span class="pre">'torch',</span> <span class="pre">enable_jit</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">autobeta_args</span> <span class="pre">=</span> <span class="pre">{},</span> <span class="pre">**kwargs)</span></code></p>
 <p>Problem class to define a Riemannian optimization problem.</p>
 <p><strong>Parameters:</strong></p>
 <ul class="simple">
@@ -722,16 +744,33 @@ title="Print to PDF"
 – The Euclidean gradient of the objective function.</p></li>
 <li><p><strong>obj_hvp=None</strong> (callable, optional)
 – The Euclidean hessian-vector product of the objective function.</p></li>
-<li><p><strong>beta = 0</strong> (float, optional)
-– The penalty parameter.</p></li>
+<li><p><strong>beta = ‘auto’</strong> (str or float, optional)
+– The penalty parameter <span class="math notranslate nohighlight">\(\beta\)</span> for the constraint dissolving function. When set as <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, CDOpt will automatically choose the penalty parameter by a heuristic rule.</p></li>
 <li><p><strong>enable_autodiff  = True</strong> (bool, optional)
 – Controls whether to perform the automatic differentiation packages to automatically compute essential materials. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class does not use any AD package. In that cases, users must provide the expression of <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> and <code class="docutils literal notranslate"><span class="pre">obj_hvp</span></code>.</p></li>
 <li><p><strong>backbone = ‘torch’</strong> (str or core.backbone class, optional)
 – Determines the automatic differentiation packages.  If <code class="docutils literal notranslate"><span class="pre">'torch'</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class uses the <code class="docutils literal notranslate"><span class="pre">torch.autograd</span></code> to automatically compute essential materials. If <code class="docutils literal notranslate"><span class="pre">'autograd'</span></code>, the <code class="docutils literal notranslate"><span class="pre">Problem</span></code> class uses the <code class="docutils literal notranslate"><span class="pre">autograd</span></code> package. Otherwise, it can be set as the user-defined backbone class.</p></li>
 <li><p><strong>enable_jit = False</strong> (bool)
-– Option to enable the JIT for the code. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when <code class="docutils literal notranslate"><span class="pre">backbone</span></code> is chosen based on PyTorch or Numpy.</p></li>
+– Option to enable the JIT for the constraint dissolving functions. Currently, CDOpt only supports JIT for  JAX package. Such option is inactive when <code class="docutils literal notranslate"><span class="pre">backbone</span></code> is chosen based on PyTorch or Numpy.</p></li>
+<li><p><strong>Xinit = None</strong> (Numpy array)
+– Option to set the initial point.</p></li>
+<li><p><strong>autobeta_args  = {}</strong> (Dict)
+– Options for automatically choosing the penalty parameter <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'max_samples':</span> <span class="pre">100</span>&#160; </code>   – The number of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'sample_dist':</span> <span class="pre">1e-2</span></code>    – The sampling distance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'thresholding':</span> <span class="pre">1e-5</span></code>  – The lower-bound for the penalty parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'coeffs':</span> <span class="pre">2.5</span></code> – The coefficients that adjust the penalty parameter.</p></li>
+</ul>
+</li>
 </ul>
 <p><strong>Attributes:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">beta</span></code> (float)</p>
+<p>​				The penalty parameter <span class="math notranslate nohighlight">\(\beta\)</span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Xinit</span></code> (NumPy array or PyTorch Tensor or JAX device array)</p>
+<p>​				The initial point.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Xinit_np_vec</span></code> (NumPy 1D array)</p>
+<p>​				The flattened initial point.</p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_fun(x)</span></code> (callable)</p>
 <p>​				Returns the function value of <span class="math notranslate nohighlight">\(f\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">obj_grad(x)</span></code> (callable)</p>
