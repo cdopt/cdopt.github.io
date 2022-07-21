@@ -399,64 +399,81 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/linear_cdopt.html">
-       Linear_cdopt
+      <a class="reference internal" href="apis/nn/cdopt_nn_utils.html">
+       cdopt.nn.utils
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/bilinear_cdopt.html">
-       Bilinear
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="apis/nn/cdopt_nn_module.html">
+       cdopt.nn.module
       </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv1d_cdopt.html">
-       Conv1d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv2d_cdopt.html">
-       Conv2d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/conv3d_cdopt.html">
-       Conv3d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnnbase_cdopt.html">
-       RNNBase_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnn_cdopt.html">
-       RNN_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/lstm_cdopt.html">
-       LSTM_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/gru_cdopt.html">
-       GRU_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/rnncell_cdopt.html">
-       RNNCell_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/lstmcell_cdopt.html">
-       LSTMCell_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="apis/nn/grucell_cdopt.html">
-       GRUCell_cdopt
-      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/linear_cdopt.html">
+         Linear_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/bilinear_cdopt.html">
+         Bilinear
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/conv1d_cdopt.html">
+         Conv1d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/conv2d_cdopt.html">
+         Conv2d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/conv3d_cdopt.html">
+         Conv3d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/rnnbase_cdopt.html">
+         RNNBase_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/rnn_cdopt.html">
+         RNN_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/lstm_cdopt.html">
+         LSTM_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/gru_cdopt.html">
+         GRU_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/rnncell_cdopt.html">
+         RNNCell_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/lstmcell_cdopt.html">
+         LSTMCell_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/grucell_cdopt.html">
+         GRUCell_cdopt
+        </a>
+       </li>
+      </ul>
      </li>
     </ul>
    </li>
@@ -464,8 +481,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="apis/cdopt_linen.html">
      cdopt.linen
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -670,14 +687,14 @@ title="Print to PDF"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="welcome-to-cdopt">
 <h1>Welcome to CDOpt<a class="headerlink" href="#welcome-to-cdopt" title="Permalink to this headline">#</a></h1>
-<p><strong>A Python toolbox for optimization on closed Riemannian manifolds with support for deep learning</strong></p>
-<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of constraint dissolving functions, CDOpt allows for elegant and direct utilization for various unconstrained optimization approaches, together with a great number of advanced features in modern numerical packages, including SciPy, PyTorch and JAX.</p>
+<p><strong>A Python toolbox for optimization on closed Riemannian manifolds with supports for deep learning</strong></p>
+<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of constraint dissolving functions, CDOpt allows for elegant and direct implementation various unconstrained optimization approaches for Riemannian optimization problems. CDOpt also provides user-friendly frameworks for training manifold constrained neural networks by PyTorch and Flax.</p>
 <p>The constraint dissolving approaches have the following advantages:</p>
 <ul class="simple">
-<li><p><strong>Direct optimization &amp; high efficiency:</strong> CDOpt is developed from the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a></em>, which transforms Riemannian optimization problems to unconstrained optimization problem. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, CDOpt is very efficient and naturally avoids the difficulties in developing specialized solvers for Riemannian optimization.</p></li>
-<li><p><strong>High compatibility:</strong> CDOpt has high compatibility with various numerical packages, including Numpy, PyTorch, JAX, etc. Users can directly apply the advanced features of these numerical packages to accelerate the optimization, including the automatic differentiation, CUDA supports, distributed optimization supports, etc.</p></li>
-<li><p><strong>Easy to use:</strong> CDOpt provides various plug-in layers for PyTorch packages. With only minor changes in the original codes, users can easily train the neural network while constrain the weights over various of closed manifolds.</p></li>
-<li><p><strong>Various constraints:</strong> The optimization problem in CDOpt can be constructed only from the expressions of the objective and constraints. Different from existing Riemannian optimization packages, we can easily and directly describe Riemannian optimization problems in CDOpt without any geometrical materials of the Riemannian manifold (e.g., retractions, tangent spaces, vector-transports, etc.).</p></li>
+<li><p><strong>Direct optimization &amp; high efficiency:</strong> CDOpt is developed from the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a></em>, which transforms Riemannian optimization problems to unconstrained ones. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, CDOpt is very efficient and naturally avoids the difficulties in developing specialized solvers for Riemannian optimization.</p></li>
+<li><p><strong>Plug-in neural layers:</strong> CDOpt provides various plug-in neural layers for PyTorch and \Pkg{Flax} packages. With only minor changes in the original codes, users can easily build and train the neural network while constrain the weights over various manifolds.</p></li>
+<li><p><strong>High efficiency:</strong> CDOpt has high compatibility with various numerical backends, including NumPy, SciPy, PyTorch, JAX, Flax, etc . Users can directly apply the advanced features of these packages to accelerate optimization, including the automatic differentiation, GPU/TPU supports, distributed optimization frameworks, just-in-time (JIT) compilation, etc.</p></li>
+<li><p><strong>Customized constraints:</strong> The manifold classes in CDOpt can be constructed only from the expressions of constraints. Users can easily and directly describe Riemannian optimization problems in CDOpt without any geometrical materials of the Riemannian manifold (e.g., retractions and their inverse, vector-transports, etc.).</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <ul>
@@ -741,23 +758,26 @@ title="Print to PDF"
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="apis/cdopt_nn.html">cdopt.nn</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/linear_cdopt.html">Linear_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/bilinear_cdopt.html">Bilinear</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/conv1d_cdopt.html">Conv1d_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/conv2d_cdopt.html">Conv2d_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/conv3d_cdopt.html">Conv3d_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/rnnbase_cdopt.html">RNNBase_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/rnn_cdopt.html">RNN_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/lstm_cdopt.html">LSTM_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/gru_cdopt.html">GRU_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/rnncell_cdopt.html">RNNCell_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/lstmcell_cdopt.html">LSTMCell_cdopt</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/nn/grucell_cdopt.html">GRUCell_cdopt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apis/nn/cdopt_nn_utils.html">cdopt.nn.utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apis/nn/cdopt_nn_module.html">cdopt.nn.module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/linear_cdopt.html">Linear_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/bilinear_cdopt.html">Bilinear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/conv1d_cdopt.html">Conv1d_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/conv2d_cdopt.html">Conv2d_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/conv3d_cdopt.html">Conv3d_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/rnnbase_cdopt.html">RNNBase_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/rnn_cdopt.html">RNN_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/lstm_cdopt.html">LSTM_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/gru_cdopt.html">GRU_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/rnncell_cdopt.html">RNNCell_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/lstmcell_cdopt.html">LSTMCell_cdopt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis/nn/module/grucell_cdopt.html">GRUCell_cdopt</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="apis/cdopt_linen.html">cdopt.linen</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="apis/linen/Linear_cdopt.html">linen.linear</a></li>
-<li class="toctree-l3"><a class="reference internal" href="apis/linen/Linear_cdopt.html#convtranspose-cdopt">ConvTranspose_cdopt</a></li>
 </ul>
 </li>
 </ul>

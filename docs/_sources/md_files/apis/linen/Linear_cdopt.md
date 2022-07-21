@@ -45,9 +45,7 @@ Attributes:
 
 
 
-
-
-# ConvTranspose_cdopt
+## ConvTranspose_cdopt
 
 `class cdopt.linen.ConvTranspose_cdopt(features, kernel_size, strides=1, padding='SAME', input_dilation=1, kernel_dilation=1, feature_group_count=1, use_bias=True, mask=None, dtype=None, param_dtype=<class 'jax.numpy.float32'>, precision=None, kernel_init=<function variance_scaling.<locals>.init>, bias_init=<function zeros>, parent=<flax.linen.module._Sentinel object>, name=None, manifold_class = euclidean_jax, weight_var_transfer = <function>, manifold_args )`
 

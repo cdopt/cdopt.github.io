@@ -402,64 +402,81 @@ const thebe_selector_output = ".output, .cell_output"
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/linear_cdopt.html">
-       Linear_cdopt
+      <a class="reference internal" href="../apis/nn/cdopt_nn_utils.html">
+       cdopt.nn.utils
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/bilinear_cdopt.html">
-       Bilinear
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../apis/nn/cdopt_nn_module.html">
+       cdopt.nn.module
       </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/conv1d_cdopt.html">
-       Conv1d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/conv2d_cdopt.html">
-       Conv2d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/conv3d_cdopt.html">
-       Conv3d_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/rnnbase_cdopt.html">
-       RNNBase_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/rnn_cdopt.html">
-       RNN_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/lstm_cdopt.html">
-       LSTM_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/gru_cdopt.html">
-       GRU_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/rnncell_cdopt.html">
-       RNNCell_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/lstmcell_cdopt.html">
-       LSTMCell_cdopt
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../apis/nn/grucell_cdopt.html">
-       GRUCell_cdopt
-      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/linear_cdopt.html">
+         Linear_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/bilinear_cdopt.html">
+         Bilinear
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/conv1d_cdopt.html">
+         Conv1d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/conv2d_cdopt.html">
+         Conv2d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/conv3d_cdopt.html">
+         Conv3d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/rnnbase_cdopt.html">
+         RNNBase_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/rnn_cdopt.html">
+         RNN_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/lstm_cdopt.html">
+         LSTM_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/gru_cdopt.html">
+         GRU_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/rnncell_cdopt.html">
+         RNNCell_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/lstmcell_cdopt.html">
+         LSTMCell_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/module/grucell_cdopt.html">
+         GRUCell_cdopt
+        </a>
+       </li>
+      </ul>
      </li>
     </ul>
    </li>
@@ -467,8 +484,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../apis/cdopt_linen.html">
      cdopt.linen
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -804,8 +821,8 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin_bfgs</span><span class="p">,</span> <span class="n">fmin_cg</span><span class="p">,</span> <span class="n">fmin_l_bfgs_b</span><span class="p">,</span> <span class="n">fmin_ncg</span>
 <span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Furthermore, one can provide more information in define the <code class="docutils literal notranslate"><span class="pre">my_manifold</span></code>. For example, its constraint dissolving mapping can be chosen as
@@ -927,8 +944,8 @@ Then we can add such information to the definition of <code class="docutils lite
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin_bfgs</span><span class="p">,</span> <span class="n">fmin_cg</span><span class="p">,</span> <span class="n">fmin_l_bfgs_b</span><span class="p">,</span> <span class="n">fmin_ncg</span>
 <span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span> <span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

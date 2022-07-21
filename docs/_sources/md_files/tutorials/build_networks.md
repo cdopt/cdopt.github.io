@@ -31,6 +31,7 @@ from torch.optim.lr_scheduler import StepLR
 import cdopt 
 from cdopt.nn.modules import Linear_cdopt, Conv2d_cdopt
 from cdopt.manifold_torch import stiefel_torch
+from cdopt.nn import get_quad_penalty
 ```
 
 Then we build the neural network
@@ -43,7 +44,7 @@ class Net(nn.Module):
         self.conv2 = nn.Conv2d(32, 64, 3)
         self.dropout1 = nn.Dropout(0.25)
         self.dropout2 = nn.Dropout(0.5)
-        self.fc1 = Linear_cdopt(9216, 128, manifold_class= stiefel_torch)
+        self.fc1 = Linear_cdopt(9216, 128, manifold_class= stiefel_torch, penalty_param = 0.02)
         self.fc2 = nn.Linear(128, 10)
 
     def forward(self, x):
@@ -64,7 +65,7 @@ class Net(nn.Module):
 
 
 
-Next, we define the training and testing functions.
+Next, we define the training and testing functions. DO NOT forget to add the quadratic penalty term to the loss function by the `get_quad_penalty()` function from `cdopt.nn`. 
 
 ```python
 def train(args, model, device, train_loader, optimizer, epoch):
@@ -73,8 +74,8 @@ def train(args, model, device, train_loader, optimizer, epoch):
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
-        loss = F.nll_loss(output, target) + 0.02* model.fc1.quad_penalty()
-        # loss = F.nll_loss(output, target) +  0.01 * model.conv1.quad_penalty()
+        loss = F.nll_loss(output, target) + get_quad_penalty(model)
+        # loss = F.nll_loss(output, target) +  0.02 * model.conv1.quad_penalty()
 
         loss.backward()
         optimizer.step()

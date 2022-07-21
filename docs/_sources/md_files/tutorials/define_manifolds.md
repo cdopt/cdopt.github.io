@@ -98,8 +98,8 @@ cdf_hvp_np = problem_test.cdf_hvp_vec_np
 import scipy as sp
 from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 # Implement L-BFGS solver from scipy.optimize
-Xinit = M.tensor2array(M.Init_point())
-out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+Xinit = problem_test.Xinit_vec_np
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit,method='L-BFGS-B',jac = cdf_grad_np)
 ```
 
 
@@ -252,8 +252,8 @@ cdf_hvp_np = problem_test.cdf_hvp_vec_np
 import scipy as sp
 from scipy.optimize import fmin_bfgs, fmin_cg, fmin_l_bfgs_b, fmin_ncg
 # Implement L-BFGS solver from scipy.optimize
-Xinit = M.tensor2array(M.Init_point())
-out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+Xinit = problem_test.Xinit_vec_np
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit, method='L-BFGS-B', jac = cdf_grad_np)
 ```
 
 
