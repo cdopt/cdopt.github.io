@@ -399,17 +399,29 @@ const thebe_selector_output = ".output, .cell_output"
      </i>
     </label>
     <ul>
-     <li class="toctree-l3">
+     <li class="toctree-l3 has-children">
       <a class="reference internal" href="apis/nn/cdopt_nn_utils.html">
        cdopt.nn.utils
       </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/utils/stateless.html">
+         cdopt.nn.utils.stateless
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toctree-l3 has-children">
       <a class="reference internal" href="apis/nn/cdopt_nn_module.html">
        cdopt.nn.module
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-      <label for="toctree-checkbox-10">
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
        <i class="fas fa-chevron-down">
        </i>
       </label>
@@ -474,6 +486,11 @@ const thebe_selector_output = ".output, .cell_output"
          GRUCell_cdopt
         </a>
        </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/module/utils.html">
+         cdopt.nn.module.utils
+        </a>
+       </li>
       </ul>
      </li>
     </ul>
@@ -482,8 +499,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="apis/cdopt_linen.html">
      cdopt.linen
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -692,7 +709,13 @@ title="Print to PDF"
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install cdopt --upgrade
 </pre></div>
 </div>
-<p>Moreover, to use the advanced features of CDOpt, including the automatic differentiation, customized manifolds, CUDA supports and training neural networks, the users need to install some numerical packages, such as <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a>, <a class="reference external" href="https://pytorch.org/">PyTorch</a>, or <a class="reference external" href="https://jax.readthedocs.io/en/latest/index.html">JAX</a>. We strongly recommend the users to install autograd and PyTorch packages. Please follow the installation guide for <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a> and <a class="reference external" href="https://pytorch.org/get-started/locally/">PyTorch</a> to install these packages.</p>
+<p>Moreover, to use the advanced features of CDOpt, including the automatic differentiation, customized manifolds, CUDA supports and training neural networks, the users need to install some numerical packages, such as <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a>, <a class="reference external" href="https://pytorch.org/">PyTorch</a>, or <a class="reference external" href="https://jax.readthedocs.io/en/latest/index.html">JAX</a>. We strongly recommend the users to install the following packages</p>
+<ul class="simple">
+<li><p>Autograd &gt;=1.0</p></li>
+<li><p>PyTorch &gt;= 1.7.0</p></li>
+<li><p>JAX &gt;= 0.3.12 (optional since JAX is not available on windows platform)</p></li>
+</ul>
+<p>Please follow the installation guide for <a class="reference external" href="https://github.com/HIPS/autograd">autograd</a>, <a class="reference external" href="https://pytorch.org/get-started/locally/">PyTorch</a>, and <a class="reference external" href="https://jax.readthedocs.io/en/latest/installation.html">JAX</a> to install these packages.</p>
 </div>
 
     <script type="text/x-thebe-config">

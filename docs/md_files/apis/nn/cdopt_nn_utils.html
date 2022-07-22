@@ -51,11 +51,9 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="cdopt.nn.module" href="cdopt_nn_module.html" />
+    <link rel="next" title="cdopt.nn.utils.stateless" href="utils/stateless.html" />
     <link rel="prev" title="cdopt.nn" href="../cdopt_nn.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -401,17 +399,29 @@ const thebe_selector_output = ".output, .cell_output"
      </i>
     </label>
     <ul class="current">
-     <li class="toctree-l3 current active">
+     <li class="toctree-l3 current active has-children">
       <a class="current reference internal" href="#">
        cdopt.nn.utils
       </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <label for="toctree-checkbox-10">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="utils/stateless.html">
+         cdopt.nn.utils.stateless
+        </a>
+       </li>
+      </ul>
      </li>
      <li class="toctree-l3 has-children">
       <a class="reference internal" href="cdopt_nn_module.html">
        cdopt.nn.module
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-      <label for="toctree-checkbox-10">
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
        <i class="fas fa-chevron-down">
        </i>
       </label>
@@ -476,6 +486,11 @@ const thebe_selector_output = ".output, .cell_output"
          GRUCell_cdopt
         </a>
        </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="module/utils.html">
+         cdopt.nn.module.utils
+        </a>
+       </li>
       </ul>
      </li>
     </ul>
@@ -484,8 +499,8 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal" href="../cdopt_linen.html">
      cdopt.linen
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
      <i class="fas fa-chevron-down">
      </i>
     </label>
@@ -664,51 +679,12 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#get-quad-penalty">
-   get_quad_penalty
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-flatten2d">
-   wvt_flatten2d
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-flatten2d-transp">
-   wvt_flatten2d_transp
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-identical">
-   wvt_identical
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
@@ -720,34 +696,6 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#get-quad-penalty">
-   get_quad_penalty
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-flatten2d">
-   wvt_flatten2d
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-flatten2d-transp">
-   wvt_flatten2d_transp
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wvt-identical">
-   wvt_identical
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -757,63 +705,10 @@ title="Print to PDF"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="cdopt-nn-utils">
 <h1>cdopt.nn.utils<a class="headerlink" href="#cdopt-nn-utils" title="Permalink to this headline">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">cdopt.nn.utils</span></code> contains some useful functions for <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code> module, and all its contained functions can be accessed  in <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code>.</p>
-<div class="section" id="get-quad-penalty">
-<h2>get_quad_penalty<a class="headerlink" href="#get-quad-penalty" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">sum_quad_pen</span> <span class="pre">=</span> <span class="pre">cdopt.nn.get_quad_penalty(module)</span></code></p>
-<p>The function that returns the sum of all the quadratic penalty terms in the <code class="docutils literal notranslate"><span class="pre">module</span></code>.</p>
-<p>Input:</p>
-<ul class="simple">
-<li><p><strong>module</strong>: (<code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>) The <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> class that composed of the layers from <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code>.</p></li>
-</ul>
-<p>Output:</p>
-<ul class="simple">
-<li><p>The sum of all the quadratic penalty terms in the children of the <code class="docutils literal notranslate"><span class="pre">module</span></code>, where the penalty parameter equals to <code class="docutils literal notranslate"><span class="pre">penalty_param</span></code> attributes of each children of the module.</p></li>
-</ul>
-</div>
-<div class="section" id="wvt-flatten2d">
-<h2>wvt_flatten2d<a class="headerlink" href="#wvt-flatten2d" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">weight_to_var,</span> <span class="pre">var_to_weight,</span> <span class="pre">var_shape</span> <span class="pre">=</span> <span class="pre">cdopt.nn.wvt_flatten2d(tensor_shape)</span></code></p>
-<p>The function that determines the tensor of the shape <span class="math notranslate nohighlight">\((n_1, n_2,...n_m)\)</span> be converted to an 2D tensor that of the shape <span class="math notranslate nohighlight">\((n_1 * n_3 * n_4 *...* n_m, n_2)\)</span>.</p>
-<p>Inputs:</p>
-<ul class="simple">
-<li><p><strong>tensor_shape</strong>: (Tuple of ints) The shape of the weight matrix of the layer.</p></li>
-</ul>
-<p>Outputs:</p>
-<ul class="simple">
-<li><p><strong>weight_to_var</strong>: (Callable)  The function that transform the weight matrix of the layer to the 2D tensor.</p></li>
-<li><p><strong>var_to_weight</strong>: (Callable)  The function that transform the 2D tensor to the weight matrix of the layer.</p></li>
-<li><p>**var_shape **: (Tuple of ints) The shape of the 2D tensor.</p></li>
-</ul>
-</div>
-<div class="section" id="wvt-flatten2d-transp">
-<h2>wvt_flatten2d_transp<a class="headerlink" href="#wvt-flatten2d-transp" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">weight_to_var,</span> <span class="pre">var_to_weight,</span> <span class="pre">var_shape</span> <span class="pre">=</span> <span class="pre">cdopt.nn.wvt_flatten2d_transp(tensor_shape)</span></code></p>
-<p>The function that determines the tensor of the shape <span class="math notranslate nohighlight">\((n_1, n_2,...n_m)\)</span> be converted to an 2D tensor that of the shape <span class="math notranslate nohighlight">\((n_2 * n_3 * n_4 *...* n_m, n_1)\)</span>.</p>
-<p>Inputs:</p>
-<ul class="simple">
-<li><p><strong>tensor_shape</strong>: (Tuple of ints) The shape of the weight matrix of the layer.</p></li>
-</ul>
-<p>Outputs:</p>
-<ul class="simple">
-<li><p><strong>weight_to_var</strong>: (Callable)  The function that transform the weight matrix of the layer to the 2D tensor.</p></li>
-<li><p><strong>var_to_weight</strong>: (Callable)  The function that transform the 2D tensor to the weight matrix of the layer.</p></li>
-<li><p>**var_shape **: (Tuple of ints) The shape of the 2D tensor.</p></li>
-</ul>
-</div>
-<div class="section" id="wvt-identical">
-<h2>wvt_identical<a class="headerlink" href="#wvt-identical" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">weight_to_var,</span> <span class="pre">var_to_weight,</span> <span class="pre">var_shape</span> <span class="pre">=</span> <span class="pre">cdopt.nn.wvt_identical(tensor_shape)</span></code></p>
-<p>The function that determines the tensor of the shape <span class="math notranslate nohighlight">\((n_1, n_2,...n_m)\)</span> be converted to an tensor that of the same shape.</p>
-<p>Inputs:</p>
-<ul class="simple">
-<li><p><strong>tensor_shape</strong>: (Tuple of ints) The shape of the weight matrix of the layer.</p></li>
-</ul>
-<p>Outputs:</p>
-<ul class="simple">
-<li><p><strong>weight_to_var</strong>: (Callable)  The function that transform the weight matrix of the layer to the 2D tensor.</p></li>
-<li><p><strong>var_to_weight</strong>: (Callable)  The function that transform the 2D tensor to the weight matrix of the layer.</p></li>
-<li><p>**var_shape **: (Tuple of ints) The shape of the tensor.</p></li>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt.nn.utils</span></code> contains some useful functions for <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code> module.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="utils/stateless.html">cdopt.nn.utils.stateless</a></li>
 </ul>
 </div>
 </div>
@@ -852,10 +747,10 @@ title="Print to PDF"
             <p class="prev-next-title">cdopt.nn</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="cdopt_nn_module.html" title="next page">
+    <a class='right-next' id="next-link" href="utils/stateless.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">cdopt.nn.module</p>
+        <p class="prev-next-title">cdopt.nn.utils.stateless</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
