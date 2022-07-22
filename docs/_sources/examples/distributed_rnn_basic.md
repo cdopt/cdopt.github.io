@@ -21,6 +21,7 @@ from torch.distributed.optim import DistributedOptimizer
 # import cdopt components
 import cdopt
 from cdopt.manifold_torch import stiefel_torch
+from cdopt.nn import get_quad_penalty
 
 
 def _call_method(method, rref, *args, **kwargs):
@@ -100,7 +101,7 @@ class RNNModel(nn.Module):
         # setup embedding table remotely
         self.emb_table_rref = rpc.remote(ps, EmbeddingTable, args=(ntoken, ninp, dropout))
         # setup LSTM locally
-        self.rnn = cdopt.nn.LSTM_cdopt(ninp, nhid, nlayers, dropout=dropout, manifold_class = stiefel_torch)
+        self.rnn = cdopt.nn.LSTM_cdopt(ninp, nhid, nlayers, dropout=dropout, manifold_class = stiefel_torch, penalty_param = 0.1)
         # setup decoder remotely
         self.decoder_rref = rpc.remote(ps, Decoder, args=(ntoken, nhid, dropout))
 
@@ -165,7 +166,7 @@ def _run_trainer():
                 hidden[0].detach_()
                 hidden[1].detach_()
                 output, hidden = model(data, hidden)
-                loss = criterion(output, target)
+                loss = criterion(output, target) + get_quad_penalty(model)
                 # run distributed backward pass
                 dist_autograd.backward(context_id, [loss])
                 # run distributed optimizer

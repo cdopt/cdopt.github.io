@@ -836,12 +836,7 @@ title="Print to PDF"
 <span class="c1"># matplotlib.use(&#39;Agg&#39;)</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
-Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
+<span class="kn">from</span> <span class="nn">cdopt.nn</span> <span class="kn">import</span> <span class="n">LSTMCell_cdopt</span><span class="p">,</span> <span class="n">get_quad_penalty</span>
 </pre></div>
 </div>
 </div>
@@ -880,8 +875,8 @@ Warning: Cannot import JAX-related components. Please check whether JAX is corre
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Sequence</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Sequence</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lstm1</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell_cdopt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lstm2</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LSTMCell_cdopt</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm1</span> <span class="o">=</span> <span class="n">LSTMCell_cdopt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm2</span> <span class="o">=</span> <span class="n">LSTMCell_cdopt</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">51</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">future</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
@@ -939,7 +934,7 @@ Warning: Cannot import JAX-related components. Please check whether JAX is corre
     <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">seq</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="p">(</span><span class="n">seq</span><span class="o">.</span><span class="n">lstm1</span><span class="o">.</span><span class="n">quad_penalty</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq</span><span class="o">.</span><span class="n">lstm2</span><span class="o">.</span><span class="n">quad_penalty</span><span class="p">())</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_quad_penalty</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
         <span class="c1"># print(&#39;loss:&#39;, loss.item())</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">loss</span>

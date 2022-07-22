@@ -702,16 +702,6 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#training-by-pytorch">
-   Training by PyTorch
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
-   Training by JAX and FLAX
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supported-components">
    Supported components
   </a>
@@ -732,6 +722,21 @@ title="Print to PDF"
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-pytorch">
+   Training by PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
+   Training by JAX and FLAX
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functional-api-for-modules-in-pytorch">
+   Functional API for modules in PyTorch
+  </a>
  </li>
 </ul>
 
@@ -753,16 +758,6 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#training-by-pytorch">
-   Training by PyTorch
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
-   Training by JAX and FLAX
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supported-components">
    Supported components
   </a>
@@ -784,6 +779,21 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-pytorch">
+   Training by PyTorch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-by-jax-and-flax">
+   Training by JAX and FLAX
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functional-api-for-modules-in-pytorch">
+   Functional API for modules in PyTorch
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -803,6 +813,38 @@ title="Print to PDF"
 <li><p>CDOpt is compatible to all the optimizers provided in <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code>,<code class="docutils literal notranslate"><span class="pre">torch_optimizers</span></code> and Optax.</p></li>
 <li><p>CDOpt provides plug-in neural layers  in <code class="docutils literal notranslate"><span class="pre">cdopt.nn</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.linen</span></code>.  These layers can be directly plugged in any network built by PyTorch and JAX.</p></li>
 </ul>
+<div class="section" id="supported-components">
+<h2>Supported components<a class="headerlink" href="#supported-components" title="Permalink to this headline">#</a></h2>
+<p>This would be an ever increasing list of features. CDOpt currently supports:</p>
+<div class="section" id="manifolds">
+<h3>Manifolds<a class="headerlink" href="#manifolds" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>All the manifolds in <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_torch</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_jax</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="optimizers">
+<h3>Optimizers<a class="headerlink" href="#optimizers" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>All the optimizers from PyTorch.</p></li>
+<li><p>All the optimizers from Torch-optimizer.</p></li>
+<li><p>All the optimizers from Optax.</p></li>
+</ul>
+</div>
+<div class="section" id="layers">
+<h3>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">#</a></h3>
+<p>For PyTorch</p>
+<ul class="simple">
+<li><p>Linear layers and Bilinear layers.</p></li>
+<li><p>Convolutional layers: Conv1d, Conv2d, Conv3d.</p></li>
+<li><p>Recurrent Layers: RNN, LSTM, GRU, and their <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell">cells</a>.</p></li>
+</ul>
+<p>For JAX/FLAX:</p>
+<ul class="simple">
+<li><p>Linear layers</p></li>
+<li><p>Convolutional layers</p></li>
+</ul>
+</div>
+</div>
 <div class="section" id="training-by-pytorch">
 <h2>Training by PyTorch<a class="headerlink" href="#training-by-pytorch" title="Permalink to this headline">#</a></h2>
 <p>Let us start with a simple example on training neural networks with orthogonal weights. We first import essential packages.</p>
@@ -887,31 +929,13 @@ title="Print to PDF"
         <span class="mf">100.</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p>We then set the arguments</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ARGS</span><span class="p">():</span>
-    <span class="k">pass</span>
-<span class="n">args</span> <span class="o">=</span> <span class="n">ARGS</span><span class="p">()</span>
-<span class="n">args</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
-<span class="n">args</span><span class="o">.</span><span class="n">test_batch_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">args</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">14</span>
-<span class="n">args</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">args</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.7</span> 
-<span class="n">args</span><span class="o">.</span><span class="n">no_cuda</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">args</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">args</span><span class="o">.</span><span class="n">log_interval</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">args</span><span class="o">.</span><span class="n">save_model</span> <span class="o">=</span> <span class="kc">False</span> 
-<span class="n">args</span><span class="o">.</span><span class="n">dry_run</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-</div>
-<p>and define the dataset</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">use_cuda</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">no_cuda</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<p>We then set the arguments and load the dataset</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">use_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-
-<span class="n">train_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span><span class="p">}</span>
-<span class="n">test_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">test_batch_size</span><span class="p">}</span>
+<span class="n">train_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="mi">64</span><span class="p">}</span>
+<span class="n">test_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;batch_size&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
 <span class="k">if</span> <span class="n">use_cuda</span><span class="p">:</span>
     <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
     <span class="n">cuda_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;num_workers&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -932,19 +956,16 @@ title="Print to PDF"
 <span class="n">test_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset2</span><span class="p">,</span> <span class="o">**</span><span class="n">test_kwargs</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adadelta</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">lr</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adadelta</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 
-<span class="n">scheduler</span> <span class="o">=</span> <span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, we start training the neural network.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
     <span class="n">train</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">train_loader</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
     <span class="n">test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">test_loader</span><span class="p">)</span>
     <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">save_model</span><span class="p">:</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">&quot;mnist_cnn.pt&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1100,37 +1121,49 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="section" id="supported-components">
-<h2>Supported components<a class="headerlink" href="#supported-components" title="Permalink to this headline">#</a></h2>
-<p>This would be an ever increasing list of features. CDOpt currently supports:</p>
-<div class="section" id="manifolds">
-<h3>Manifolds<a class="headerlink" href="#manifolds" title="Permalink to this headline">#</a></h3>
+<div class="section" id="functional-api-for-modules-in-pytorch">
+<h2>Functional API for modules in PyTorch<a class="headerlink" href="#functional-api-for-modules-in-pytorch" title="Permalink to this headline">#</a></h2>
+<p>PyTorch introduces a new feature to functionally apply Module computation with a given set of parameters. Sometimes, the traditional PyTorch Module usage pattern that maintains a static set of parameters internally is too restrictive. This is often the case when implementing algorithms for meta-learning, where multiple sets of parameters may need to be maintained across optimizer steps. Based on the functions from<code class="docutils literal notranslate"><span class="pre">torch.nn.utils.stateless</span></code>, we develop functions from <code class="docutils literal notranslate"><span class="pre">cdopt.nn.utils.stateless</span></code>, which allows the</p>
 <ul class="simple">
-<li><p>All the manifolds in <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_torch</span></code> and <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_jax</span></code>.</p></li>
+<li><p>Module/feasibility computation with full flexibility over the set of parameters used</p></li>
+<li><p>No need to reimplement your module in a functional way</p></li>
+<li><p>Any parameter or buffer present in the module can be swapped with an externally-defined value for use in the call. Naming for referencing parameters / buffers follows the fully-qualified form in the module’s <code class="docutils literal notranslate"><span class="pre">state_dict()</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="optimizers">
-<h3>Optimizers<a class="headerlink" href="#optimizers" title="Permalink to this headline">#</a></h3>
-<ul class="simple">
-<li><p>All the optimizers from PyTorch.</p></li>
-<li><p>All the optimizers from Torch-optimizer.</p></li>
-<li><p>All the optimizers from Optax.</p></li>
-</ul>
-</div>
-<div class="section" id="layers">
-<h3>Layers<a class="headerlink" href="#layers" title="Permalink to this headline">#</a></h3>
-<p>For PyTorch</p>
-<ul class="simple">
-<li><p>Linear layers and Bilinear layers.</p></li>
-<li><p>Convolutional layers: Conv1d, Conv2d, Conv3d.</p></li>
-<li><p>Recurrent Layers: RNN, LSTM, GRU, and their <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell">cells</a>.</p></li>
-<li></li>
-</ul>
-<p>For JAX/FLAX:</p>
-<ul class="simple">
-<li><p>Linear layers</p></li>
-<li><p>Convolutional layers</p></li>
-</ul>
+<p>Here is an simple example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">cdopt</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn.utils.stateless</span> <span class="kn">import</span> <span class="n">functional_call</span><span class="p">,</span> <span class="n">get_quad_penalty_call</span><span class="p">,</span> <span class="n">functional_quad_penalty_call</span>
+
+<span class="k">class</span> <span class="nc">MyModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear_cdopt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">MyModule</span><span class="p">()</span>
+
+<span class="c1"># Define parameter / buffer values to use during module computation.</span>
+<span class="n">my_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">my_bias</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">params_and_buffers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;fc1.weight&#39;</span><span class="p">:</span> <span class="n">my_weight</span><span class="p">,</span>
+    <span class="s1">&#39;fc1.bias&#39;</span><span class="p">:</span> <span class="n">my_bias</span><span class="p">,</span>
+    <span class="c1"># Custom buffer values can be used too.</span>
+    <span class="s1">&#39;bn.running_mean&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1"># Apply module computation to the input with the specified parameters / buffers.</span>
+<span class="n">inp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">output1</span> <span class="o">=</span> <span class="n">functional_call</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">params_and_buffers</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span>
+<span class="n">quad_penalty1</span> <span class="o">=</span> <span class="n">get_quad_penalty_call</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">params_and_buffers</span><span class="p">)</span>
+<span class="n">output2</span><span class="p">,</span> <span class="n">quad_penalty2</span> <span class="o">=</span> <span class="n">functional_quad_penalty_call</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">params_and_buffers</span><span class="p">,</span> <span class="n">inp</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>

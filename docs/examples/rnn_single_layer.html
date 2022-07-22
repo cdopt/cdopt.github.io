@@ -831,7 +831,7 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">euclidean_torch</span><span class="p">,</span> <span class="n">stiefel_torch</span>
-<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn</span> <span class="kn">import</span> <span class="n">RNN_cdopt</span><span class="p">,</span> <span class="n">get_quad_penalty</span>
 
 
 
@@ -856,9 +856,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
-Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
-Device available now: cuda
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Device available now: cuda
 </pre></div>
 </div>
 </div>
@@ -879,7 +877,7 @@ Device available now: cuda
         <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span>
         
         <span class="c1"># replace nn.RNN Layer by the layers from `cdopt.nn.RNN_cdopt`. Users can try other manifold classes from `cdopt.manifold_torch`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">RNN_cdopt</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">manifold_class</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn</span> <span class="o">=</span> <span class="n">RNN_cdopt</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">manifold_class</span> <span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
         <span class="c1"># Fully Connected Layer. Users can try other manifold classes from `cdopt.manifold_torch`.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span>
         <span class="c1"># self.layer = cdopt.nn.Linear_cdopt(hidden_size, self.output_size, manifold_class= stiefel_torch)</span>
@@ -989,7 +987,7 @@ Device available now: cuda
             <span class="c1"># Clears the gradients from previous iteration</span>
             <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
             <span class="c1"># Computes loss: how far is the prediction from the actual? And add the layer.quad_penalty() to the loss function. </span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">rnn</span><span class="o">.</span><span class="n">quad_penalty</span><span class="p">()</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_quad_penalty</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
             <span class="c1"># Computes gradients for neurons</span>
             <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
             <span class="c1"># Updates the weights</span>

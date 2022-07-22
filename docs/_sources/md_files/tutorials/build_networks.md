@@ -14,6 +14,37 @@ CDOpt supports PyTorch functions in addition to Manifold optimization. Researche
 
 
 
+## Supported components
+
+This would be an ever increasing list of features. CDOpt currently supports:
+
+### Manifolds
+
+- All the manifolds in `cdopt.manifold_torch` and `cdopt.manifold_jax`. 
+
+### Optimizers
+
+- All the optimizers from PyTorch.
+- All the optimizers from Torch-optimizer.
+- All the optimizers from Optax.
+
+### Layers
+
+For PyTorch
+
+- Linear layers and Bilinear layers.
+- Convolutional layers: Conv1d, Conv2d, Conv3d. 
+- Recurrent Layers: RNN, LSTM, GRU, and their [cells](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell). 
+
+
+
+For JAX/FLAX:
+
+* Linear layers
+* Convolutional layers
+
+
+
 ## Training by PyTorch
 
 Let us start with a simple example on training neural networks with orthogonal weights. We first import essential packages. 
@@ -108,35 +139,15 @@ def test(model, device, test_loader):
 
 
 
-We then set the arguments 
+We then set the arguments and load the dataset
 
 ```python
-class ARGS():
-    pass
-args = ARGS()
-args.batch_size = 64
-args.test_batch_size = 1000
-args.epochs = 14
-args.lr = 0.1
-args.gamma = 0.7 
-args.no_cuda = False
-args.seed = 1
-args.log_interval = 10
-args.save_model = False 
-args.dry_run = False
-```
+use_cuda = torch.cuda.is_available()
 
-and define the dataset
+torch.manual_seed(1)
 
-```python
-use_cuda = not args.no_cuda and torch.cuda.is_available()
-
-torch.manual_seed(args.seed)
-
-device = torch.device("cpu")
-
-train_kwargs = {'batch_size': args.batch_size}
-test_kwargs = {'batch_size': args.test_batch_size}
+train_kwargs = {'batch_size': 64}
+test_kwargs = {'batch_size': 1000}
 if use_cuda:
     device = torch.device("cuda")
     cuda_kwargs = {'num_workers': 1,
@@ -157,9 +168,9 @@ train_loader = torch.utils.data.DataLoader(dataset1,**train_kwargs)
 test_loader = torch.utils.data.DataLoader(dataset2, **test_kwargs)
 
 model = Net().to(device)
-optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
+optimizer = optim.Adadelta(model.parameters(), lr=0.1)
 
-scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
+scheduler = StepLR(optimizer, step_size=1, gamma=0.7)
 ```
 
 
@@ -167,13 +178,10 @@ scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
 Finally, we start training the neural network.
 
 ```python
-for epoch in range(1, args.epochs + 1):
+for epoch in range(1, 11):
     train(args, model, device, train_loader, optimizer, epoch)
     test(model, device, test_loader)
     scheduler.step()
-
-if args.save_model:
-    torch.save(model.state_dict(), "mnist_cnn.pt")
 ```
 
  
@@ -361,30 +369,51 @@ for epoch in range(1, num_epochs + 1):
 
 
 
-## Supported components
+## Functional API for modules in PyTorch
 
-This would be an ever increasing list of features. CDOpt currently supports:
+PyTorch introduces a new feature to functionally apply Module computation with a given set of parameters. Sometimes, the traditional PyTorch Module usage pattern that maintains a static set of parameters internally is too restrictive. This is often the case when implementing algorithms for meta-learning, where multiple sets of parameters may need to be maintained across optimizer steps. Based on the functions from`torch.nn.utils.stateless`, we develop functions from `cdopt.nn.utils.stateless`, which allows the 
 
-### Manifolds
+- Module/feasibility computation with full flexibility over the set of parameters used
+- No need to reimplement your module in a functional way
+- Any parameter or buffer present in the module can be swapped with an externally-defined value for use in the call. Naming for referencing parameters / buffers follows the fully-qualified form in the module’s `state_dict()`
 
-- All the manifolds in `cdopt.manifold_torch` and `cdopt.manifold_jax`. 
 
-### Optimizers
 
-- All the optimizers from PyTorch.
-- All the optimizers from Torch-optimizer.
-- All the optimizers from Optax.
+Here is an simple example:
 
-### Layers
+```python
+import torch
+import cdopt
+from torch import nn
+from cdopt.manifold_torch import stiefel_torch
+from cdopt.nn.utils.stateless import functional_call, get_quad_penalty_call, functional_quad_penalty_call
 
-For PyTorch
+class MyModule(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = cdopt.nn.Linear_cdopt(3, 3, manifold_class= stiefel_torch, penalty_param=0.1)
+        self.bn = nn.BatchNorm1d(3)
+        self.fc2 = nn.Linear(3, 3)
 
-- Linear layers and Bilinear layers.
-- Convolutional layers: Conv1d, Conv2d, Conv3d. 
-- Recurrent Layers: RNN, LSTM, GRU, and their [cells](https://pytorch.org/docs/stable/generated/torch.nn.RNNCell.html#torch.nn.RNNCell). 
-- 
+    def forward(self, x):
+        return self.fc2(self.bn(self.fc1(x)))
 
-For JAX/FLAX:
+m = MyModule()
 
-* Linear layers
-* Convolutional layers
+# Define parameter / buffer values to use during module computation.
+my_weight = torch.randn(3, 3, requires_grad=True)
+my_bias = torch.tensor([1., 2., 3.], requires_grad=True)
+params_and_buffers = {
+    'fc1.weight': my_weight,
+    'fc1.bias': my_bias,
+    # Custom buffer values can be used too.
+    'bn.running_mean': torch.randn(3),
+}
+
+# Apply module computation to the input with the specified parameters / buffers.
+inp = torch.randn(5, 3)
+output1 = functional_call(m, params_and_buffers, inp)
+quad_penalty1 = get_quad_penalty_call(m,params_and_buffers)
+output2, quad_penalty2 = functional_quad_penalty_call(m, params_and_buffers, inp)
+```
+

@@ -842,14 +842,8 @@ weights), combined with layers from <code class="docutils literal notranslate"><
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
 <span class="kn">import</span> <span class="nn">cdopt</span>
-<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">Linear_cdopt</span><span class="p">,</span> <span class="n">Conv2d_cdopt</span>
+<span class="kn">from</span> <span class="nn">cdopt.nn.modules</span> <span class="kn">import</span> <span class="n">Linear_cdopt</span><span class="p">,</span> <span class="n">Conv2d_cdopt</span><span class="p">,</span> <span class="n">get_quad_penalty</span>
 <span class="kn">from</span> <span class="nn">cdopt.manifold_torch</span> <span class="kn">import</span> <span class="n">stiefel_torch</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: cannot import backbone_jax. Possibly JAX is not installed.
-Warning: Cannot import JAX-related components. Please check whether JAX is correctly installed.
 </pre></div>
 </div>
 </div>
@@ -865,8 +859,8 @@ Warning: Cannot import JAX-related components. Please check whether JAX is corre
         <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># 1 input image channel, 6 output channels, 5x5 square convolution</span>
         <span class="c1"># kernel, the `manifold_class` can be chosen as any manifold class provided in `cdopt.manifold_torch`</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">Conv2d_cdopt</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span><span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
         <span class="c1"># an affine operation: y = Wx + b</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>  <span class="c1"># 5*5 from image dimension </span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
@@ -914,7 +908,7 @@ Warning: Cannot import JAX-related components. Please check whether JAX is corre
         <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">target</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">nll_loss</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="o">.</span><span class="n">quad_penalty</span><span class="p">()</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">conv2</span><span class="o">.</span><span class="n">quad_penalty</span><span class="p">())</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">nll_loss</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span> <span class="o">+</span> <span class="n">get_quad_penalty</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
@@ -1024,45 +1018,45 @@ Warning: Cannot import JAX-related components. Please check whether JAX is corre
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Epoch: 1 [0/60000 (0%)]	Loss: 2.323425
-Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.337492
-Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.173824
-Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.047076
-Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.142316
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Epoch: 1 [0/60000 (0%)]	Loss: 2.323270
+Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.326115
+Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.114495
+Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.051323
+Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.105870
 
-Test set: Average loss: 0.0612, Accuracy: 9793/10000 (98%)
+Test set: Average loss: 0.0646, Accuracy: 9809/10000 (98%)
 
-Train Epoch: 2 [0/60000 (0%)]	Loss: 0.077553
-Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.018011
-Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.019138
-Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.028631
-Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.152057
+Train Epoch: 2 [0/60000 (0%)]	Loss: 0.044817
+Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.021899
+Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.059884
+Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.058428
+Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.120565
 
-Test set: Average loss: 0.0469, Accuracy: 9830/10000 (98%)
+Test set: Average loss: 0.0503, Accuracy: 9841/10000 (98%)
 
-Train Epoch: 3 [0/60000 (0%)]	Loss: 0.012290
-Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.030673
-Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.008544
-Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.012734
-Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.011106
+Train Epoch: 3 [0/60000 (0%)]	Loss: 0.007342
+Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.024385
+Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.009210
+Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.017725
+Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.021979
 
-Test set: Average loss: 0.0363, Accuracy: 9889/10000 (99%)
+Test set: Average loss: 0.0340, Accuracy: 9888/10000 (99%)
 
-Train Epoch: 4 [0/60000 (0%)]	Loss: 0.004471
-Train Epoch: 4 [12800/60000 (21%)]	Loss: 0.051616
-Train Epoch: 4 [25600/60000 (43%)]	Loss: 0.017461
-Train Epoch: 4 [38400/60000 (64%)]	Loss: 0.137033
-Train Epoch: 4 [51200/60000 (85%)]	Loss: 0.098844
+Train Epoch: 4 [0/60000 (0%)]	Loss: 0.005622
+Train Epoch: 4 [12800/60000 (21%)]	Loss: 0.091185
+Train Epoch: 4 [25600/60000 (43%)]	Loss: 0.016090
+Train Epoch: 4 [38400/60000 (64%)]	Loss: 0.095113
+Train Epoch: 4 [51200/60000 (85%)]	Loss: 0.068672
 
-Test set: Average loss: 0.0329, Accuracy: 9904/10000 (99%)
+Test set: Average loss: 0.0327, Accuracy: 9898/10000 (99%)
 
-Train Epoch: 5 [0/60000 (0%)]	Loss: 0.020107
-Train Epoch: 5 [12800/60000 (21%)]	Loss: 0.026760
-Train Epoch: 5 [25600/60000 (43%)]	Loss: 0.120611
-Train Epoch: 5 [38400/60000 (64%)]	Loss: 0.004775
-Train Epoch: 5 [51200/60000 (85%)]	Loss: 0.081922
+Train Epoch: 5 [0/60000 (0%)]	Loss: 0.017446
+Train Epoch: 5 [12800/60000 (21%)]	Loss: 0.017138
+Train Epoch: 5 [25600/60000 (43%)]	Loss: 0.085022
+Train Epoch: 5 [38400/60000 (64%)]	Loss: 0.004909
+Train Epoch: 5 [51200/60000 (85%)]	Loss: 0.035722
 
-Test set: Average loss: 0.0325, Accuracy: 9902/10000 (99%)
+Test set: Average loss: 0.0329, Accuracy: 9903/10000 (99%)
 </pre></div>
 </div>
 </div>
@@ -1074,8 +1068,8 @@ Test set: Average loss: 0.0325, Accuracy: 9902/10000 (99%)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(7.8502e-05, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
- tensor(0.0003, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;)]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(1.5503e-05, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
+ tensor(0.0002, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;)]
 </pre></div>
 </div>
 </div>

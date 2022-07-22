@@ -42,7 +42,7 @@ class HybridModel(torch.nn.Module):
     def __init__(self, remote_emb_module, device):
         super(HybridModel, self).__init__()
         self.remote_emb_module = remote_emb_module
-        self.fc = DDP(cdopt.nn.Linear_cdopt(16, 8, manifold_class=stiefel_torch).cuda(device), device_ids=[device])
+        self.fc = DDP(cdopt.nn.Linear_cdopt(16, 8, manifold_class=stiefel_torch, penalty_param = 0.5).cuda(device), device_ids=[device])
         self.device = device
 
     def forward(self, indices, offsets):
@@ -107,7 +107,7 @@ def _run_trainer(remote_emb_module, rank):
         for indices, offsets, target in get_next_batch(rank):
             with dist_autograd.context() as context_id:
                 output = model(indices, offsets)
-                loss = criterion(output, target) + 1 * model.fc.module.quad_penalty()
+                loss = criterion(output, target) + get_quad_penalty(model)
 
                 # Run distributed backward pass
                 dist_autograd.backward(context_id, [loss])
