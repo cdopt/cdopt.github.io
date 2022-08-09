@@ -74,9 +74,9 @@ cdf_grad_np = problem_test.cdf_grad_vec_np
 cdf_hvp_np = problem_test.cdf_hvp_vec_np
 
 # Implement L-BFGS solver from scipy.optimize
-Xinit = M.tensor2array(M.Init_point())
+Xinit = problem_test.Xinit_vec_np
 t_start = time.time()
-out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit,method='L-BFGS-B',jac = cdf_grad_np)
 t_end = time.time() - t_start
 
 # Statistics
@@ -150,9 +150,9 @@ Finally, we call the L-BFGS solver from `scipy.optimize` package to minimize the
 
 ```python
 # Implement L-BFGS solver from scipy.optimize
-Xinit = M.tensor2array(M.Init_point())
+Xinit = problem_test.Xinit_vec_np
 t_start = time.time()
-out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
+out_msg = sp.optimize.minimize(cdf_fun_np, Xinit, method='L-BFGS-B',jac = cdf_grad_np)
 t_end = time.time() - t_start
 
 # Statistics
@@ -183,7 +183,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 | Generalized Grassmann manifold | $\left\{ \mathrm{range}(X): X \in \mathbb{R}^{m\times s}, X ^\top B X = I_s \right\}$, $B$ is positive definite | `generalized_stiefel_np`       | `generalized_stiefel_torch`      | `generalized_stiefel_jax`    |
 | Hyperbolic manifold            | $\left\{ X \in \mathbb{R}^{m\times s}: X ^\top B X = I_s \right\}$, $\lambda_{\min}(B)< 0 < \lambda_{\max}(B)$ | `hyperbolic_np`                | `hyperbolic_torch`               | `hyperbolic_jax`             |
 | Symplectic Stiefel manifold    | $\left\{ X \in \mathbb{R}^{2m\times 2s}: X ^\top Q_m X = Q_s \right\}$, $Q_m := \left[ \begin{smallmatrix}	{\bf 0}_{m\times m} & I_m\\			 -I_m & {\bf 0}_{m\times m}			\end{smallmatrix}\right]$ | `symp_stiefel_np`              | `symp_stiefel_torch`             | `symp_stiefel_jax`           |
-| Complex sphere                 | $\{x \in \mathbb{C}^n: ||x|| = 1  \}$                        | `complex_shpere_np`            | `complex_shpere_torch`           | `complex_shpere_jax`         |
+| Complex sphere                 | $\{x \in \mathbb{C}^n : x^H x = 1  \}$                       | `complex_shpere_np`            | `complex_shpere_torch`           | `complex_shpere_jax`         |
 | Complex oblique manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^H) = I_m \right\}$ | `complex_oblique_np`           | `complex_oblique_torch`          | `complex_oblique_jax`        |
 | Complex Stiefel manifold       | $\left\{ X \in \mathbb{C}^{m\times s}: X ^H X = I_s \right\}$ | `complex_stiefel_np`           | `complex_stiefel_torch`          | `complex_stiefel_jax`        |
 | ...                            | ...                                                          | ...                            |                                  |                              |
@@ -196,7 +196,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## Solvers
 
-Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), and [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
+Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer), and [jaxopt](https://github.com/google/jaxopt) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
 
 
 
@@ -263,7 +263,7 @@ problem_test = problem(M, obj_fun, beta = beta)
 
 
 
-On the one hand, we can use the interface provided by `cdopt.core.Problem` class to retrieve the constraint dissolving function that adopts `scipy.optimize` package. 
+On the one hand, we can use the interface provided by `cdopt.core.problem` class to retrieve the constraint dissolving function that adopts `scipy.optimize` package. 
 
 ```python
 cdf_fun_np = problem_test.cdf_fun_vec_np   
@@ -308,7 +308,7 @@ def train_epoch(epoch):
     def closure():
         optim.zero_grad()
         loss = model()
-        (loss).backward()
+        loss.backward()
         return loss
     optim.step(closure)
 

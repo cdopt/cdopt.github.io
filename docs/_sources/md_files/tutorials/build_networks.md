@@ -1,4 +1,4 @@
-# Training neural networks with constraints
+# Training neural networks with manifold constraints
 
 Training deep neural networks is usually thought to be challenging both theoretically and practically, for which the vanishing/exploding gradients is one of the most important reasons.  To address such issue, several recent works focus on imposing Riemannian constraints to the weights of the layers in these deep neural networks. For example, some existing works demonstrate that the orthogonal constraints can stabilize the distribution of activations over layers within convolutional neural networks and make their optimization more efficient. And they observe encouraging improvements in the accuracy and robustness of the networks with orthogonal constraints. 
 
@@ -18,19 +18,23 @@ CDOpt supports PyTorch functions in addition to Manifold optimization. Researche
 
 This would be an ever increasing list of features. CDOpt currently supports:
 
-### Manifolds
+**Manifolds**
 
 - All the manifolds in `cdopt.manifold_torch` and `cdopt.manifold_jax`. 
 
-### Optimizers
+
+
+**Optimizers**
 
 - All the optimizers from PyTorch.
 - All the optimizers from Torch-optimizer.
 - All the optimizers from Optax.
 
-### Layers
 
-For PyTorch
+
+**Neural layers**
+
+For PyTorch:
 
 - Linear layers and Bilinear layers.
 - Convolutional layers: Conv1d, Conv2d, Conv3d. 
@@ -45,7 +49,15 @@ For JAX/FLAX:
 
 
 
-## Training by PyTorch
+## Impose manifold constraints by predefined layers
+
+For those users that aims to train neural networks with manifold constraints, CDOpt provides various predefined neural layers in `cdopt.nn` and `cdopt.linen` modules for PyTorch and Flax, respectively. These predefined layers in CDOpt preserve the same APIs as the layers from PyTorch and Flax, hence users can plug these layers into the neural networks with minimal modification to the standard PyTorch or Flax codes.
+
+### Training by PyTorch
+
+`cdopt.nn` provides various of predefined layers for PyTorch, which inherit the same APIs as standard neural layers from `torch.nn`.  In the instantiation of these neural layers, we need to provide the `manifold_class` argument to set the type of manifold constraints, use `penalty_param` to set the penalty parameters, and choose the `weight_var_transfer` argument to determine how the weights of the layers are transferred into the variables of the manifolds. 
+
+
 
 Let us start with a simple example on training neural networks with orthogonal weights. We first import essential packages. 
 
@@ -65,7 +77,7 @@ from cdopt.manifold_torch import stiefel_torch
 from cdopt.nn import get_quad_penalty
 ```
 
-Then we build the neural network
+Then we build the neural network, where we restrict the weights of the first FC layer on the Stiefel manifold, and set the penalty parameter as 0.02. 
 
 ```python
 class Net(nn.Module):
@@ -106,6 +118,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target) + get_quad_penalty(model)
+        # equivalent to 
         # loss = F.nll_loss(output, target) +  0.02 * model.conv1.quad_penalty()
 
         loss.backward()
@@ -188,7 +201,7 @@ for epoch in range(1, 11):
 
 
 
-## Training by JAX and FLAX
+### Training by JAX and FLAX
 
 Let us start with a simple example on training neural networks with orthogonal weights by FLAX, a neural network library developed from JAX . We first import essential packages. 
 
@@ -364,6 +377,41 @@ for epoch in range(1, num_epochs + 1):
   print(' test epoch: %d, loss: %.2f, accuracy: %.2f, feas: %.2e' % (
       epoch, test_loss, test_accuracy * 100, feas))
 ```
+
+
+
+
+
+## Impose manifold constraints by `set_constraint_dissolving()`
+
+Furthermore, for those neural layers that are not predefined in `cdopt.nn`, CDOpt provides a simple way to add manifold constraints to the parameters of these neural layers. Through the `set_constraint_dissolving` function from `cdopt.nn.utils.set\_constraints`, users can set the manifold constraints to the layers by just providing the neural layers, the name of target parameters and the manifold class.  The following example illustrates how to set the manifold constraints to the first full connect layer for LeNet. 
+
+```python
+class Net(nn.Module):
+
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(1, 6, 5)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(256, 120)  # 5*5 from image dimension 
+        set_constraint_dissolving(self.fc1, 'weight', manifold_class = stiefel_torch, penalty_param= 0.02)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+
+    def forward(self, x):
+        # Max pooling over a (2, 2) window
+        x = F.max_pool2d(F.relu(self.conv1(x)), (2, 2))
+        # If the size is a square, you can specify with a single number
+        x = F.max_pool2d(F.relu(self.conv2(x)), 2)
+        x = torch.flatten(x, 1) # flatten all dimensions except the batch dimension
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        x = F.log_softmax(x, dim=1)
+        return x
+```
+
+
 
 
 

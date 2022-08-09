@@ -138,13 +138,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/define_manifolds.html">
-     Define your own manifold
+    <a class="reference internal" href="tutorials/build_networks.html">
+     Training neural networks with manifold constraints
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="tutorials/build_networks.html">
-     Training neural networks with constraints
+    <a class="reference internal" href="tutorials/define_manifolds.html">
+     Define your own manifold
     </a>
    </li>
   </ul>
@@ -414,6 +414,16 @@ const thebe_selector_output = ".output, .cell_output"
        <li class="toctree-l4">
         <a class="reference internal" href="apis/nn/utils/stateless.html">
          cdopt.nn.utils.stateless
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/utils/modified_apply.html">
+         cdopt.nn.utils.modified_apply
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="apis/nn/utils/set_constraints.html">
+         cdopt.nn.utils.set_constraints
         </a>
        </li>
       </ul>
@@ -709,8 +719,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-deeper-introduction-to-constraint-dissolving-approaches">
-   A deeper introduction to constraint dissolving approaches
+  <a class="reference internal nav-link" href="#a-brief-introduction-to-constraint-dissolving-approaches">
+   A brief introduction to constraint dissolving approaches
   </a>
  </li>
 </ul>
@@ -738,8 +748,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-deeper-introduction-to-constraint-dissolving-approaches">
-   A deeper introduction to constraint dissolving approaches
+  <a class="reference internal nav-link" href="#a-brief-introduction-to-constraint-dissolving-approaches">
+   A brief introduction to constraint dissolving approaches
   </a>
  </li>
 </ul>
@@ -780,8 +790,8 @@ title="Print to PDF"
 <li><p><strong>High compatibility :</strong> CDOpt has high compatibility with various numerical packages, including <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">PyTorch</span></code>, <code class="docutils literal notranslate"><span class="pre">JAX</span></code>, <code class="docutils literal notranslate"><span class="pre">tensorflow</span></code>, etc. Users can directly apply the advanced features of these numerical packages to accelerate the optimization, including the automatic differentiation, CUDA supports, distributed optimization supports, just-in-time compilations, etc.</p></li>
 </ul>
 </div>
-<div class="section" id="a-deeper-introduction-to-constraint-dissolving-approaches">
-<h2>A deeper introduction to constraint dissolving approaches<a class="headerlink" href="#a-deeper-introduction-to-constraint-dissolving-approaches" title="Permalink to this headline">#</a></h2>
+<div class="section" id="a-brief-introduction-to-constraint-dissolving-approaches">
+<h2>A brief introduction to constraint dissolving approaches<a class="headerlink" href="#a-brief-introduction-to-constraint-dissolving-approaches" title="Permalink to this headline">#</a></h2>
 <p>The <em>constraint dissolving approaches</em> aim to reshape (OCP) as an <strong>unconstrained optimization problem</strong> that adapts to unconstrained optimization approaches while keeping its stationary points unchanged. Therefore, constraint dissolving approaches enable <strong>direct implementation</strong> of unconstrained optimization approaches to solve (OCP).</p>
 <p>Given <span class="math notranslate nohighlight">\(c(x)\)</span>, we first consider a mapping <span class="math notranslate nohighlight">\(\mathcal{A}: \mathbb{R}^n \mapsto \mathbb{R}^n\)</span> that satisfies the following assumptions,</p>
 <ul class="simple">

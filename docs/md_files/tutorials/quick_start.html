@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Define your own manifold" href="define_manifolds.html" />
+    <link rel="next" title="Training neural networks with manifold constraints" href="build_networks.html" />
     <link rel="prev" title="Tutorials" href="../tutorial.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -138,13 +138,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="define_manifolds.html">
-     Define your own manifold
+    <a class="reference internal" href="build_networks.html">
+     Training neural networks with manifold constraints
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="build_networks.html">
-     Training neural networks with constraints
+    <a class="reference internal" href="define_manifolds.html">
+     Define your own manifold
     </a>
    </li>
   </ul>
@@ -414,6 +414,16 @@ const thebe_selector_output = ".output, .cell_output"
        <li class="toctree-l4">
         <a class="reference internal" href="../apis/nn/utils/stateless.html">
          cdopt.nn.utils.stateless
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/utils/modified_apply.html">
+         cdopt.nn.utils.modified_apply
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../apis/nn/utils/set_constraints.html">
+         cdopt.nn.utils.set_constraints
         </a>
        </li>
       </ul>
@@ -839,9 +849,9 @@ title="Print to PDF"
 <span class="n">cdf_hvp_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_hvp_vec_np</span>
 
 <span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>
@@ -895,9 +905,9 @@ title="Print to PDF"
 </div>
 <p>Finally, we call the L-BFGS solver from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package to minimize the constraint dissolving function over <span class="math notranslate nohighlight">\(\mathbb{R}^{n\times p}\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Implement L-BFGS solver from scipy.optimize</span>
-<span class="n">Xinit</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">tensor2array</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">Init_point</span><span class="p">())</span>
+<span class="n">Xinit</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">Xinit_vec_np</span>
 <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
+<span class="n">out_msg</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">cdf_fun_np</span><span class="p">,</span> <span class="n">Xinit</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span><span class="n">jac</span> <span class="o">=</span> <span class="n">cdf_grad_np</span><span class="p">)</span>
 <span class="n">t_end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
 
 <span class="c1"># Statistics</span>
@@ -976,10 +986,10 @@ title="Print to PDF"
 <td><p><code class="docutils literal notranslate"><span class="pre">symp_stiefel_jax</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>Complex sphere</p></td>
-<td><p>${x \in \mathbb{C}^n:</p></td>
-<td><p></p></td>
-<td><p>x</p></td>
-<td><p></p></td>
+<td><p><span class="math notranslate nohighlight">\(\{x \in \mathbb{C}^n : x^H x = 1  \}\)</span></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_shpere_np</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_shpere_torch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complex_shpere_jax</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Complex oblique manifold</p></td>
 <td><p><span class="math notranslate nohighlight">\(\left\{ X \in \mathbb{C}^{m\times s}: \mathrm{Diag} (X  X^H) = I_m \right\}\)</span></p></td>
@@ -1004,7 +1014,7 @@ title="Print to PDF"
 </div>
 <div class="section" id="solvers">
 <h2>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">#</a></h2>
-<p>Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <a class="reference external" href="https://www.pdfo.net/index.html">PDFO</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize">SciPy</a>, <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">PyTorch</a>, and <a class="reference external" href="https://github.com/jettify/pytorch-optimizer">pytorch-optimizer</a> packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt.</p>
+<p>Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from <a class="reference external" href="https://www.pdfo.net/index.html">PDFO</a>, <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize">SciPy</a>, <a class="reference external" href="https://pytorch.org/docs/stable/optim.html">PyTorch</a>, <a class="reference external" href="https://github.com/jettify/pytorch-optimizer">pytorch-optimizer</a>, and <a class="reference external" href="https://github.com/google/jaxopt">jaxopt</a> packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt.</p>
 </div>
 <div class="section" id="automatic-differentiation-backbones">
 <h2>Automatic differentiation backbones<a class="headerlink" href="#automatic-differentiation-backbones" title="Permalink to this headline">#</a></h2>
@@ -1044,7 +1054,7 @@ title="Print to PDF"
 <span class="n">problem_test</span> <span class="o">=</span> <span class="n">problem</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">obj_fun</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>On the one hand, we can use the interface provided by <code class="docutils literal notranslate"><span class="pre">cdopt.core.Problem</span></code> class to retrieve the constraint dissolving function that adopts <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package.</p>
+<p>On the one hand, we can use the interface provided by <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> class to retrieve the constraint dissolving function that adopts <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> package.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cdf_fun_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_fun_vec_np</span>   
 <span class="n">cdf_grad_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_grad_vec_np</span>
 <span class="n">cdf_hvp_np</span> <span class="o">=</span> <span class="n">problem_test</span><span class="o">.</span><span class="n">cdf_hvp_vec_np</span>
@@ -1083,7 +1093,7 @@ title="Print to PDF"
     <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
         <span class="n">optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">()</span>
-        <span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">loss</span>
     <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
 
@@ -1133,10 +1143,10 @@ title="Print to PDF"
             <p class="prev-next-title">Tutorials</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="define_manifolds.html" title="next page">
+    <a class='right-next' id="next-link" href="build_networks.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Define your own manifold</p>
+        <p class="prev-next-title">Training neural networks with manifold constraints</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

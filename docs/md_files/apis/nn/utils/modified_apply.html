@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GRU_cdopt &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
+    <title>cdopt.nn.utils.modified_apply &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -51,12 +51,10 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="RNNCell_cdopt" href="rnncell_cdopt.html" />
-    <link rel="prev" title="LSTM_cdopt" href="lstm_cdopt.html" />
+    <link rel="next" title="cdopt.nn.utils.set_constraints" href="set_constraints.html" />
+    <link rel="prev" title="cdopt.nn.utils.stateless" href="stateless.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -401,105 +399,105 @@ const thebe_selector_output = ".output, .cell_output"
      </i>
     </label>
     <ul class="current">
-     <li class="toctree-l3 has-children">
+     <li class="toctree-l3 current active has-children">
       <a class="reference internal" href="../cdopt_nn_utils.html">
        cdopt.nn.utils
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
       <label for="toctree-checkbox-10">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../utils/stateless.html">
-         cdopt.nn.utils.stateless
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../utils/modified_apply.html">
-         cdopt.nn.utils.modified_apply
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../utils/set_constraints.html">
-         cdopt.nn.utils.set_constraints
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 current active has-children">
-      <a class="reference internal" href="../cdopt_nn_module.html">
-       cdopt.nn.module
-      </a>
-      <input checked="" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-      <label for="toctree-checkbox-11">
        <i class="fas fa-chevron-down">
        </i>
       </label>
       <ul class="current">
        <li class="toctree-l4">
-        <a class="reference internal" href="linear_cdopt.html">
-         Linear_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="bilinear_cdopt.html">
-         Bilinear
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="conv1d_cdopt.html">
-         Conv1d_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="conv2d_cdopt.html">
-         Conv2d_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="conv3d_cdopt.html">
-         Conv3d_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="rnnbase_cdopt.html">
-         RNNBase_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="rnn_cdopt.html">
-         RNN_cdopt
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="lstm_cdopt.html">
-         LSTM_cdopt
+        <a class="reference internal" href="stateless.html">
+         cdopt.nn.utils.stateless
         </a>
        </li>
        <li class="toctree-l4 current active">
         <a class="current reference internal" href="#">
+         cdopt.nn.utils.modified_apply
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="set_constraints.html">
+         cdopt.nn.utils.set_constraints
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../cdopt_nn_module.html">
+       cdopt.nn.module
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+      <label for="toctree-checkbox-11">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/linear_cdopt.html">
+         Linear_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/bilinear_cdopt.html">
+         Bilinear
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/conv1d_cdopt.html">
+         Conv1d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/conv2d_cdopt.html">
+         Conv2d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/conv3d_cdopt.html">
+         Conv3d_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/rnnbase_cdopt.html">
+         RNNBase_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/rnn_cdopt.html">
+         RNN_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/lstm_cdopt.html">
+         LSTM_cdopt
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../module/gru_cdopt.html">
          GRU_cdopt
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="rnncell_cdopt.html">
+        <a class="reference internal" href="../module/rnncell_cdopt.html">
          RNNCell_cdopt
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="lstmcell_cdopt.html">
+        <a class="reference internal" href="../module/lstmcell_cdopt.html">
          LSTMCell_cdopt
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="grucell_cdopt.html">
+        <a class="reference internal" href="../module/grucell_cdopt.html">
          GRUCell_cdopt
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="utils.html">
+        <a class="reference internal" href="../module/utils.html">
          cdopt.nn.module.utils
         </a>
        </li>
@@ -626,7 +624,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fmd_files/apis/nn/module/gru_cdopt.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/xnchxy/constraint_dissolving_lib/issues/new?title=Issue%20on%20page%20%2Fmd_files/apis/nn/utils/modified_apply.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -654,7 +652,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../../../_sources/md_files/apis/nn/module/gru_cdopt.md"
+        <a href="../../../../_sources/md_files/apis/nn/utils/modified_apply.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -714,35 +712,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parameters">
-   Parameters
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#shapes">
-   Shapes
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inputs">
-     Inputs
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#outputs">
-     Outputs
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attributes">
-   Attributes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example">
-   Example
+  <a class="reference internal nav-link" href="#modified-apply">
+   modified_apply
   </a>
  </li>
 </ul>
@@ -754,7 +725,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>GRU_cdopt</h1>
+                <h1>cdopt.nn.utils.modified_apply</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -765,35 +736,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parameters">
-   Parameters
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#shapes">
-   Shapes
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inputs">
-     Inputs
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#outputs">
-     Outputs
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attributes">
-   Attributes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example">
-   Example
+  <a class="reference internal nav-link" href="#modified-apply">
+   modified_apply
   </a>
  </li>
 </ul>
@@ -806,88 +750,25 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="gru-cdopt">
-<h1>GRU_cdopt<a class="headerlink" href="#gru-cdopt" title="Permalink to this headline">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">cdopt.nn.GRU_cdopt(*args,</span> <span class="pre">**kwargs)</span></code></p>
-<p>Applies a multi-layer gated recurrent unit (GRU) RNN where the weights for hidden states are restricted on the manifold defined by <code class="docutils literal notranslate"><span class="pre">manifold_class</span></code>. The basic introduction to convolution can be found at <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.GRU.html"><code class="docutils literal notranslate"><span class="pre">torch.nn.GRU</span></code></a>.</p>
-<div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="cdopt-nn-utils-modified-apply">
+<h1>cdopt.nn.utils.modified_apply<a class="headerlink" href="#cdopt-nn-utils-modified-apply" title="Permalink to this headline">#</a></h1>
+<div class="section" id="modified-apply">
+<h2>modified_apply<a class="headerlink" href="#modified-apply" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cdopt.nn.utils.modified_apply.modified_apply(module,</span> <span class="pre">fn)</span></code></p>
+<p>Applies <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>) as well as self. Typical use includes initializing the parameters of a model (see also <a class="reference external" href="https://pytorch.org/docs/stable/nn.init.html#nn-init-doc">torch.nn.init</a>) or move the parameters and buffers to other devices (see also <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html?highlight=appl#torch.nn.Module.to">torch.nn.Module.to</a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">modified_apply()</span></code> is developed based the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method from <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html"><code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>. In <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>, when its parameters and buffers are moved to an different device by the <code class="docutils literal notranslate"><span class="pre">to()</span></code> method based on its <code class="docutils literal notranslate"><span class="pre">apply()</span></code> method, the parameters are moved to the target device in-place, but the buffers are <strong>copied</strong> to the target device. That leads to great inconvenience to the CDOpt package since some of the variables of the manifold classes, such as the identity matrix in the Stiefel manifold, are registered as the buffers of the neural layers.</p>
+<p>Therefore, CDOpt replaces the <code class="docutils literal notranslate"><span class="pre">apply()</span></code> function of all its neural layers by the <code class="docutils literal notranslate"><span class="pre">modified_apply()</span></code> function. In <code class="docutils literal notranslate"><span class="pre">modified_apply()</span></code> function, the parameters and buffers have the same behavior, and the variables of the manifold classes that are registered as the buffers can be properly moved to other devices by the <code class="docutils literal notranslate"><span class="pre">to()</span></code> method.</p>
+</div>
+<p>Parameters:</p>
 <ul class="simple">
-<li><p><strong>input_size</strong> – The number of expected features in the input x</p></li>
-<li><p><strong>hidden_size</strong> – The number of features in the hidden state h</p></li>
-<li><p><strong>num_layers</strong> – Number of recurrent layers. E.g., setting <code class="docutils literal notranslate"><span class="pre">num_layers=2</span></code> would mean stacking two GRUs together to form a stacked GRU, with the second GRU taking in outputs of the first GRU and computing the final results. Default: 1</p></li>
-<li><p><strong>bias</strong> – If <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the layer does not use bias weights b_ih and b_hh. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
-<li><p><strong>batch_first</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the input and output tensors are provided as (batch, seq, feature) instead of (seq, batch, feature). Note that this does not apply to hidden or cell states. See the Inputs/Outputs sections below for details. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p><strong>dropout</strong> – If non-zero, introduces a Dropout layer on the outputs of each GRU layer except the last layer, with dropout probability equal to <code class="docutils literal notranslate"><span class="pre">dropout</span></code>. Default: 0</p></li>
-<li><p><strong>bidirectional</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, becomes a bidirectional GRU. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
-<li><p><strong>manifold_class</strong> – The manifold class for the weight matrix. Default: <code class="docutils literal notranslate"><span class="pre">cdopt.manifold_torch.euclidean_torch</span></code></p></li>
-<li><p><strong>penalty_param</strong> – The penalty parameter for the quadratic penalty terms in constraint dissolving function</p></li>
-<li><p><strong>manifold_args</strong> - The additional key-word arguments that helps to define the manifold constraints.</p></li>
-<li><p><strong>weight_var_transfer</strong> (callable) – The function that transfer the weights (3D-tensor) to the shape of the variables of the manifold.</p>
-<ul>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">weight_var_transfer</span></code> is called by<br />
-<code class="docutils literal notranslate"><span class="pre">weight_to_var,</span> <span class="pre">var_to_weight,</span> <span class="pre">var_shape</span> <span class="pre">=</span> <span class="pre">weight_var_transfer(</span> <span class="pre">tensor_shape</span> <span class="pre">)</span></code></p></li>
-<li><p>The inputs of <code class="docutils literal notranslate"><span class="pre">weight_var_transfer</span></code> should be the <code class="docutils literal notranslate"><span class="pre">size</span></code> of the weights. As for the outputs, <code class="docutils literal notranslate"><span class="pre">weight_to_var</span></code> is the callable function that transfer the weights to the variables of the manifold. <code class="docutils literal notranslate"><span class="pre">var_to_weight</span></code> is the callable function that transfers the variables of the manifold to the weights. <code class="docutils literal notranslate"><span class="pre">var_shape</span> </code> is a tuple of ints that refers to the shape of the variables of the manifolds.</p></li>
-<li><p>Default:</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">weight_to_var</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">X_tensor:</span> <span class="pre">X_tensor</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">var_to_weight</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">X_var:</span> <span class="pre">X_var</span> </code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">var_shape</span> <span class="pre">=</span> <span class="pre">tensor_shape</span> </code></p></li>
+<li><p><strong>fn</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html?highlight=apply#torch.nn.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a> -&gt; None) – function to be applied to each submodule</p></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="shapes">
-<h2>Shapes<a class="headerlink" href="#shapes" title="Permalink to this headline">#</a></h2>
-<div class="section" id="inputs">
-<h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">input,</span> <span class="pre">h_0</span></code></p>
+<p>Returns:</p>
 <ul class="simple">
-<li><p><strong>input</strong>: tensor of shape <span class="math notranslate nohighlight">\((L, H_{in})\)</span> for unbatched input, <span class="math notranslate nohighlight">\((L, N, H_{in})\)</span> when <code class="docutils literal notranslate"><span class="pre">batch_first=False</span></code> or <span class="math notranslate nohighlight">\((N, L, H_{in})\)</span> when <code class="docutils literal notranslate"><span class="pre">batch_first=True</span></code> containing the features of the input sequence. The input can also be a packed variable length sequence. See <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.utils.rnn.pack_padded_sequence.html#torch.nn.utils.rnn.pack_padded_sequence"><code class="docutils literal notranslate"><span class="pre">torch.nn.utils.rnn.pack_padded_sequence()</span></code></a> or <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.utils.rnn.pack_sequence.html#torch.nn.utils.rnn.pack_sequence"><code class="docutils literal notranslate"><span class="pre">torch.nn.utils.rnn.pack_sequence()</span></code></a> for details.</p></li>
-<li><p><strong>h_0</strong>: tensor of shape <span class="math notranslate nohighlight">\((D * \text{num\_layers}, H_{out})\)</span> for unbatched input or <span class="math notranslate nohighlight">\((D * \text{num\_layers}, N, H_{out})\)</span> containing the initial hidden state for the input sequence batch. Defaults to zeros if not provided.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">module</span></code>.</p></li>
 </ul>
-<p>where:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned} 
-N ={} &amp; \text{batch size} \\ 
-L ={} &amp; \text{sequence length} \\ D ={} &amp; 2 \text{ if bidirectional=True otherwise } 1 \\ 
-H_{in} ={} &amp; \mathrm{input\_size} \\ 
-H_{out} ={} &amp; \mathrm{hidden\_size} 
-\end{aligned}
-\end{split}\]</div>
-</div>
-<div class="section" id="outputs">
-<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">output,</span> <span class="pre">h_n</span></code></p>
-<ul class="simple">
-<li><p><strong>output</strong>: tensor of shape <span class="math notranslate nohighlight">\((L, H_{in})\)</span> for unbatched input, <span class="math notranslate nohighlight">\((L, N, D * H_{out})\)</span> when <code class="docutils literal notranslate"><span class="pre">batch_first=False</span></code> or <span class="math notranslate nohighlight">\((N, L, D * H_{out})\)</span> when <code class="docutils literal notranslate"><span class="pre">batch_first=True</span></code> containing the output features (h_t) from the last layer of the GRU, for each t. If a <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence"><code class="docutils literal notranslate"><span class="pre">torch.nn.utils.rnn.PackedSequence</span></code></a> has been given as the input, the output will also be a packed sequence.</p></li>
-<li><p><strong>h_n</strong>: tensor of shape <span class="math notranslate nohighlight">\((D * \text{num\_layers}, H_{out})\)</span> for unbatched input or <span class="math notranslate nohighlight">\((D * \text{num\_layers}, N, H_{out})\)</span> containing the final hidden state for each element in the batch.</p></li>
-</ul>
-</div>
-</div>
-<div class="section" id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p><strong>manifold</strong> (cdopt manifold class) – the manifold that defines the constraints.  The shape of the variables in <code class="docutils literal notranslate"><span class="pre">manifold</span></code> is set as <code class="docutils literal notranslate"><span class="pre">var_shape</span></code>.</p></li>
-<li><p><strong>weight_ih_l[k]</strong> – the learnable input-hidden weights of the <span class="math notranslate nohighlight">\(\text{k}^{th}\)</span> layer (W_ir|W_iz|W_in), of shape (3<em>hidden_size, input_size) for k = 0. Otherwise, the shape is (3</em>hidden_size, num_directions * hidden_size)</p></li>
-<li><p><strong>weight_hh_l[k]</strong> – the learnable hidden-hidden weights of the <span class="math notranslate nohighlight">\(\text{k}^{th}\)</span> layer (W_hr|W_hz|W_hn), of shape (3*hidden_size, hidden_size)</p></li>
-<li><p><strong>bias_ih_l[k]</strong> – the learnable input-hidden bias of the <span class="math notranslate nohighlight">\(\text{k}^{th}\)</span> layer (b_ir|b_iz|b_in), of shape (3*hidden_size)</p></li>
-<li><p><strong>bias_hh_l[k]</strong> – the learnable hidden-hidden bias of the <span class="math notranslate nohighlight">\(\text{k}^{th}\)</span> layer (b_hr|b_hz|b_hn), of shape (3*hidden_size)</p></li>
-<li><p><strong>quad_penalty</strong> (callable) – the function that returns the quadratic penalty terms of the weights. Its return value equals to <span class="math notranslate nohighlight">\(||\mathrm{manifold.C}(\mathrm{weight})||^2\)</span>.</p></li>
-</ul>
-</div>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rnn</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">GRU_cdopt</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">manifold_class</span> <span class="o">=</span> <span class="n">cdopt</span><span class="o">.</span><span class="n">manifold_torch</span><span class="o">.</span><span class="n">stiefel_torch</span><span class="p">)</span>
-<span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">h0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-<span class="n">output</span><span class="p">,</span> <span class="n">hn</span> <span class="o">=</span> <span class="n">rnn</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">h0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
-</pre></div>
-</div>
 </div>
 </div>
 
@@ -904,7 +785,7 @@ H_{out} ={} &amp; \mathrm{hidden\_size}
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./md_files\apis\nn\module"
+            path: "./md_files\apis\nn\utils"
         },
         predefinedOutput: true
     }
@@ -918,17 +799,17 @@ H_{out} ={} &amp; \mathrm{hidden\_size}
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="lstm_cdopt.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="stateless.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">LSTM_cdopt</p>
+            <p class="prev-next-title">cdopt.nn.utils.stateless</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="rnncell_cdopt.html" title="next page">
+    <a class='right-next' id="next-link" href="set_constraints.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">RNNCell_cdopt</p>
+        <p class="prev-next-title">cdopt.nn.utils.set_constraints</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

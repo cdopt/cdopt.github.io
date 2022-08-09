@@ -42,7 +42,7 @@ To overcome these issues and facilitate both high performance and ease of use in
 
 
 
-## A deeper introduction to constraint dissolving approaches
+## A brief introduction to constraint dissolving approaches
 
 The *constraint dissolving approaches* aim to reshape (OCP) as an **unconstrained optimization problem** that adapts to unconstrained optimization approaches while keeping its stationary points unchanged. Therefore, constraint dissolving approaches enable **direct implementation** of unconstrained optimization approaches to solve (OCP). 
 
