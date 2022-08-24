@@ -4,7 +4,7 @@
 
 ## Developers
 
-The Python version of CDOptis developed by Nachuan Xiao, Xiaoyin Hu, Xin Liu and Kim-Chuan Toh. The package is stable and can be used right away. Being research software, it is also perpetually work in progress. We welcome contributions, bug reports and feedback. 
+The Python version of CDOptis developed by [Dr. Nachuan Xiao](https://xnchxy.github.io/), [Dr. Xiaoyin Hu](https://scholar.google.com/citations?user=vw7ahnAAAAAJ&hl=zh-CN), [Prof. Xin Liu](http://lsec.cc.ac.cn/~liuxin/) and [Prof. Kim-Chuan Toh](https://blog.nus.edu.sg/mattohkc/). Being research software, it is also perpetually working in progress. We welcome contributions, bug reports and feedback. 
 
 
 
@@ -28,14 +28,14 @@ Here is the BibTex codes:
 
 ```tex
 @article{xiao2022constraint,
-  title={Constraint Dissolving Approaches for Riemannian Optimization},
+  title={Constraint Dissolving Approaches for {R}iemannian Optimization},
   author={Xiao, Nachuan and Liu, Xin and Toh, Kim-Chuan},
   journal={arXiv preprint arXiv:2203.10319},
   year={2022}
 }
 
 @article{hu2022constraint,
-  title={A Constraint Dissolving Approach for Nonsmooth Optimization over the Stiefel Manifold},
+  title={A Constraint Dissolving Approach for Nonsmooth Optimization over the {S}tiefel Manifold},
   author={Hu, Xiaoyin and Xiao, Nachuan and Liu, Xin and Toh, Kim-Chuan},
   journal={arXiv preprint arXiv:2205.10500},
   year={2022}

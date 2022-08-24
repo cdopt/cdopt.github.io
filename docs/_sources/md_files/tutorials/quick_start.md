@@ -37,7 +37,7 @@ $$
 
 
 
-The following is a minimal working example of how to solve the above problem using `cdopt` for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using PyTorch in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers. 
+The following is a minimal working example of how to solve the above problem using CDOpt for a random symmetric matrix. As indicated in the introduction above, we follow four simple steps: we instantiate the manifold, create the cost function (using PyTorch in this case), define a problem instance which we pass the manifold and the cost function, and run the minimization problem using one of the existing unconstrained optimization solvers. 
 
 ```python
 # Import basic functions
@@ -88,7 +88,7 @@ print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*re
 
 
 
-Now let us take a deeper look at the code step by step. First, `cdopt` imports necessary packages and set the parameters.
+Now let us take a deeper look at the code step by step. First, we imports necessary packages and set the parameters for the optimization problem. 
 
 ```python
 # Import basic functions
@@ -111,12 +111,12 @@ local_dtype = torch.float64  # the data type of the pytorch tensor
 
 
 
-Then we describe the objective function, where the variables are PyTorch tensors. The cost function can be compatible to the automatic differentiation (AD) packages in PyTorch, otherwise, we need to manually provide the gradient and Hessian-vector produce of the objective function. 
+Then we describe the objective function, where the variables are PyTorch tensors. The cost function can be compatible to the automatic differentiation (AD) packages in PyTorch. Otherwise, we need to manually provide the gradient and Hessian-vector produce of the objective function. 
 
 ```python
 # Define object function
 H = torch.randn(m,m).to(device =local_device, dtype = local_dtype)
-H = H+H.T 
+H = H + H.T 
 
 def obj_fun(X):
     return -0.5 * torch.sum( X * (H@X))  
@@ -196,7 +196,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## Solvers
 
-Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. The solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer), and [jaxopt](https://github.com/google/jaxopt) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
+Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. As far as we tested, the solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer), and [jaxopt](https://github.com/google/jaxopt) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
 
 
 

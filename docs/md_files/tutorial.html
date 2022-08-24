@@ -49,8 +49,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -717,12 +715,12 @@ title="Print to PDF"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">#</a></h1>
-<p>CDOpt is an easy-to-use modular package that separates the manifold modules, the problems descriptions, the automatic differentiation packages and solvers apart. All of the automatic differentiations are done behind the scenes so the amount of setup that user needs to do is minimal. Usually only the following steps are required:</p>
+<p>CDOpt is an easy-to-use modular package that separates the manifold modules, the problem descriptions, the automatic differentiation packages, and solvers apart. All of the automatic differentiations are done behind the scenes so the amount of setup that the user needs to do is minimal. Usually, only the following steps are required:</p>
 <ol class="simple">
 <li><p>Instantiate a manifold <span class="math notranslate nohighlight">\(\mathcal{M}\)</span> from the <code class="docutils literal notranslate"><span class="pre">cdopt.manifold</span></code> or define <span class="math notranslate nohighlight">\(\mathcal{M} = \{x \in \mathbb{R}^n: c(x) = 0 \}\)</span> by the <code class="docutils literal notranslate"><span class="pre">cdopt.core.basic_manifold</span></code> module.</p></li>
-<li><p>Define a cost function <span class="math notranslate nohighlight">\(f: \mathbb{R}^{m\times s} \to \mathbb{R}\)</span> to minimize over the manifold <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>.</p></li>
+<li><p>Define a cost function <span class="math notranslate nohighlight">\(f\)</span> to minimize over the manifold <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>.</p></li>
 <li><p>Using the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> as a high-level interface to describe the optimization problem.</p></li>
-<li><p>Retrieve the corresponding constraint dissolving function and its differentials. Instantiate a solver from various of existing packages, including <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code>, to minimize the constraint dissolving function without any constraints.</p></li>
+<li><p>Retrieve the corresponding constraint dissolving function and its differentials from the problem object. Instantiate a solver from various of existing packages, including <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and <code class="docutils literal notranslate"><span class="pre">torch.optim</span></code>, to minimize the constraint dissolving function without any constraints.</p></li>
 </ol>
 <p>It is worth mentioning that the <code class="docutils literal notranslate"><span class="pre">problem</span></code> class in CDOpt integrates various pre-processing and concurrency checking steps for the optimization problems. Moreover, it provides integrated APIs for calling the related solvers. Therefore, although we can run the solvers without the <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> interface, using  <code class="docutils literal notranslate"><span class="pre">cdopt.core.problem</span></code> to define the problem is always recommended.</p>
 <div class="toctree-wrapper compound">

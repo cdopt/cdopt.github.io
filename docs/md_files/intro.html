@@ -49,8 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Overview" href="overview.html" />
@@ -714,14 +714,14 @@ title="Print to PDF"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="welcome-to-cdopt">
 <h1>Welcome to CDOpt<a class="headerlink" href="#welcome-to-cdopt" title="Permalink to this headline">#</a></h1>
-<p><strong>A Python toolbox for optimization on closed Riemannian manifolds with supports for deep learning</strong></p>
-<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of constraint dissolving functions, CDOpt allows for elegant and direct implementation various unconstrained optimization approaches for Riemannian optimization problems. CDOpt also provides user-friendly frameworks for training manifold constrained neural networks by PyTorch and Flax.</p>
-<p>The constraint dissolving approaches have the following advantages:</p>
+<p><strong>A Python toolbox for optimization on Riemannian manifolds with supports for deep learning</strong></p>
+<p>Riemannian optimization is a powerful framework to tackle nonlinear optimization problems with structural equality constraints. By transforming these Riemannian optimization problems into the minimization of the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving functions</a></em>, CDOpt allows for elegant and direct implementation various unconstrained optimization approaches for Riemannian optimization problems. CDOpt also provides user-friendly frameworks for training manifold constrained neural networks by PyTorch and Flax.</p>
+<p>CDOpt have the following key features:</p>
 <ul class="simple">
-<li><p><strong>Direct optimization &amp; high efficiency:</strong> CDOpt is developed from the <em><a class="reference external" href="https://arxiv.org/abs/2203.10319">constraint dissolving approaches</a></em>, which transforms Riemannian optimization problems to unconstrained ones. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefited from the rich expertise gained over the decades for unconstrained optimization, CDOpt is very efficient and naturally avoids the difficulties in developing specialized solvers for Riemannian optimization.</p></li>
-<li><p><strong>Plug-in neural layers:</strong> CDOpt provides various plug-in neural layers for PyTorch and \Pkg{Flax} packages. With only minor changes in the original codes, users can easily build and train the neural network while constrain the weights over various manifolds.</p></li>
-<li><p><strong>High efficiency:</strong> CDOpt has high compatibility with various numerical backends, including NumPy, SciPy, PyTorch, JAX, Flax, etc . Users can directly apply the advanced features of these packages to accelerate optimization, including the automatic differentiation, GPU/TPU supports, distributed optimization frameworks, just-in-time (JIT) compilation, etc.</p></li>
-<li><p><strong>Customized constraints:</strong> The manifold classes in CDOpt can be constructed only from the expressions of constraints. Users can easily and directly describe Riemannian optimization problems in CDOpt without any geometrical materials of the Riemannian manifold (e.g., retractions and their inverse, vector-transports, etc.).</p></li>
+<li><p><strong>Dissolved constraints:</strong> CDOpt transforms Riemannian optimization problems into equivalent unconstrained optimization problems. Therefore, we can utilize various highly efficient solvers for unconstrained optimization, and directly apply them to solve Riemannian optimization problems. Benefiting from the rich expertise gained over decades for unconstrained optimization, CDOpt is very efficient and naturally avoids the difficulties in extending the unconstrained optimization solvers to their Riemannian versions.</p></li>
+<li><p><strong>High compatibility:</strong> CDOpt has high compatibility with various numerical backends, including NumPy, SciPy, PyTorch, JAX, Flax, etc . Users can directly apply the advanced features of these packages to accelerate optimization, including the automatic differentiation, GPU/TPU supports, distributed optimization frameworks, just-in-time (JIT) compilation, etc.</p></li>
+<li><p><strong>Customized constraints:</strong> CDOpt dissolves manifold constraints without involving any geometrical material of the manifold in question. Therefore, users can directly define various Riemannian manifolds in CDOpt through their constraint expressions <span class="math notranslate nohighlight">\(c(x)\)</span>.</p></li>
+<li><p><strong>Plug-in neural layers:</strong> CDOpt provides various plug-in neural layers for <a class="reference external" href="https://pytorch.org/">PyTorch</a> and <a class="reference external" href="https://flax.readthedocs.io/">Flax</a> packages. With minor changes in the standard PyTorch/Flax codes, users can easily build and train neural networks with various manifold constraints.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <ul>

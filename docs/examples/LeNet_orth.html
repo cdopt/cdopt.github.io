@@ -49,8 +49,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Training Single-Layer RNN with Constrained Weights" href="rnn_single_layer.html" />
@@ -906,6 +904,68 @@ weights), combined with layers from <code class="docutils literal notranslate"><
 </div>
 </div>
 </div>
+<p>Otherwise, users can uses the <code class="docutils literal notranslate"><span class="pre">set_constraint_dissolving</span></code> function from <code class="docutils literal notranslate"><span class="pre">cdopt.nn.utils.set_constraints</span></code> to set the manifold constraints to the convolution layers.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cdopt.nn.utils.set_constraints</span> <span class="kn">import</span> <span class="n">set_constraint_dissolving</span>
+<span class="k">class</span> <span class="nc">new_Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">new_Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># 1 input image channel, 6 output channels, 5x5 square convolution</span>
+        <span class="c1"># kernel, the `manifold_class` can be chosen as any manifold class provided in `cdopt.manifold_torch`</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="c1"># an affine operation: y = Wx + b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>  <span class="c1"># 5*5 from image dimension </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">set_constraint_dissolving</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+        <span class="n">set_constraint_dissolving</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">,</span> <span class="s1">&#39;weight&#39;</span><span class="p">,</span> <span class="n">manifold_class</span><span class="o">=</span> <span class="n">stiefel_torch</span><span class="p">,</span> <span class="n">penalty_param</span><span class="o">=</span> <span class="mf">0.05</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Max pooling over a (2, 2) window</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="c1"># If the size is a square, you can specify with a single number</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># flatten all dimensions except the batch dimension</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">net</span> <span class="o">=</span> <span class="n">new_Net</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>new_Net(
+  (conv1): ParametrizedConv2d(
+    1, 6, kernel_size=(5, 5), stride=(1, 1)
+    (parametrizations): ModuleDict(
+      (weight): ParametrizationList(
+        (0): manifold_module()
+      )
+    )
+  )
+  (conv2): ParametrizedConv2d(
+    6, 16, kernel_size=(5, 5), stride=(1, 1)
+    (parametrizations): ModuleDict(
+      (weight): ParametrizationList(
+        (0): manifold_module()
+      )
+    )
+  )
+  (fc1): Linear(in_features=256, out_features=120, bias=True)
+  (fc2): Linear(in_features=120, out_features=84, bias=True)
+  (fc3): Linear(in_features=84, out_features=10, bias=True)
+)
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="training-the-network">
 <h2>Training the Network<a class="headerlink" href="#training-the-network" title="Permalink to this headline">#</a></h2>
@@ -1029,44 +1089,44 @@ weights), combined with layers from <code class="docutils literal notranslate"><
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train Epoch: 1 [0/60000 (0%)]	Loss: 2.323270
-Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.326115
-Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.114495
-Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.051323
-Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.105870
+Train Epoch: 1 [12800/60000 (21%)]	Loss: 0.334674
+Train Epoch: 1 [25600/60000 (43%)]	Loss: 0.118695
+Train Epoch: 1 [38400/60000 (64%)]	Loss: 0.051988
+Train Epoch: 1 [51200/60000 (85%)]	Loss: 0.113355
 
-Test set: Average loss: 0.0646, Accuracy: 9809/10000 (98%)
+Test set: Average loss: 0.0658, Accuracy: 9796/10000 (98%)
 
-Train Epoch: 2 [0/60000 (0%)]	Loss: 0.044817
-Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.021899
-Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.059884
-Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.058428
-Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.120565
+Train Epoch: 2 [0/60000 (0%)]	Loss: 0.040481
+Train Epoch: 2 [12800/60000 (21%)]	Loss: 0.021898
+Train Epoch: 2 [25600/60000 (43%)]	Loss: 0.059031
+Train Epoch: 2 [38400/60000 (64%)]	Loss: 0.057162
+Train Epoch: 2 [51200/60000 (85%)]	Loss: 0.124436
 
-Test set: Average loss: 0.0503, Accuracy: 9841/10000 (98%)
+Test set: Average loss: 0.0495, Accuracy: 9839/10000 (98%)
 
-Train Epoch: 3 [0/60000 (0%)]	Loss: 0.007342
-Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.024385
-Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.009210
-Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.017725
-Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.021979
+Train Epoch: 3 [0/60000 (0%)]	Loss: 0.007051
+Train Epoch: 3 [12800/60000 (21%)]	Loss: 0.031250
+Train Epoch: 3 [25600/60000 (43%)]	Loss: 0.011009
+Train Epoch: 3 [38400/60000 (64%)]	Loss: 0.012897
+Train Epoch: 3 [51200/60000 (85%)]	Loss: 0.014972
 
-Test set: Average loss: 0.0340, Accuracy: 9888/10000 (99%)
+Test set: Average loss: 0.0335, Accuracy: 9884/10000 (99%)
 
-Train Epoch: 4 [0/60000 (0%)]	Loss: 0.005622
-Train Epoch: 4 [12800/60000 (21%)]	Loss: 0.091185
-Train Epoch: 4 [25600/60000 (43%)]	Loss: 0.016090
-Train Epoch: 4 [38400/60000 (64%)]	Loss: 0.095113
-Train Epoch: 4 [51200/60000 (85%)]	Loss: 0.068672
+Train Epoch: 4 [0/60000 (0%)]	Loss: 0.011187
+Train Epoch: 4 [12800/60000 (21%)]	Loss: 0.066403
+Train Epoch: 4 [25600/60000 (43%)]	Loss: 0.017215
+Train Epoch: 4 [38400/60000 (64%)]	Loss: 0.095960
+Train Epoch: 4 [51200/60000 (85%)]	Loss: 0.038313
 
-Test set: Average loss: 0.0327, Accuracy: 9898/10000 (99%)
+Test set: Average loss: 0.0319, Accuracy: 9897/10000 (99%)
 
-Train Epoch: 5 [0/60000 (0%)]	Loss: 0.017446
-Train Epoch: 5 [12800/60000 (21%)]	Loss: 0.017138
-Train Epoch: 5 [25600/60000 (43%)]	Loss: 0.085022
-Train Epoch: 5 [38400/60000 (64%)]	Loss: 0.004909
-Train Epoch: 5 [51200/60000 (85%)]	Loss: 0.035722
+Train Epoch: 5 [0/60000 (0%)]	Loss: 0.021864
+Train Epoch: 5 [12800/60000 (21%)]	Loss: 0.028929
+Train Epoch: 5 [25600/60000 (43%)]	Loss: 0.063708
+Train Epoch: 5 [38400/60000 (64%)]	Loss: 0.004671
+Train Epoch: 5 [51200/60000 (85%)]	Loss: 0.025337
 
-Test set: Average loss: 0.0329, Accuracy: 9903/10000 (99%)
+Test set: Average loss: 0.0327, Accuracy: 9901/10000 (99%)
 </pre></div>
 </div>
 </div>
@@ -1078,7 +1138,7 @@ Test set: Average loss: 0.0329, Accuracy: 9903/10000 (99%)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(1.5503e-05, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor(6.4334e-06, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;),
  tensor(0.0002, device=&#39;cuda:0&#39;, grad_fn=&lt;SumBackward0&gt;)]
 </pre></div>
 </div>
