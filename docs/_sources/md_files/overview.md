@@ -63,7 +63,7 @@ $$
 
 Here $\beta > 0$ is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of $\mathcal{M}$. Interested readers could found the detailed proof in the [paper](https://arxiv.org/abs/2203.10319).
 
-Noting that CDF has the same order of smoothness as the objective function $f(x)$. Therefore, the gradient of CDF is easy to achieve from $f(x)$:
+Noting that CDF has the same order of smoothness as the objective function $f$. Therefore, the gradient of CDF is easy to achieve from $f$:
 
 
 $$
@@ -71,7 +71,7 @@ $$
 $$
 
 
-Therefore, various approaches that is designed for unconstrained optimization can be **directly** applied to handle Riemannian optimization problems through CDF. Their convergence properties nearly automatically hold from the prior works on unconstrained cases. 
+Therefore, various approaches that is designed for unconstrained optimization can be **directly** applied to handle Riemannian optimization problems through CDF. Their convergence properties automatically hold from the prior works on unconstrained cases. 
 
 For generalized constraints $c(x) = 0$, we can design $\mathcal{A}$ by 
 

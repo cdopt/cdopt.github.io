@@ -77,12 +77,12 @@ cdf_hvp_np = problem_test.cdf_hvp_vec_np
 Xinit = problem_test.Xinit_vec_np
 t_start = time.time()
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit,method='L-BFGS-B',jac = cdf_grad_np)
-t_end = time.time() - t_start
+t_run = time.time() - t_start
 
 # Statistics
 feas = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
 stationarity = np.linalg.norm(out_msg['jac'],2)   # stationarity
-result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_end]
+result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_run]
 print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*result_lbfgs))
 ```
 
@@ -153,12 +153,15 @@ Finally, we call the L-BFGS solver from `scipy.optimize` package to minimize the
 Xinit = problem_test.Xinit_vec_np
 t_start = time.time()
 out_msg = sp.optimize.minimize(cdf_fun_np, Xinit, method='L-BFGS-B',jac = cdf_grad_np)
-t_end = time.time() - t_start
+t_run = time.time() - t_start
+
 
 # Statistics
-feas = M.Feas_eval(M.v2m(M.array2tensor(out_msg.x)))   # Feasibility
+X_tensor = M.array2tensor(out_msg.x)   # Transfer the numpy 1D array to tensor
+X_var = M.v2m(X_tensor)   # Transfer the 1D tensor to the tensor with shape M.var_shape.
+feas = M.Feas_eval(X_var)   # Evaluate the feasibility
 stationarity = np.linalg.norm(out_msg['jac'],2)   # stationarity
-result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_end]
+result_lbfgs = [out_msg['fun'], out_msg['nit'], out_msg['nfev'],stationarity,feas, t_run]
 print('& L-BFGS & {:.2e} & {:} & {:} & {:.2e} & {:.2e} & {:.2f} \\\\'.format(*result_lbfgs))
 ```
 
@@ -196,7 +199,7 @@ For several well-known manifolds, we provide build-in expressions for $\mathcal{
 
 ## Solvers
 
-Currently, CDOpt package does not provide any solvers. Instead, the unconstrained minimization of the constraint dissolving functions can be solved by various of existing solvers. As far as we tested, the solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer), and [jaxopt](https://github.com/google/jaxopt) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
+In CDOpt, the Riemannian optimization problems are transferred into the unconstrained minimization of the constraint dissolving functions, which can be solved by various of existing solvers. As far as we tested, the solvers from [PDFO](https://www.pdfo.net/index.html), [SciPy](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html#scipy.optimize.minimize), [PyTorch](https://pytorch.org/docs/stable/optim.html), [pytorch-optimizer](https://github.com/jettify/pytorch-optimizer), and [jaxopt](https://github.com/google/jaxopt) packages can be directly applied to minimize the constraint dissolving functions yielded by CDOpt. 
 
 
 
@@ -269,10 +272,6 @@ On the one hand, we can use the interface provided by `cdopt.core.problem` class
 cdf_fun_np = problem_test.cdf_fun_vec_np   
 cdf_grad_np = problem_test.cdf_grad_vec_np
 cdf_hvp_np = problem_test.cdf_hvp_vec_np
-
-# Implement L-BFGS solver from scipy.optimize
-Xinit = M.tensor2array(M.Init_point())
-out_msg = sp.optimize.minimize(cdf_fun_np, Xinit.flatten(),method='L-BFGS-B',jac = cdf_grad_np)
 
 # Implement L-BFGS solver from scipy.optimize
 Xinit = M.tensor2array(M.Init_point())

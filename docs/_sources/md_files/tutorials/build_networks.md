@@ -127,8 +127,6 @@ def train(args, model, device, train_loader, optimizer, epoch):
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
-            if args.dry_run:
-                break
 
 
 def test(model, device, test_loader):
@@ -153,6 +151,25 @@ def test(model, device, test_loader):
 
 
 We then set the arguments and load the dataset
+
+```python
+class ARGS():
+    pass
+args = ARGS()
+args.batch_size = 64    
+args.test_batch_size = 1000 
+args.epochs = 5
+args.lr = 0.5    # learning rate
+args.gamma = 0.7 # weight-decay parameter
+args.no_cuda = False  # whether use cuda 
+args.seed = 1  # random seed for traning
+args.log_interval = 200   # the interval to print trainning information
+args.save_model = False   # whether to save the model
+```
+
+
+
+
 
 ```python
 use_cuda = torch.cuda.is_available()

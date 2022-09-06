@@ -804,12 +804,12 @@ title="Print to PDF"
 h(x) := f(\mathcal{A}(x)) + \frac{\beta}{2} ||c(x)||_2^2. \qquad\qquad \text{(CDF)}
 \]</div>
 <p>Here <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> is a penalty parameter for the quadratic penalty term. As described in [1], CDF and OCP have the same stationary points, local minimizers and Lojasiewicz exponents in a neighborhood of <span class="math notranslate nohighlight">\(\mathcal{M}\)</span>. Interested readers could found the detailed proof in the <a class="reference external" href="https://arxiv.org/abs/2203.10319">paper</a>.</p>
-<p>Noting that CDF has the same order of smoothness as the objective function <span class="math notranslate nohighlight">\(f(x)\)</span>. Therefore, the gradient of CDF is easy to achieve from <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
+<p>Noting that CDF has the same order of smoothness as the objective function <span class="math notranslate nohighlight">\(f\)</span>. Therefore, the gradient of CDF is easy to achieve from <span class="math notranslate nohighlight">\(f\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 \nabla h(x) = J_A(x) \nabla f(\mathcal{A}(x)) + \beta J_c(x) c(x).
 \]</div>
-<p>Therefore, various approaches that is designed for unconstrained optimization can be <strong>directly</strong> applied to handle Riemannian optimization problems through CDF. Their convergence properties nearly automatically hold from the prior works on unconstrained cases.</p>
+<p>Therefore, various approaches that is designed for unconstrained optimization can be <strong>directly</strong> applied to handle Riemannian optimization problems through CDF. Their convergence properties automatically hold from the prior works on unconstrained cases.</p>
 <p>For generalized constraints <span class="math notranslate nohighlight">\(c(x) = 0\)</span>, we can design <span class="math notranslate nohighlight">\(\mathcal{A}\)</span> by</p>
 <div class="math notranslate nohighlight">
 \[
