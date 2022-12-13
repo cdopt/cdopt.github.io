@@ -14,7 +14,7 @@ If you publish work that uses or refers to CDOpt, please cite the following two 
 
 1. Xiao N, Liu X, Toh K C. Constraint Dissolving Approaches for Riemannian Optimization[J]. arXiv preprint arXiv:2203.10319, 2022.
 
-2. TBD
+2. Xiao N, Hu X, Liu X, et al. CDOpt: A Python Package for a Class of Riemannian Optimization[J]. arXiv preprint arXiv:2212.02698, 2022.
 
 
 
