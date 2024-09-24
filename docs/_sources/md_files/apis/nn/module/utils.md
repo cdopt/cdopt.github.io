@@ -24,6 +24,24 @@ Output:
 
 
 
+
+
+## get_constraint_violation
+
+`sum_feas_violation = cdopt.nn.get_constraint_violation(module, ord = None, **kwargs)`
+
+The function that returns the feasibility of the `module`. 
+
+Input:
+
+* **module**: (`torch.nn.Module`) The `torch.nn.Module` class that composed of the layers from `torch.nn` and `cdopt.nn`. 
+
+
+
+Output:
+
+* The feasibility violation of the variables in `module`. In this function, we first generate the `con_vec` whose entries represents the feasibility of each layers. Then the function returns `torch.linalg.norm(con_vec, ord = ord, **kwargs)`.
+
 ## wvt_flatten2d
 
 `weight_to_var, var_to_weight, var_shape = cdopt.nn.wvt_flatten2d(tensor_shape)`
