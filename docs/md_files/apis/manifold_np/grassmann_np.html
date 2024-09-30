@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>basic_manifold_np &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
+    <title>grassmann_np &#8212; Constraint Dissolving Approaches for Riemannian Optimization</title>
   
   
   
@@ -59,11 +59,11 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'md_files/apis/manifold_np/basic_manifold_np';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'md_files/apis/manifold_np/grassmann_np';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="euclidean_np" href="euclidean_np.html" />
-    <link rel="prev" title="cdopt.manifold_np" href="../cdopt_manifold_np.html" />
+    <link rel="next" title="generalized_stiefel_np" href="generalized_stiefel_np.html" />
+    <link rel="prev" title="stiefel_np" href="stiefel_np.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -214,12 +214,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../cdopt_core.html">cdopt.core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cdopt_manifold.html">cdopt.manifold</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../cdopt_manifold_np.html">cdopt.manifold_np</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">basic_manifold_np</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basic_manifold_np.html">basic_manifold_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="euclidean_np.html">euclidean_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="sphere_np.html">sphere_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="oblique_np.html">oblique_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="stiefel_np.html">stiefel_np</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grassmann_np.html">grassmann_np</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">grassmann_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generalized_stiefel_np.html">generalized_stiefel_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hyperbolic_np.html">hyperbolic_np</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symp_stiefel_np.html">symp_stiefel_np</a></li>
@@ -341,7 +341,7 @@
       
       
       
-      <li><a href="https://github.com/cdopt/cdopt.github.io/issues/new?title=Issue%20on%20page%20%2Fmd_files/apis/manifold_np/basic_manifold_np.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/cdopt/cdopt.github.io/issues/new?title=Issue%20on%20page%20%2Fmd_files/apis/manifold_np/grassmann_np.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -371,7 +371,7 @@
       
       
       
-      <li><a href="../../../_sources/md_files/apis/manifold_np/basic_manifold_np.md" target="_blank"
+      <li><a href="../../../_sources/md_files/apis/manifold_np/grassmann_np.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -455,7 +455,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>basic_manifold_np</h1>
+    <h1>grassmann_np</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -466,11 +466,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters"><strong>Parameters:</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes"><strong>Attributes:</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-that-must-be-specified">Attributes that must be specified</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-attributes">Optional Attributes</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes"><strong>Attributes:</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -482,72 +478,60 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="basic-manifold-np">
-<h1>basic_manifold_np<a class="headerlink" href="#basic-manifold-np" title="Link to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">basic_manifold_np(name,variable_shape,</span> <span class="pre">constraint_shape,</span>&#160; <span class="pre">regularize_value</span> <span class="pre">=</span> <span class="pre">0.01,</span> <span class="pre">safegurad_value</span> <span class="pre">=</span> <span class="pre">0)</span></code></p>
-<p>The class that provides essential materials to transform a manifold optimization problem to its corresponding constraint dissolving function, based on PyTorch.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="grassmann-np">
+<h1>grassmann_np<a class="headerlink" href="#grassmann-np" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">CLASS</span> <span class="pre">grassmann_np(var_shape)</span></code></p>
+<p>This manifold class defines the Grassmann manifold, i.e.</p>
+<div class="math notranslate nohighlight">
+\[
+\{\mathrm{range}(X): X \in \mathbb{R}^{n\times p}, X^T X = I_p \}.
+\]</div>
 <section id="parameters">
 <h2><strong>Parameters:</strong><a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>name</strong> (str) – Name of the manifold.</p></li>
-<li><p><strong>variable_shape</strong> (tuple of ints) – The shape of the variables of the manifold.</p></li>
-<li><p><strong>constraint shape</strong> (tuple of ints) – The shape of the constraints.</p></li>
-<li><p><strong>regularize_value = 0.01</strong> (float, optional) – The value of <span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
-<li><p><strong>safeguard_value = 0</strong> (float, optional) – The value of <span class="math notranslate nohighlight">\(\gamma\)</span>.</p></li>
+<li><p><strong>var_shape</strong> (tuple of ints) – The shape of the variables of the manifold.  The length of <code class="docutils literal notranslate"><span class="pre">var_shape</span></code> should equal to <span class="math notranslate nohighlight">\(2\)</span>.</p></li>
 </ul>
 </section>
 <section id="attributes">
 <h2><strong>Attributes:</strong><a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
-<p>The attributes in the following must be defined in creating a specific manifold class.</p>
-<section id="attributes-that-must-be-specified">
-<h3>Attributes that must be specified<a class="headerlink" href="#attributes-that-must-be-specified" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">C(x)</span></code> (callable)</p>
-<p>The constraints <span class="math notranslate nohighlight">\(c(x)\)</span>. The shape of <code class="docutils literal notranslate"><span class="pre">C(x)</span></code> should be the same as <code class="docutils literal notranslate"><span class="pre">variable_shape</span></code>.</p>
-</section>
-<section id="optional-attributes">
-<h3>Optional Attributes<a class="headerlink" href="#optional-attributes" title="Link to this heading">#</a></h3>
-<p>The attributes in the following are optional in creating a specific manifold class. If not provided, the code will automatically interfere these components.</p>
-<p><code class="docutils literal notranslate"><span class="pre">m2c(x)</span></code> (callable)</p>
+<p><code class="docutils literal notranslate"><span class="pre">A(x)</span></code> (callable)</p>
+<p>The constraint dissolving mapping <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>. <code class="docutils literal notranslate"><span class="pre">A(X)</span></code>  is set as <code class="docutils literal notranslate"><span class="pre">1.5</span> <span class="pre">*</span> <span class="pre">X</span> <span class="pre">-</span> <span class="pre">X</span> <span class="pre">&#64;</span> <span class="pre">(X.T</span> <span class="pre">&#64;</span> <span class="pre">X</span> <span class="pre">/2)</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">C(X)</span></code> (callable)</p>
+<p>Describe the constraints <span class="math notranslate nohighlight">\(c\)</span>. <code class="docutils literal notranslate"><span class="pre">C(X)</span></code> returns <code class="docutils literal notranslate"><span class="pre">torch.matmul(X.transpose(-2,-1),</span> <span class="pre">X)</span> <span class="pre">-</span> <span class="pre">self.Ip</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">m2v(x)</span></code> (callable)</p>
 <p>Flatten the variable of the manifold.</p>
 <p><code class="docutils literal notranslate"><span class="pre">v2m(x)</span></code> (callable)</p>
 <p>Recover flattened variables to its original shape as <code class="docutils literal notranslate"><span class="pre">variable_shape</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Init_point(Xinit</span> <span class="pre">=</span> <span class="pre">None)</span></code> (callable)</p>
 <p>Generate the initial point.</p>
 <p><code class="docutils literal notranslate"><span class="pre">tensor2array(x)</span></code> (callable)</p>
-<p>Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the <code class="docutils literal notranslate"><span class="pre">core.backbone</span></code> class.</p>
+<p>Transfer the variable of the manifold to the numpy Nd-array while keep its shape. Default settings are provided in the <code class="docutils literal notranslate"><span class="pre">core.backbone_autograd</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">array2tensor(x)</span></code> (callable)</p>
-<p>Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the <code class="docutils literal notranslate"><span class="pre">core.backbone</span></code> class.</p>
+<p>Transfer the numpy Nd-array to the variable of the manifold while keep its shape. Default settings are provided in the <code class="docutils literal notranslate"><span class="pre">core.backbone_autograd</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JC(x,</span> <span class="pre">lambda)</span></code> (callable)</p>
-<p>The Jacobian of <code class="docutils literal notranslate"><span class="pre">C(x)</span></code>. If it is not provided, it will be automatically generated by <code class="docutils literal notranslate"><span class="pre">self.vjp(self.C,</span> <span class="pre">X,</span> <span class="pre">Lambda)</span></code>.</p>
+<p>The Jacobian of <code class="docutils literal notranslate"><span class="pre">C(x)</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JC_transpose(x,</span> <span class="pre">lambda)</span></code> (callable)</p>
-<p>The transpose of <span class="math notranslate nohighlight">\(J_c(x)\)</span>, expressed by matrix-vector production. If it is not provided, it will be automatically generated by <code class="docutils literal notranslate"><span class="pre">self.jvp(self.C,</span> <span class="pre">X,</span> <span class="pre">Lambda)</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">A(x)</span></code> (callable)</p>
-<p>The constraint dissolving mapping <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>. If it is not provided, the code will be automatically generated. Mathematically, it is generated by</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{A}(x) = J_c(x) (J_c(x)^\top Jc(x) + (\alpha ||c(x)||^2 + \gamma)I_n )^{-1} c(x). 
-\]</div>
+<p>The transpose of <span class="math notranslate nohighlight">\(J_c(x)\)</span>, expressed by matrix-vector production.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JA(x,</span> <span class="pre">d)</span></code> (callable)</p>
-<p>The transposed Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>.  If it is not provided, the code will be automatically generated by <code class="docutils literal notranslate"><span class="pre">self.vjp(self.A,</span> <span class="pre">X,</span> <span class="pre">D)</span></code>.</p>
+<p>The transposed Jacobian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">JA_transpose(x,</span> <span class="pre">d)</span></code> (callable)</p>
-<p>The transpose (or adjoint) of <code class="docutils literal notranslate"><span class="pre">JA(x)</span></code>, i.e. <span class="math notranslate nohighlight">\(\lim_{t \to 0} \frac{1}{t}(J_A(x+td) -J_A(x)) \)</span>. If it is not provided, the code will be automatically generated by <code class="docutils literal notranslate"><span class="pre">self.jvp(self.A,</span> <span class="pre">X,</span> <span class="pre">D)</span></code>.</p>
+<p>The transpose (or adjoint) of <code class="docutils literal notranslate"><span class="pre">JA(x)</span></code>, i.e. <span class="math notranslate nohighlight">\(\lim_{t \to 0} \frac{1}{t}(J_A(x+td) -J_A(x)) \)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">C_quad_penalty(x)</span></code> (callable)</p>
 <p>Returns the quadratical penalty term <span class="math notranslate nohighlight">\(||c(x)||^2\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hessA(X,</span> <span class="pre">U,</span> <span class="pre">D)</span></code> (callable)</p>
-<p>Returns the Hessian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span> in a tensor-vector product form. If not provided, it is automatically generated by <code class="docutils literal notranslate"><span class="pre">self.vjp(lambda</span> <span class="pre">X:</span> <span class="pre">self.JA(X,</span> <span class="pre">U),</span> <span class="pre">X,</span> <span class="pre">D)</span></code>.</p>
+<p>Returns the Hessian of <span class="math notranslate nohighlight">\(\mathcal{A}(x)\)</span> in a tensor-vector product form.</p>
 <p><code class="docutils literal notranslate"><span class="pre">hess_feas(X,</span> <span class="pre">D)</span></code> (callable)</p>
 <p>Returns the hessian-vector product of <span class="math notranslate nohighlight">\(\frac{1}{2} ||c(x)||^2\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Feas_eval(X)</span></code> (callable)</p>
 <p>Returns the feasibility of <span class="math notranslate nohighlight">\(x\)</span>, measured by value of <span class="math notranslate nohighlight">\(||c(x)||\)</span>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Post_process(X)</span></code> (callable)</p>
-<p>Return the post-processing for <code class="docutils literal notranslate"><span class="pre">X</span></code> to achieve a point with better feasibility. Default return <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>Return the post-processing for <code class="docutils literal notranslate"><span class="pre">X</span></code> to achieve a point with better feasibility.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_fun(obj_fun,</span> <span class="pre">beta)</span></code> (callable)</p>
 <p>Return the function value of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_fun</span></code> is a callable function that returns the value of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_grad(obj_grad,</span> <span class="pre">beta)</span></code> (callable)</p>
 <p>Return the gradient of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
 <p><code class="docutils literal notranslate"><span class="pre">generate_cdf_hess(obj_grad,</span> <span class="pre">obj_hvp,</span> <span class="pre">beta)</span></code> (callable)</p>
 <p>Return the hessian of the constraint dissolving function. <code class="docutils literal notranslate"><span class="pre">obj_grad</span></code> is a callable function that returns the gradient of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>. <code class="docutils literal notranslate"><span class="pre">obj_hvp</span></code> is the hessian-vector product of <span class="math notranslate nohighlight">\(f\)</span> at <span class="math notranslate nohighlight">\(x\)</span>, i.e., <span class="math notranslate nohighlight">\(\nabla^2 h(x)[d]\)</span>.  <code class="docutils literal notranslate"><span class="pre">beta</span></code> is a float object that refers to the penalty parameter in the constraint dissolving function.</p>
-</section>
 </section>
 </section>
 
@@ -582,20 +566,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../cdopt_manifold_np.html"
+       href="stiefel_np.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">cdopt.manifold_np</p>
+        <p class="prev-next-title">stiefel_np</p>
       </div>
     </a>
     <a class="right-next"
-       href="euclidean_np.html"
+       href="generalized_stiefel_np.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">euclidean_np</p>
+        <p class="prev-next-title">generalized_stiefel_np</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -616,11 +600,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameters"><strong>Parameters:</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes"><strong>Attributes:</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes-that-must-be-specified">Attributes that must be specified</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-attributes">Optional Attributes</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes"><strong>Attributes:</strong></a></li>
 </ul>
   </nav></div>
 
